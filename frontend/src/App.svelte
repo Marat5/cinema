@@ -16,7 +16,7 @@
   <h1>Vite + Svelte {name}</h1>
 
   <div class="card">
-    <Counter count={0} />
+    <Counter />
   </div>
 
   <p>

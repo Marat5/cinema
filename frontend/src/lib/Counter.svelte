@@ -1,5 +1,6 @@
 <script>
-  export let count;
+  export let count = -1;
+  let m = { x: 0, y: 0 };
   let doubled = 0;
   $: {
     if (count > 10) {
@@ -15,7 +16,11 @@
   };
 </script>
 
-<p>{count} doubled is {doubled}</p>
+<p on:mousemove={(e) => (m = { x: e.clientX, y: e.clientY })}>
+  {count} doubled is {doubled}
+  {m.y}
+  {m.x}
+</p>
 <button on:click={increment}>
   count is {count}
 </button>
