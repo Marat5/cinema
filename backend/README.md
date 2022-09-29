@@ -5,7 +5,7 @@ This folder contains the backend code that provides REST API to CRUD movies in d
 ### How to run
 
 source .venv/bin/activate
-flask run
+flask --app cinema --debug run
 
 ### Api methods
 
