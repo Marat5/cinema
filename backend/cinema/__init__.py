@@ -1,5 +1,16 @@
 import os
-from flask import Flask
+from flask import Flask, Blueprint
+
+api_bp = Blueprint("api", __name__, url_prefix="/api")
+
+
+def register_blueprints(app: Flask):
+    from . import auth
+    from . import movies
+    api_bp.register_blueprint(auth.bp)
+    api_bp.register_blueprint(movies.bp)
+
+    app.register_blueprint(api_bp)
 
 
 def create_app(test_config=None):
@@ -21,19 +32,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/")
-    def home():
-        return "Hello, Flask!"
-
-    @app.route("/movies", methods=['GET'])
-    def movies():
-        movie_list = [{"name": "Inception"}, {"name": "Moonrise Kingdom"}]
-        return movie_list
-
     from . import db
     db.init_app(app)
 
-    from . import auth
-    app.register_blueprint(auth.bp)
+    register_blueprints(app)
 
     return app

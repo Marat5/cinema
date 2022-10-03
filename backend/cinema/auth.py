@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from cinema.db import get_db
 import jwt
 
-bp = Blueprint("auth", __name__, url_prefix="/api/auth")
+bp = Blueprint("auth", __name__, url_prefix="auth")
 
 
 def token_required(f):
@@ -42,7 +42,7 @@ def token_required(f):
     return decorated
 
 
-@bp.route('/register', methods=(['POST']))
+@bp.route('register', methods=(['POST']))
 def register():
     username = request.json['username']
     password = request.json['password']
