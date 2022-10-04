@@ -1,0 +1,2 @@
+include cinema/schema.sql
+global-exclude *.pyc
