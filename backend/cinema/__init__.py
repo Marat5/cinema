@@ -13,27 +13,22 @@ def register_blueprints(app: Flask):
     app.register_blueprint(api_bp)
 
 
-def create_app(test_config=None):
+def create_app():
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'cinema.sqlite')
     )
-
-    if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_mapping(test_config)
 
     try:
         os.makedirs(app.instance_path)
     except OSError:
         pass
 
-    from . import db
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cinema.db"
+    from .database import db
     db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
     register_blueprints(app)
 

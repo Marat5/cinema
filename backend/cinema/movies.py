@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 
 from cinema.auth import token_required
-from cinema.db import get_db
+from cinema.database import Director, db, Movie
 
 
 bp = Blueprint("movies", __name__, url_prefix="movies")
@@ -9,9 +9,8 @@ bp = Blueprint("movies", __name__, url_prefix="movies")
 
 @bp.route('/')
 def movies():
-    db = get_db()
-    movies = [{"id": item["id"], "title": item["title"], "year": item["year"], "director_id": item["director"], "director": item["name"]}
-              for item in db.execute("SELECT * FROM movie m JOIN director d ON m.director = d.id;").fetchall()]
+    movies = db.session.execute(db.select(Movie)).scalars().all()
+
     return jsonify({"movies": movies})
 
 
@@ -29,27 +28,25 @@ def add_movie(current_user):
     if errors:
         return jsonify({"errors": errors})
 
-    db = get_db()
-    director = db.execute(
-        "SELECT * FROM director WHERE LOWER(name) LIKE LOWER(?);", (director_name,)).fetchone()
-
+    director = db.session.execute(
+        db.select(Director).filter_by(name=director_name)).scalars().first()
+    print('b', director)
     if not director:
-        db.execute(
-            "INSERT INTO director (name) VALUES (?)", (director_name,))
-        db.commit()
-        director = db.execute(
-            "SELECT * FROM director WHERE LOWER(name) LIKE LOWER(?);", (director_name,)).fetchone()
+        director = Director(name=director_name)
+        db.session.add(director)
+        db.session.commit()
 
-    db.execute(
-        "INSERT INTO movie (title, added_by, director, year) VALUES (?, ?, ?, ?)", (title, current_user["id"], director["id"], year))
-    db.commit()
+    try:
+        db.session.add(Movie(title=title, added_by=current_user.id,
+                             director=director.id, year=year))
+        db.session.commit()
+    except:
+        return jsonify({"error": "This movie was already added"})
 
     return jsonify({"message": "Success"})
 
 
 @bp.route('directors')
 def directors():
-    db = get_db()
-    directors = [{"id": item["id"], "name": item["name"]}
-                 for item in db.execute("SELECT * FROM director;").fetchall()]
+    directors = db.session.execute(db.select(Director)).scalars().all()
     return jsonify({"directors": directors})
