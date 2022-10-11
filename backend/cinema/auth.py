@@ -26,7 +26,7 @@ def token_required(f):
                 token, current_app.config["SECRET_KEY"], algorithms=["HS256"])
 
             current_user = db.session.execute(
-                db.select(User, data['id'])).scalar()
+                db.select(User).filter_by(id=data['id'])).scalar()
 
             if current_user is None:
                 raise Exception(
