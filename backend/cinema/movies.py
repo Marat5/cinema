@@ -50,21 +50,25 @@ def add_movie(current_user):
     return jsonify({"message": "Success"})
 
 
-@bp.route('update/<movie_id>', methods=["PUT"])
+@bp.route('<movie_id>', methods=["PUT", "DELETE"])
 @token_required
 def update_movie(current_user, movie_id):
+    movie = db.session.execute(
+        db.select(Movie).filter_by(id=movie_id)).scalars().first()
+    if not movie:
+        return jsonify({"error": "Movie with this id does not exist"})
+
+    if request.method == "DELETE":
+        db.session.delete(movie)
+        db.session.commit()
+        return jsonify({"message": "Success, the movie was deleted"})
+
     try:
         title = request.json['title']
         director_name = request.json['director']
         year = request.json['year']
     except:
         return jsonify({"error": "Title, year and director are required"})
-
-    movie = db.session.execute(
-        db.select(Movie).filter_by(id=movie_id)).scalars().first()
-
-    if not movie:
-        return jsonify({"error": "Movie with this id does not exist"})
 
     if current_user.id != movie.added_by:
         return jsonify({"error": "This movie belongs to different user"})
