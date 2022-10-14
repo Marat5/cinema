@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from functools import wraps
 from flask import Blueprint, jsonify, request, current_app
 import jwt
-from cinema.database import db, User
+from cinema.database import User, db_helper as dbh
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -25,12 +25,11 @@ def token_required(f):
             data = jwt.decode(
                 token, current_app.config["SECRET_KEY"], algorithms=["HS256"])
 
-            current_user = db.session.execute(
-                db.select(User).filter_by(id=data['id'])).scalar()
+            current_user = dbh.get_user(data['id'])
 
             if current_user is None:
                 raise Exception(
-                    "User with is provided in jwt doesn't exist (was deleted)")
+                    "User with provided jwt doesn't exist (was deleted)")
         except:
             return jsonify({
                 'message': 'Token is invalid!'
@@ -53,9 +52,9 @@ def register():
 
     new_user = User(username=username,
                     password=generate_password_hash(password))
+
     try:
-        db.session.add(new_user)
-        db.session.commit()
+        dbh.add_user(new_user)
     except:
         return jsonify({"error": f"User {new_user.username} already exists"}), 409
 
@@ -70,8 +69,7 @@ def login():
     username = request.json['username']
     password = request.json['password']
 
-    user = db.session.execute(
-        db.select(User).filter_by(username=username)).scalar()
+    user = dbh.get_user(username=username)
 
     if user is None:
         return jsonify({"error": f"User {username} does not exist."}), 404

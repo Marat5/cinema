@@ -38,6 +38,21 @@ class Director(db.Model):
 
 
 class DBHelper():
+    # Auth
+    def get_user(self, id=None, username=None):
+        if username:
+            return db.session.execute(
+                db.select(User).filter_by(username=username)).scalar()
+        if id:
+            return db.session.execute(
+                db.select(User).filter_by(id=id)).scalar()
+
+    def add_user(self, user: User):
+        db.session.add(user)
+        db.session.commit()
+        return user
+
+    # Movies
     def get_directors(self):
         return db.session.execute(db.select(Director)).scalars().all()
 
