@@ -1,9 +1,11 @@
 from datetime import datetime, timedelta
 from functools import wraps
+from sqlalchemy.exc import IntegrityError
 from flask import Blueprint, jsonify, request, current_app
 import jwt
-from cinema.database import User, db_helper as dbh
-from werkzeug.security import generate_password_hash, check_password_hash
+from cinema.database import ResourceDoesNotExistError, User, db_helper as dbh
+from werkzeug.security import check_password_hash, generate_password_hash
+from cinema.validators import ValidationError, validate_auth_request_body
 
 
 bp = Blueprint("auth", __name__, url_prefix="auth")
@@ -40,44 +42,47 @@ def token_required(f):
     return decorated
 
 
+def encode_jwt(user_id):
+    return jwt.encode(
+        {"id": user_id, "exp": datetime.utcnow() + timedelta(minutes=40)}, current_app.config["SECRET_KEY"])
+
+
 @bp.route('register', methods=(['POST']))
 def register():
-    username = request.json['username']
-    password = request.json['password']
-
-    if not username:
-        return jsonify({"error": 'Username is required.'}), 400
-    elif not password:
-        return jsonify({"error": 'Password is required.'}), 400
-
-    new_user = User(username=username,
-                    password=generate_password_hash(password))
-
     try:
-        dbh.add_user(new_user)
-    except:
-        return jsonify({"error": f"User {new_user.username} already exists"}), 409
+        validate_auth_request_body(request.json)
+        username = request.json['username']
+        password = request.json['password']
 
-    token = jwt.encode(
-        {"id": new_user.id, "exp": datetime.utcnow() + timedelta(minutes=40)}, current_app.config["SECRET_KEY"])
+        new_user = User(username=username,
+                        password=generate_password_hash(password))
+        dbh.add_user(new_user)
+
+        token = encode_jwt(new_user.id)
+    except ValidationError as e:
+        return jsonify({"error": str(e)}), e.code
+    except IntegrityError as e:
+        return jsonify({"error": f"User {new_user.username} already exists"}), 409
 
     return jsonify({"token": token})
 
 
 @bp.route('login', methods=(['POST']))
 def login():
-    username = request.json['username']
-    password = request.json['password']
+    try:
+        validate_auth_request_body(request.json)
+        username = request.json['username']
+        password = request.json['password']
 
-    user = dbh.get_user(username=username)
+        user = dbh.get_user(username=username)
 
-    if user is None:
-        return jsonify({"error": f"User {username} does not exist."}), 404
-    elif not check_password_hash(user.password, password):
-        return jsonify({"error": "The password is incorrect"}), 401
+        if not check_password_hash(user.password, password):
+            return jsonify({"error": "The password is incorrect"}), 401
 
-    token = jwt.encode(
-        {"id": user.id, "exp": datetime.utcnow() + timedelta(minutes=40)}, current_app.config["SECRET_KEY"])
+        token = encode_jwt(user.id)
+    except (ValidationError, ResourceDoesNotExistError) as e:
+        return jsonify({"error": str(e)}), e.code
+
     return jsonify({"token": token})
 
 

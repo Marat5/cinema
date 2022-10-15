@@ -37,15 +37,28 @@ class Director(db.Model):
     movies = db.relationship("Movie")
 
 
+class ResourceDoesNotExistError(Exception):
+    def __init__(self, resource_name: str) -> None:
+        self.message = f"{resource_name.capitalize()} does not exist"
+
+    def __str__(self) -> str:
+        return self.message
+    code = 404
+
+
 class DBHelper():
     # Auth
     def get_user(self, id=None, username=None):
         if username:
-            return db.session.execute(
+            user = db.session.execute(
                 db.select(User).filter_by(username=username)).scalar()
         if id:
-            return db.session.execute(
+            user = db.session.execute(
                 db.select(User).filter_by(id=id)).scalar()
+
+        if not user:
+            raise ResourceDoesNotExistError("user")
+        return user
 
     def add_user(self, user: User):
         db.session.add(user)
