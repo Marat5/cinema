@@ -1,53 +1,9 @@
-from dataclasses import dataclass
-from datetime import datetime
-from typing import List
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey
+# Always use this classes to access resources in database
+from cinema.models import db, User, Director, Movie
+from cinema.utils.custom_errors import ResourceDoesNotExistError
 
 
-db = SQLAlchemy()
-
-
-@dataclass
-class User(db.Model):
-    id: int = db.Column(db.Integer, primary_key=True)
-    username: str = db.Column(db.String, unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
-
-
-@dataclass
-class Movie(db.Model):
-    id: int = db.Column(db.Integer, primary_key=True)
-    title: str = db.Column(db.String, nullable=False, unique=True)
-    director: int = db.Column(
-        db.Integer, ForeignKey("director.id"), nullable=False)
-    added: str = db.Column(db.DateTime, default=datetime.utcnow)
-    added_by: int = db.Column(db.Integer, nullable=False)
-    year: int = db.Column(db.Integer, nullable=False)
-
-
-@dataclass
-class Director(db.Model):
-    id: int
-    name: str
-    movies: List[Movie]
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, unique=True, nullable=False)
-    movies = db.relationship("Movie")
-
-
-class ResourceDoesNotExistError(Exception):
-    def __init__(self, resource_name: str) -> None:
-        self.message = f"{resource_name.capitalize()} does not exist"
-
-    def __str__(self) -> str:
-        return self.message
-    code = 404
-
-
-class DBHelper():
-    # Auth
+class DBHelper_User():
     def get_user(self, id=None, username=None):
         if username:
             user = db.session.execute(
@@ -65,7 +21,8 @@ class DBHelper():
         db.session.commit()
         return user
 
-    # Movies
+
+class DBHelper_Director():
     def get_directors(self):
         return db.session.execute(db.select(Director)).scalars().all()
 
@@ -80,6 +37,8 @@ class DBHelper():
 
         return director.id
 
+
+class DBHelper_Movie():
     def get_movies(self):
         return db.session.execute(db.select(Movie)).scalars().all()
 
@@ -91,18 +50,18 @@ class DBHelper():
         return movie
 
     def update_movie(self, id, title, director_name, year):
-        movie = db_helper.get_movie(id)
+        movie = dbh_movie.get_movie(id)
 
         movie.title = title or movie.title
         movie.year = year or movie.year
         if director_name:
-            movie.director = db_helper.get_director_id(director_name)
+            movie.director = dbh_director.get_director_id(director_name)
 
         db.session.commit()
         return movie
 
     def delete_movie(self, id):
-        movie = db_helper.get_movie(id)
+        movie = dbh_movie.get_movie(id)
         db.session.delete(movie)
         db.session.commit()
         return movie
@@ -115,4 +74,6 @@ class DBHelper():
         return movie
 
 
-db_helper = DBHelper()
+dbh_user = DBHelper_User()
+dbh_movie = DBHelper_Movie()
+dbh_director = DBHelper_Director()

@@ -1,8 +1,7 @@
+# Common functions for validation
 from typing import List
 
-
-class ValidationError(Exception):
-    code = 400
+from cinema.utils.custom_errors import ValidationError
 
 
 def check_required_fields(body, required_fields: List[str]):

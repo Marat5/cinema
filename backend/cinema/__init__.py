@@ -5,10 +5,10 @@ api_bp = Blueprint("api", __name__, url_prefix="/api")
 
 
 def register_blueprints(app: Flask):
-    from . import auth
-    from . import movies
-    api_bp.register_blueprint(auth.bp)
-    api_bp.register_blueprint(movies.bp)
+    from cinema.views.auth import auth_bp
+    from cinema.views.movies import movies_bp
+    api_bp.register_blueprint(auth_bp)
+    api_bp.register_blueprint(movies_bp)
 
     app.register_blueprint(api_bp)
 
@@ -25,7 +25,7 @@ def create_app():
         pass
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cinema.db"
-    from .database import db
+    from cinema.models import db
     db.init_app(app)
     with app.app_context():
         db.create_all()
