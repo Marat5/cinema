@@ -43,10 +43,11 @@ def encode_jwt(user_id):
 
 @bp.route('register', methods=(['POST']))
 def register():
+    body: dict = request.json
     try:
-        validate_auth_request_body(request.json)
-        username = request.json['username']
-        password = request.json['password']
+        validate_auth_request_body(body)
+        username = body.get("username")
+        password = body.get("password")
 
         new_user = User(username=username,
                         password=generate_password_hash(password))
@@ -63,10 +64,11 @@ def register():
 
 @bp.route('login', methods=(['POST']))
 def login():
+    body: dict = request.json
     try:
-        validate_auth_request_body(request.json)
-        username = request.json['username']
-        password = request.json['password']
+        validate_auth_request_body(body)
+        username = body.get("username")
+        password = body.get("password")
 
         user = dbh.get_user(username=username)
 

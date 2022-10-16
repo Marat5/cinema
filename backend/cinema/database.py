@@ -84,14 +84,19 @@ class DBHelper():
         return db.session.execute(db.select(Movie)).scalars().all()
 
     def get_movie(self, id):
-        return db.session.execute(
+        movie = db.session.execute(
             db.select(Movie).filter_by(id=id)).scalars().first()
+        if not movie:
+            raise ResourceDoesNotExistError("movie")
+        return movie
 
     def update_movie(self, id, title, director_name, year):
         movie = db_helper.get_movie(id)
-        movie.title = title
-        movie.director = db_helper.get_director_id(director_name)
-        movie.year = year
+
+        movie.title = title or movie.title
+        movie.year = year or movie.year
+        if director_name:
+            movie.director = db_helper.get_director_id(director_name)
 
         db.session.commit()
         return movie
@@ -100,11 +105,14 @@ class DBHelper():
         movie = db_helper.get_movie(id)
         db.session.delete(movie)
         db.session.commit()
+        return movie
 
     def add_movie(self, title, added_by, director_id, year):
-        db.session.add(Movie(title=title, added_by=added_by,
-                             director=director_id, year=year))
+        movie = Movie(title=title, added_by=added_by,
+                      director=director_id, year=year)
+        db.session.add(movie)
         db.session.commit()
+        return movie
 
 
 db_helper = DBHelper()
