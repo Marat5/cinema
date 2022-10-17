@@ -1,0 +1,36 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Director {
+  id: ID!
+  name: String!
+}
+
+type DirectorResult {
+  success: Boolean!
+  errors: [String]
+  director: Director
+}
+
+type DirectorsResult {
+  success: Boolean!
+  errors: [String]
+  directors: [Director]
+}
+
+type Query {
+  directors: DirectorsResult!
+  director(directorId: ID!): DirectorResult!
+}
+
+type DeleteDirectorResult {
+  success: Boolean!
+  errors: [String]
+}
+
+type Mutation {
+  createDirector(name: String!): DirectorResult!
+  deleteDirector(directorId: ID!): DeleteDirectorResult!
+}

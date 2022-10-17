@@ -26,6 +26,13 @@ class DBHelper_Director():
     def get_directors(self):
         return db.session.execute(db.select(Director)).scalars().all()
 
+    def get_director(self, id):
+        director = db.session.execute(
+            db.select(Director).filter_by(id=id)).scalars().first()
+        if not director:
+            raise ResourceDoesNotExistError("director")
+        return director
+
     def get_director_id(self, director_name):
         director = db.session.execute(
             db.select(Director).filter_by(name=director_name)).scalars().first()

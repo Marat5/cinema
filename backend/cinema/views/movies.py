@@ -34,7 +34,7 @@ def add_movie(current_user):
     return jsonify(movie)
 
 
-@movies_bp.route('<movie_id>', methods=["GET", "PUT", "DELETE"])
+@movies_bp.route('<movie_id>', methods=["GET", "PATCH", "DELETE"])
 def movie(movie_id):
     if request.method == "GET":
         return get_movie(movie_id)

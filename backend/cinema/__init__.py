@@ -10,6 +10,9 @@ def register_blueprints(app: Flask):
     api_bp.register_blueprint(auth_bp)
     api_bp.register_blueprint(movies_bp)
 
+    from cinema.views_alt.graphql import graphql_bp
+    api_bp.register_blueprint(graphql_bp)
+
     app.register_blueprint(api_bp)
 
 
