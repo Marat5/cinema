@@ -34,33 +34,57 @@ def add_movie(current_user):
     return jsonify(movie)
 
 
-@movies_bp.route('<movie_id>', methods=["PUT", "DELETE"])
+@movies_bp.route('<movie_id>', methods=["GET", "PUT", "DELETE"])
+def movie(movie_id):
+    if request.method == "GET":
+        return get_movie(movie_id)
+    elif request.method == "DELETE":
+        return delete_movie(movie_id)
+    else:
+        return update_movie(movie_id)
+
+
+@movies_bp.route('directors')
+def directors():
+    return jsonify({"directors": dbh_director.get_directors()})
+
+
+def get_movie(id):
+    try:
+        movie = dbh_movie.get_movie(id)
+    except ResourceDoesNotExistError as e:
+        return jsonify({"message": str(e)}), e.code
+
+    return jsonify(movie)
+
+
 @token_required
-def update_movie(current_user, movie_id):
+def delete_movie(id):
+    try:
+        movie = dbh_movie.delete_movie(id)
+    except ResourceDoesNotExistError as e:
+        return jsonify({"message": str(e)}), e.code
+
+    return jsonify({"message": f'Success, the movie "{movie["title"]}" was deleted'})
+
+
+@token_required
+def update_movie(current_user, id):
     body: dict = request.json
     try:
-        if request.method == "DELETE":
-            movie = dbh_movie.delete_movie(movie_id)
-            return jsonify({"message": f'Success, the movie "{movie["title"]}" was deleted'})
-
         validate_update_movie_request_body(body)
         title = body.get("title")
         director_name = body.get("director")
         year = body.get("year")
 
-        movie = dbh_movie.get_movie(movie_id)
+        movie = dbh_movie.get_movie(id)
         if current_user.id != movie.added_by:
             return jsonify({"error": "This movie belongs to different user"})
 
-        movie = dbh_movie.update_movie(movie_id, title, director_name, year)
+        movie = dbh_movie.update_movie(id, title, director_name, year)
     except (ResourceDoesNotExistError, ValidationError) as e:
         return jsonify({"message": str(e)}), e.code
     except IntegrityError as e:
         return jsonify({"message": f"Movie '{title}' already exists"}), 409
 
     return jsonify(movie)
-
-
-@movies_bp.route('directors')
-def directors():
-    return jsonify({"directors": dbh_director.get_directors()})
