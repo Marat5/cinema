@@ -8,6 +8,7 @@ from cinema.utils.db_helper import dbh_user
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
+        token = None
         # Check that jwt is passed in the request header
         if 'Authorization' in request.headers and "Bearer " in request.headers['Authorization']:
             token = request.headers['Authorization'].split(" ")[1]

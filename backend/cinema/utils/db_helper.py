@@ -1,6 +1,7 @@
 # Always use this classes to access resources in database
 from cinema.models import db, User, Director, Movie
-from cinema.utils.custom_errors import ResourceDoesNotExistError
+from cinema.utils.custom_errors import ResourceAlreadyExistsError, ResourceDoesNotExistError
+from sqlalchemy.exc import IntegrityError
 
 
 class DBHelper_User():
@@ -17,8 +18,12 @@ class DBHelper_User():
         return user
 
     def add_user(self, user: User):
-        db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except IntegrityError:
+            raise ResourceAlreadyExistsError("user", "username", user.username)
+
         return user
 
 
@@ -38,11 +43,19 @@ class DBHelper_Director():
             db.select(Director).filter_by(name=director_name)).scalars().first()
 
         if not director:
+            director = self.add_director(director_name)
+
+        return director.id
+
+    def add_director(self, director_name):
+        try:
             director = Director(name=director_name)
             db.session.add(director)
             db.session.commit()
+        except IntegrityError:
+            raise ResourceAlreadyExistsError("director", "name", director_name)
 
-        return director.id
+        return director
 
 
 class DBHelper_Movie():
@@ -74,10 +87,14 @@ class DBHelper_Movie():
         return movie
 
     def add_movie(self, title, added_by, director_id, year):
-        movie = Movie(title=title, added_by=added_by,
-                      director=director_id, year=year)
-        db.session.add(movie)
-        db.session.commit()
+        try:
+            movie = Movie(title=title, added_by=added_by,
+                          director=director_id, year=year)
+            db.session.add(movie)
+            db.session.commit()
+        except IntegrityError:
+            raise ResourceAlreadyExistsError("movie", "title", title)
+
         return movie
 
 

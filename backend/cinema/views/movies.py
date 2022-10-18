@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
-from sqlalchemy.exc import IntegrityError
-from cinema.utils.custom_errors import ValidationError, ResourceDoesNotExistError
+from cinema.utils.custom_errors import ValidationError, ResourceDoesNotExistError, ResourceAlreadyExistsError
 from cinema.utils.jwt import token_required
 from cinema.utils.validators import validate_add_movie_request_body, validate_update_movie_request_body
 from cinema.utils.db_helper import dbh_movie, dbh_director
@@ -26,10 +25,8 @@ def add_movie(current_user):
 
         movie = dbh_movie.add_movie(title=title, added_by=current_user.id,
                                     director_id=dbh_director.get_director_id(director_name), year=year)
-    except ValidationError as e:
+    except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
-    except IntegrityError as e:
-        return jsonify({"message": f"Movie '{title}' already exists"}), 409
 
     return jsonify(movie)
 
@@ -82,9 +79,7 @@ def update_movie(current_user, id):
             return jsonify({"error": "This movie belongs to different user"})
 
         movie = dbh_movie.update_movie(id, title, director_name, year)
-    except (ResourceDoesNotExistError, ValidationError) as e:
+    except (ResourceDoesNotExistError, ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
-    except IntegrityError as e:
-        return jsonify({"message": f"Movie '{title}' already exists"}), 409
 
     return jsonify(movie)

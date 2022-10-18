@@ -1,10 +1,9 @@
-from sqlalchemy.exc import IntegrityError
 from flask import Blueprint, jsonify, request
 from cinema.models import User
 from werkzeug.security import check_password_hash, generate_password_hash
 from cinema.utils.jwt import encode_jwt, token_required
 from cinema.utils.validators import validate_auth_request_body
-from cinema.utils.custom_errors import ValidationError, ResourceDoesNotExistError
+from cinema.utils.custom_errors import ResourceAlreadyExistsError, ValidationError, ResourceDoesNotExistError
 from cinema.utils.db_helper import dbh_user
 
 
@@ -24,10 +23,8 @@ def register():
         dbh_user.add_user(new_user)
 
         token = encode_jwt(new_user.id)
-    except ValidationError as e:
+    except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
-    except IntegrityError as e:
-        return jsonify({"message": f"User {new_user.username} already exists"}), 409
 
     return jsonify({"token": token})
 
