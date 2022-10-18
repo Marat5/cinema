@@ -7,10 +7,12 @@ api_bp = Blueprint("api", __name__, url_prefix="/api")
 def register_blueprints(app: Flask):
     from cinema.views.auth import auth_bp
     from cinema.views.movies import movies_bp
+    from cinema.views.directors import directors_bp
     api_bp.register_blueprint(auth_bp)
     api_bp.register_blueprint(movies_bp)
+    api_bp.register_blueprint(directors_bp)
 
-    from cinema.views_alt.graphql import graphql_bp
+    from cinema.alt_api.graphql import graphql_bp
     api_bp.register_blueprint(graphql_bp)
 
     app.register_blueprint(api_bp)

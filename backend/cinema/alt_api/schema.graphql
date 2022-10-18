@@ -31,6 +31,6 @@ type DeleteDirectorResult {
 }
 
 type Mutation {
-  createDirector(name: String!): DirectorResult!
+  addDirector(name: String!): DirectorResult!
   deleteDirector(directorId: ID!): DeleteDirectorResult!
 }

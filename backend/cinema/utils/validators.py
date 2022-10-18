@@ -32,3 +32,8 @@ def validate_add_movie_request_body(body):
 def validate_update_movie_request_body(body):
     one_of_many_fields = ["title", "director", "year"]
     check_one_of_many_is_present(body, one_of_many_fields)
+
+
+def validate_add_director_request_body(body):
+    required_fields = ["name"]
+    check_required_fields(body, required_fields)

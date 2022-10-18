@@ -41,11 +41,6 @@ def movie(movie_id):
         return update_movie(movie_id)
 
 
-@movies_bp.route('directors')
-def directors():
-    return jsonify({"directors": dbh_director.get_directors()})
-
-
 def get_movie(id):
     try:
         movie = dbh_movie.get_movie(id)
