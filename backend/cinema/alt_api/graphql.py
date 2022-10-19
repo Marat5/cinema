@@ -41,23 +41,22 @@ def graphql_playground():
 # Example queries
 # query fetchDirector {
 #   director(directorId: "1") {
-#     success
-#     errors
-#     director {
-#       id
-#       name
-#     }
+#     name
+#     id
 #   }
 # }
 
 
 # query fetchAllDirectors {
 #   directors {
-#     success
-#     errors
-#     directors {
-#       id
-#       name
-#     }
+#     name
+#     id
+#   }
+# }
+
+# mutation newDirector {
+#   addDirector(name: "Wes Anderson other") {
+#     name
+#     id
 #   }
 # }

@@ -6,7 +6,7 @@ from cinema.utils.db_helper import dbh_user
 
 
 def token_required(original_f=None, *, is_graphql=False):
-    # We call it with is_graphql flag to change the shape of returned error message for graphql requests
+    # We call it with is_graphql flag to raise the auth exception unlike rest api where we return json
     # No additional arguments are required for using it with rest api
 
     def _decorate(f):
@@ -45,8 +45,5 @@ def encode_jwt(user_id):
 
 def get_auth_error(missing_or_invalid, is_graphql):
     if is_graphql:
-        return {
-            "success": False,
-            "errors": [f'Token is {missing_or_invalid}!']
-        }
+        raise Exception(f'Token is {missing_or_invalid}!')
     return jsonify({'message': f'Token is {missing_or_invalid}!'}), 401

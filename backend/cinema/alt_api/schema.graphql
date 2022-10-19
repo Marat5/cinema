@@ -8,29 +8,12 @@ type Director {
   name: String!
 }
 
-type DirectorResult {
-  success: Boolean!
-  errors: [String]
-  director: Director
-}
-
-type DirectorsResult {
-  success: Boolean!
-  errors: [String]
-  directors: [Director]
-}
-
 type Query {
-  directors: DirectorsResult!
-  director(directorId: ID!): DirectorResult!
-}
-
-type DeleteDirectorResult {
-  success: Boolean!
-  errors: [String]
+  directors: [Director!]
+  director(directorId: ID!): Director!
 }
 
 type Mutation {
-  addDirector(name: String!): DirectorResult!
-  deleteDirector(directorId: ID!): DeleteDirectorResult!
+  addDirector(name: String!): Director
+  deleteDirector(directorId: ID!): Boolean
 }
