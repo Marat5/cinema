@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from cinema.models import Movie
 from cinema.utils.custom_errors import ForbiddenError, ValidationError, ResourceDoesNotExistError, ResourceAlreadyExistsError
 from cinema.utils.jwt import token_required
+from cinema.utils.strings import movie_delete_success_string
 from cinema.utils.validators import validate_create_movie_request_body, validate_update_movie_request_body
 
 
@@ -52,7 +53,7 @@ def delete_movie(current_user, id):
     except (ResourceDoesNotExistError, ForbiddenError) as e:
         return jsonify({"message": str(e)}), e.code
 
-    return jsonify({"message": f"Success, the movie '{movie.title}' was deleted"})
+    return jsonify({"message": movie_delete_success_string(movie.title)})
 
 
 @token_required
