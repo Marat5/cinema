@@ -8,12 +8,19 @@ type Director {
   name: String!
 }
 
+type User {
+  username: String
+}
+
 type Query {
+  login(username: String, password: String): String
   directors: [Director!]
   director(directorId: ID!): Director!
+  user: User
 }
 
 type Mutation {
   addDirector(name: String!): Director
   deleteDirector(directorId: ID!): Boolean
+  register(username: String, password: String): String
 }

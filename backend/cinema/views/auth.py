@@ -1,10 +1,8 @@
 from flask import Blueprint, jsonify, request
 from cinema.models import User
-from werkzeug.security import check_password_hash, generate_password_hash
-from cinema.utils.jwt import encode_jwt, token_required
+from cinema.utils.jwt import create_user_and_get_token, get_token_or_exception, token_required
 from cinema.utils.validators import validate_auth_request_body
-from cinema.utils.custom_errors import ResourceAlreadyExistsError, ValidationError, ResourceDoesNotExistError
-from cinema.utils.db_helper import dbh_user
+from cinema.utils.custom_errors import ResourceAlreadyExistsError, UnauthorizedError, ValidationError, ResourceDoesNotExistError
 
 
 auth_bp = Blueprint("auth", __name__, url_prefix="auth")
@@ -18,11 +16,7 @@ def register():
         username = body.get("username")
         password = body.get("password")
 
-        new_user = User(username=username,
-                        password=generate_password_hash(password))
-        dbh_user.add_user(new_user)
-
-        token = encode_jwt(new_user.id)
+        token = create_user_and_get_token(username, password)
     except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
 
@@ -37,13 +31,8 @@ def login():
         username = body.get("username")
         password = body.get("password")
 
-        user = dbh_user.get_user(username=username)
-
-        if not check_password_hash(user.password, password):
-            return jsonify({"message": "The password is incorrect"}), 401
-
-        token = encode_jwt(user.id)
-    except (ValidationError, ResourceDoesNotExistError) as e:
+        token = get_token_or_exception(username, password)
+    except (ValidationError, ResourceDoesNotExistError, UnauthorizedError) as e:
         return jsonify({"message": str(e)}), e.code
 
     return jsonify({"token": token})
@@ -51,5 +40,5 @@ def login():
 
 @auth_bp.route('user')
 @token_required
-def get_user(current_user):
+def get_user(current_user: User):
     return jsonify({"username": current_user.username})
