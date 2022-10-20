@@ -31,21 +31,21 @@ class DBHelper_Director():
     def get_directors(self):
         return db.session.execute(db.select(Director)).scalars().all()
 
-    def get_director(self, id):
-        director = db.session.execute(
-            db.select(Director).filter_by(id=id)).scalars().first()
+    def get_director(self, id=None, name=None, create_if_404=False):
+        if id:
+            director = db.session.execute(
+                db.select(Director).filter_by(id=id)).scalars().first()
+        else:
+            director = db.session.execute(
+                db.select(Director).filter_by(name=name)).scalars().first()
+
         if not director:
-            raise ResourceDoesNotExistError("director")
+            if create_if_404:
+                director = self.add_director(name)
+            else:
+                raise ResourceDoesNotExistError("director")
+
         return director
-
-    def get_director_id(self, director_name):
-        director = db.session.execute(
-            db.select(Director).filter_by(name=director_name)).scalars().first()
-
-        if not director:
-            director = self.add_director(director_name)
-
-        return director.id
 
     def add_director(self, director_name):
         try:
@@ -75,7 +75,8 @@ class DBHelper_Movie():
         movie.title = title or movie.title
         movie.year = year or movie.year
         if director_name:
-            movie.director = dbh_director.get_director_id(director_name)
+            movie.director_id = dbh_director.get_director(
+                name=director_name, create_if_404=True).id
 
         db.session.commit()
         return movie
@@ -89,7 +90,7 @@ class DBHelper_Movie():
     def add_movie(self, title, added_by, director_id, year):
         try:
             movie = Movie(title=title, added_by=added_by,
-                          director=director_id, year=year)
+                          director_id=director_id, year=year)
             db.session.add(movie)
             db.session.commit()
         except IntegrityError:

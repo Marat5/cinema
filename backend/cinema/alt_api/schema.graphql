@@ -6,17 +6,30 @@ schema {
 type Director {
   id: ID!
   name: String!
+  movies: [Movie]
 }
 
 type User {
   username: String
 }
 
+type Movie {
+  id: ID
+  title: String
+  director: Director
+  year: Int
+  added: String
+  added_by: Int
+}
+
 type Query {
   login(username: String, password: String): String
+  user: User
+
   directors: [Director!]
   director(directorId: ID!): Director!
-  user: User
+
+  movies: [Movie]
 }
 
 type Mutation {

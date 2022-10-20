@@ -24,7 +24,7 @@ def add_movie(current_user):
         year = body.get("year")
 
         movie = dbh_movie.add_movie(title=title, added_by=current_user.id,
-                                    director_id=dbh_director.get_director_id(director_name), year=year)
+                                    director_id=dbh_director.get_director(name=director_name, create_if_404=True).id, year=year)
     except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
 

@@ -32,7 +32,7 @@ class User(db.Model):
 class Movie(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     title: str = db.Column(db.String, nullable=False, unique=True)
-    director: int = db.Column(
+    director_id: int = db.Column(
         db.Integer, ForeignKey("director.id"), nullable=False)
     added: str = db.Column(db.DateTime, default=datetime.utcnow)
     added_by: int = db.Column(db.Integer, nullable=False)
@@ -43,4 +43,4 @@ class Movie(db.Model):
 class Director(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     name: str = db.Column(db.String, unique=True, nullable=False)
-    movies: List[Movie] = db.relationship("Movie")
+    movies: List[Movie] = db.relationship("Movie", backref="director")

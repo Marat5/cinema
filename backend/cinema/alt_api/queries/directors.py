@@ -8,4 +8,4 @@ def resolve_directors(obj, info):
 
 @convert_kwargs_to_snake_case
 def resolve_director(obj, info, director_id):
-    return dbh_director.get_director(director_id)
+    return dbh_director.get_director(id=director_id)
