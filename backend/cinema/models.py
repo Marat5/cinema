@@ -4,6 +4,7 @@ from typing import List
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
 from sqlalchemy.exc import IntegrityError
+from werkzeug.security import generate_password_hash
 
 from cinema.utils.custom_errors import ForbiddenError, ResourceDoesNotExistError, ResourceAlreadyExistsError
 
@@ -30,14 +31,20 @@ class User(db.Model):
         return user
 
     @staticmethod
-    def create_user(user):
+    def create_user(valid_body: dict):
         try:
-            db.session.add(user)
+            username = valid_body.get("username")
+            password = valid_body.get("password")
+
+            new_user = User(username=username,
+                            password=generate_password_hash(password))
+            db.session.add(new_user)
             db.session.commit()
         except IntegrityError:
-            raise ResourceAlreadyExistsError("user", "username", user.username)
+            raise ResourceAlreadyExistsError(
+                "user", "username", new_user.username)
 
-        return user
+        return new_user
 
 
 @dataclass
@@ -96,7 +103,7 @@ class Movie(db.Model):
         return movie
 
     @staticmethod
-    def create_movie(valid_body: dict, current_user: User):
+    def create_movie(current_user: User, valid_body: dict):
         try:
             title = valid_body.get("title")
             director_name = valid_body.get("director_name")
@@ -144,8 +151,9 @@ class Director(db.Model):
         return director
 
     @staticmethod
-    def create_director(director_name):
+    def create_director(valid_body):
         try:
+            director_name = valid_body.get("name")
             director = Director(name=director_name)
             db.session.add(director)
             db.session.commit()

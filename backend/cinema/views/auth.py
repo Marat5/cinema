@@ -12,11 +12,8 @@ auth_bp = Blueprint("auth", __name__, url_prefix="auth")
 def register():
     body: dict = request.json
     try:
-        validate_auth_request_body(body)
-        username = body.get("username")
-        password = body.get("password")
-
-        token = create_user_and_get_token(username, password)
+        valid_body = validate_auth_request_body(body)
+        token = create_user_and_get_token(valid_body)
     except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
 
@@ -27,11 +24,8 @@ def register():
 def login():
     body: dict = request.json
     try:
-        validate_auth_request_body(body)
-        username = body.get("username")
-        password = body.get("password")
-
-        token = get_token_or_exception(username, password)
+        valid_body = validate_auth_request_body(body)
+        token = get_token_or_exception(valid_body)
     except (ValidationError, ResourceDoesNotExistError, UnauthorizedError) as e:
         return jsonify({"message": str(e)}), e.code
 

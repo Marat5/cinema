@@ -5,6 +5,7 @@ from cinema.utils.validators import map_graphql_resolver_args_to_rest_body, vali
 def resolve_register(obj, info, username, password):
     body_for_validation = map_graphql_resolver_args_to_rest_body(
         username=username, password=password)
-    validate_auth_request_body(body_for_validation)
+    valid_body = validate_auth_request_body(body_for_validation)
+    token = create_user_and_get_token(valid_body)
 
-    return {"token": create_user_and_get_token(username, password)}
+    return {"token": token}

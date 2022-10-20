@@ -3,8 +3,9 @@ from flask import request, jsonify, current_app
 import jwt
 from datetime import datetime, timedelta
 from cinema.models import User
+from werkzeug.security import check_password_hash
+
 from cinema.utils.custom_errors import UnauthorizedError
-from werkzeug.security import check_password_hash, generate_password_hash
 
 
 def token_required(original_f=None, *, is_graphql=False):
@@ -52,7 +53,10 @@ def get_auth_error(missing_or_invalid, is_graphql):
     return jsonify({'message': f'Token is {missing_or_invalid}!'}), 401
 
 
-def get_token_or_exception(username: str, password: str):
+def get_token_or_exception(valid_body: dict):
+    username = valid_body.get("username")
+    password = valid_body.get("password")
+
     user = User.get_user(username=username)
     if not check_password_hash(user.password, password):
         raise UnauthorizedError("The password is incorrect")
@@ -60,9 +64,6 @@ def get_token_or_exception(username: str, password: str):
     return encode_jwt(user.id)
 
 
-def create_user_and_get_token(username: str, password: str):
-    new_user = User(username=username,
-                    password=generate_password_hash(password))
-    User.create_user(new_user)
-
+def create_user_and_get_token(valid_body: dict):
+    new_user = User.create_user(valid_body)
     return encode_jwt(new_user.id)

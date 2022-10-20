@@ -8,6 +8,7 @@ from cinema.utils.custom_errors import ValidationError
 def validate_auth_request_body(body):
     required_fields = ["username", "password"]
     check_required_fields(body, required_fields)
+    return body
 
 
 def validate_create_movie_request_body(body):
@@ -25,6 +26,7 @@ def validate_update_movie_request_body(body):
 def validate_create_director_request_body(body):
     required_fields = ["name"]
     check_required_fields(body, required_fields)
+    return body
 
 
 def check_required_fields(body, required_fields: List[str]):

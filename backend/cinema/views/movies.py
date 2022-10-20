@@ -20,7 +20,7 @@ def create_movie(current_user):
     body: dict = request.json
     try:
         valid_body = validate_create_movie_request_body(body)
-        movie = Movie.create_movie(valid_body, current_user)
+        movie = Movie.create_movie(current_user, valid_body)
     except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
 

@@ -18,11 +18,9 @@ def directors():
 def create_director(current_user):
     body: dict = request.json
     try:
-        validate_create_director_request_body(body)
-        director_name = body.get("name")
-
-        movie = Director.create_director(director_name)
+        valid_body = validate_create_director_request_body(body)
+        director = Director.create_director(valid_body)
     except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
 
-    return jsonify(movie)
+    return jsonify(director)

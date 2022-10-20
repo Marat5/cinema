@@ -6,9 +6,10 @@ from cinema.utils.validators import map_graphql_resolver_args_to_rest_body, vali
 def resolve_login(obj, info, username, password):
     body_for_validation = map_graphql_resolver_args_to_rest_body(
         username=username, password=password)
-    validate_auth_request_body(body_for_validation)
+    valid_body = validate_auth_request_body(body_for_validation)
 
-    return {"token": get_token_or_exception(username, password)}
+    token = get_token_or_exception(valid_body)
+    return {"token": token}
 
 
 @token_required(is_graphql=True)
