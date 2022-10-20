@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, request
-from cinema.utils.custom_errors import ValidationError, ResourceDoesNotExistError, ResourceAlreadyExistsError
+from cinema.models import Movie
+from cinema.utils.custom_errors import ForbiddenError, ValidationError, ResourceDoesNotExistError, ResourceAlreadyExistsError
 from cinema.utils.jwt import token_required
 from cinema.utils.validators import validate_create_movie_request_body, validate_update_movie_request_body
-from cinema.utils.db_helper import dbh_movie, dbh_director
+from cinema.utils.db_helper import dbh_movie
 
 
 movies_bp = Blueprint("movies", __name__, url_prefix="movies")
@@ -18,14 +19,8 @@ def movies():
 def create_movie(current_user):
     body: dict = request.json
     try:
-        validate_create_movie_request_body(body)
-        title = body.get("title")
-        director_name = body.get("director")
-        year = body.get("year")
-        rating = body.get("rating")
-
-        movie = dbh_movie.create_movie(title=title, added_by=current_user.id,
-                                       director_id=dbh_director.get_director(name=director_name, create_if_404=True).id, year=year, rating=rating)
+        valid_body = validate_create_movie_request_body(body)
+        movie = dbh_movie.create_movie(valid_body, current_user)
     except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
 
@@ -52,13 +47,13 @@ def get_movie(id):
 
 
 @token_required
-def delete_movie(id):
+def delete_movie(current_user, id):
     try:
-        movie = dbh_movie.delete_movie(id)
-    except ResourceDoesNotExistError as e:
+        movie: Movie = dbh_movie.delete_movie(current_user, id)
+    except (ResourceDoesNotExistError, ForbiddenError) as e:
         return jsonify({"message": str(e)}), e.code
 
-    return jsonify({"message": f'Success, the movie "{movie["title"]}" was deleted'})
+    return jsonify({"message": f"Success, the movie '{movie.title}' was deleted"})
 
 
 @token_required

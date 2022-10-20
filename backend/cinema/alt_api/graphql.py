@@ -3,6 +3,7 @@ from ariadne.constants import PLAYGROUND_HTML
 from flask import Blueprint, jsonify, request
 from cinema.alt_api.mutations.auth import resolve_register
 from cinema.alt_api.mutations.directors import resolve_create_director
+from cinema.alt_api.mutations.movies import resolve_create_movie
 from cinema.alt_api.queries.auth import resolve_login, resolve_user
 from cinema.alt_api.queries.directors import resolve_director, resolve_directors
 from cinema.alt_api.queries.movies import resolve_movies
@@ -11,17 +12,24 @@ from cinema.alt_api.queries.movies import resolve_movies
 graphql_bp = Blueprint("graphql", __name__, url_prefix="graphql")
 
 query = ObjectType("Query")
+mutation = ObjectType("Mutation")
+
+# Director
 query.set_field("directors", resolve_directors)
 query.set_field("director", resolve_director)
 
+mutation.set_field("createDirector", resolve_create_director)
+
+# Auth
 query.set_field("login", resolve_login)
 query.set_field("user", resolve_user)
 
+mutation.set_field("register", resolve_register)
+
+# Movie
 query.set_field("movies", resolve_movies)
 
-mutation = ObjectType("Mutation")
-mutation.set_field("createDirector", resolve_create_director)
-mutation.set_field("register", resolve_register)
+mutation.set_field("createMovie", resolve_create_movie)
 
 
 type_defs = load_schema_from_path("cinema/alt_api/schema.graphql")

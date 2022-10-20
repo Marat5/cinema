@@ -6,6 +6,10 @@ class UnauthorizedError(Exception):
     code = 401
 
 
+class ForbiddenError(Exception):
+    code = 403
+
+
 class ResourceDoesNotExistError(Exception):
     def __init__(self, resource_name: str) -> None:
         self.message = f"{resource_name.capitalize()} does not exist"

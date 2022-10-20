@@ -1,6 +1,6 @@
 # Always use this classes to access resources in database
 from cinema.models import db, User, Director, Movie
-from cinema.utils.custom_errors import ResourceAlreadyExistsError, ResourceDoesNotExistError
+from cinema.utils.custom_errors import ForbiddenError, ResourceAlreadyExistsError, ResourceDoesNotExistError
 from sqlalchemy.exc import IntegrityError
 
 
@@ -81,16 +81,26 @@ class DBHelper_Movie():
         db.session.commit()
         return movie
 
-    def delete_movie(self, id):
+    def delete_movie(self, current_user, id):
         movie = dbh_movie.get_movie(id)
+        if current_user.id != movie.added_by:
+            raise ForbiddenError("This movie belongs to different user")
+
         db.session.delete(movie)
         db.session.commit()
         return movie
 
-    def create_movie(self, title, added_by, director_id, year, rating):
+    def create_movie(self, valid_body: dict, current_user: User):
         try:
-            movie = Movie(title=title, added_by=added_by,
-                          director_id=director_id, year=year, rating=rating)
+            title = valid_body.get("title")
+            director_name = valid_body.get("director_name")
+            year = valid_body.get("year")
+            rating = valid_body.get("rating")
+
+            director = dbh_director.get_director(name=director_name)
+
+            movie = Movie(title=title, added_by=current_user.id,
+                          director_id=director.id, year=year, rating=rating)
             db.session.add(movie)
             db.session.commit()
         except IntegrityError:

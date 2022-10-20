@@ -40,5 +40,13 @@ type Query {
 type Mutation {
   createDirector(name: String!): Director
   deleteDirector(directorId: ID!): Boolean
+
   register(username: String, password: String): Token
+
+  createMovie(
+    title: String
+    directorName: String
+    year: Int
+    rating: Float
+  ): Movie
 }
