@@ -17,8 +17,9 @@ def validate_create_movie_request_body(body):
 
 
 def validate_update_movie_request_body(body):
-    one_of_many_fields = ["title", "director_name", "year"]
+    one_of_many_fields = ["title", "director_name", "year", "rating"]
     check_one_of_many_is_present(body, one_of_many_fields)
+    return body
 
 
 def validate_create_director_request_body(body):

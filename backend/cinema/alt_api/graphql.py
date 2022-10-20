@@ -3,7 +3,7 @@ from ariadne.constants import PLAYGROUND_HTML
 from flask import Blueprint, jsonify, request
 from cinema.alt_api.mutations.auth import resolve_register
 from cinema.alt_api.mutations.directors import resolve_create_director
-from cinema.alt_api.mutations.movies import resolve_create_movie, resolve_delete_movie
+from cinema.alt_api.mutations.movies import resolve_create_movie, resolve_delete_movie, resolve_update_movie
 from cinema.alt_api.queries.auth import resolve_login, resolve_user
 from cinema.alt_api.queries.directors import resolve_director, resolve_directors
 from cinema.alt_api.queries.movies import resolve_movie, resolve_movies
@@ -32,6 +32,7 @@ query.set_field("movie", resolve_movie)
 
 mutation.set_field("createMovie", resolve_create_movie)
 mutation.set_field("deleteMovie", resolve_delete_movie)
+mutation.set_field("updateMovie", resolve_update_movie)
 
 
 type_defs = load_schema_from_path("cinema/alt_api/schema.graphql")

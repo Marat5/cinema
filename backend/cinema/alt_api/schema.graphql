@@ -49,5 +49,14 @@ type Mutation {
     year: Int
     rating: Float
   ): Movie
+
+  updateMovie(
+    id: ID!
+    title: String
+    directorName: String
+    year: Int
+    rating: Float
+  ): Movie
+
   deleteMovie(id: ID!): String
 }

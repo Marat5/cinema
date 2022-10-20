@@ -60,17 +60,9 @@ def delete_movie(current_user, id):
 def update_movie(current_user, id):
     body: dict = request.json
     try:
-        validate_update_movie_request_body(body)
-        title = body.get("title")
-        director_name = body.get("director")
-        year = body.get("year")
-
-        movie = Movie.get_movie(id)
-        if current_user.id != movie.added_by:
-            return jsonify({"error": "This movie belongs to different user"})
-
-        movie = Movie.update_movie(id, title, director_name, year)
-    except (ResourceDoesNotExistError, ValidationError, ResourceAlreadyExistsError) as e:
+        valid_body = validate_update_movie_request_body(body)
+        movie = Movie.update_movie(current_user, id, valid_body)
+    except (ResourceDoesNotExistError, ValidationError, ResourceAlreadyExistsError, ForbiddenError) as e:
         return jsonify({"message": str(e)}), e.code
 
     return jsonify(movie)

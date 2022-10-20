@@ -64,14 +64,23 @@ class Movie(db.Model):
         return movie
 
     @staticmethod
-    def update_movie(id, title, director_name, year):
-        movie = Movie.get_movie(id)
+    def update_movie(current_user: User, id, valid_body: dict):
+        movie: Movie = Movie.get_movie(id)
+        if current_user.id != movie.added_by:
+            raise ForbiddenError("This movie belongs to different user")
 
-        movie.title = title or movie.title
-        movie.year = year or movie.year
-        if director_name:
-            movie.director_id = Director.get_director(
-                name=director_name, create_if_404=True).id
+        updated_title = valid_body.get("title")
+        updated_director_name = valid_body.get("director")
+        updated_year = valid_body.get("year")
+        updated_rating = valid_body.get("rating")
+
+        movie.title = updated_title or movie.title
+        movie.year = updated_year or movie.year
+        movie.rating = updated_rating or movie.rating
+        if updated_director_name:
+            updated_director = Director.get_director(
+                name=updated_director_name, create_if_404=True)
+            movie.director_id = updated_director.id
 
         db.session.commit()
         return movie
