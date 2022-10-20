@@ -3,8 +3,9 @@ from datetime import datetime
 from typing import List
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import ForeignKey
+from sqlalchemy.exc import IntegrityError
 
-from cinema.utils.custom_errors import ResourceDoesNotExistError
+from cinema.utils.custom_errors import ForbiddenError, ResourceDoesNotExistError, ResourceAlreadyExistsError
 
 db = SQLAlchemy()
 
@@ -15,7 +16,8 @@ class User(db.Model):
     username: str = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    def get_user(self, id=None, username=None):
+    @staticmethod
+    def get_user(id=None, username=None):
         if username:
             user = db.session.execute(
                 db.select(User).filter_by(username=username)).scalar()
@@ -25,6 +27,16 @@ class User(db.Model):
 
         if not user:
             raise ResourceDoesNotExistError("user")
+        return user
+
+    @staticmethod
+    def create_user(user):
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except IntegrityError:
+            raise ResourceAlreadyExistsError("user", "username", user.username)
+
         return user
 
 
@@ -39,9 +51,96 @@ class Movie(db.Model):
     year: int = db.Column(db.Integer, nullable=False)
     rating: float = db.Column(db.Float, nullable=False)
 
+    @staticmethod
+    def get_movies():
+        return db.session.execute(db.select(Movie)).scalars().all()
+
+    @staticmethod
+    def get_movie(id):
+        movie = db.session.execute(
+            db.select(Movie).filter_by(id=id)).scalars().first()
+        if not movie:
+            raise ResourceDoesNotExistError("movie")
+        return movie
+
+    @staticmethod
+    def update_movie(id, title, director_name, year):
+        movie = Movie.get_movie(id)
+
+        movie.title = title or movie.title
+        movie.year = year or movie.year
+        if director_name:
+            movie.director_id = Director.get_director(
+                name=director_name, create_if_404=True).id
+
+        db.session.commit()
+        return movie
+
+    @staticmethod
+    def delete_movie(current_user, id):
+        movie = Movie.get_movie(id)
+        if current_user.id != movie.added_by:
+            raise ForbiddenError("This movie belongs to different user")
+
+        db.session.delete(movie)
+        db.session.commit()
+        return movie
+
+    @staticmethod
+    def create_movie(valid_body: dict, current_user: User):
+        try:
+            title = valid_body.get("title")
+            director_name = valid_body.get("director_name")
+            year = valid_body.get("year")
+            rating = valid_body.get("rating")
+
+            director = Director.get_director(
+                name=director_name, create_if_404=True)
+
+            movie = Movie(title=title, added_by=current_user.id,
+                          director_id=director.id, year=year, rating=rating)
+            db.session.add(movie)
+            db.session.commit()
+        except IntegrityError:
+            raise ResourceAlreadyExistsError("movie", "title", title)
+
+        return movie
+
 
 @dataclass
 class Director(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     name: str = db.Column(db.String, unique=True, nullable=False)
     movies: List[Movie] = db.relationship("Movie", backref="director")
+
+    @staticmethod
+    def get_directors():
+        return db.session.execute(db.select(Director)).scalars().all()
+
+    @staticmethod
+    def get_director(id=None, name=None, create_if_404=False):
+        if id:
+            director = db.session.execute(
+                db.select(Director).filter_by(id=id)).scalars().first()
+        else:
+            director = db.session.execute(
+                db.select(Director).filter_by(name=name)).scalars().first()
+
+        if not director:
+            if create_if_404:
+                director = Director.create_director(name)
+            else:
+                raise ResourceDoesNotExistError("director")
+
+        return director
+
+    @staticmethod
+    def create_director(director_name):
+        try:
+            director = Director(name=director_name)
+            db.session.add(director)
+            db.session.commit()
+        except IntegrityError:
+            raise ResourceAlreadyExistsError("director", "name", director_name)
+
+        return director

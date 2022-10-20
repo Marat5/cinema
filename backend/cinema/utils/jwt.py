@@ -4,7 +4,6 @@ import jwt
 from datetime import datetime, timedelta
 from cinema.models import User
 from cinema.utils.custom_errors import UnauthorizedError
-from cinema.utils.db_helper import dbh_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
@@ -27,8 +26,9 @@ def token_required(original_f=None, *, is_graphql=False):
                 data = jwt.decode(
                     token, current_app.config["SECRET_KEY"], algorithms=["HS256"])
 
-                current_user = dbh_user.get_user(data['id'])
-            except:
+                current_user = User.get_user(data['id'])
+            except Exception as e:
+                print(e)
                 return get_auth_error("invalid", is_graphql)
             # returns the current logged in user to the routes
             return f(current_user, *args, **kwargs)
@@ -53,7 +53,7 @@ def get_auth_error(missing_or_invalid, is_graphql):
 
 
 def get_token_or_exception(username: str, password: str):
-    user = dbh_user.get_user(username=username)
+    user = User.get_user(username=username)
     if not check_password_hash(user.password, password):
         raise UnauthorizedError("The password is incorrect")
 
@@ -63,6 +63,6 @@ def get_token_or_exception(username: str, password: str):
 def create_user_and_get_token(username: str, password: str):
     new_user = User(username=username,
                     password=generate_password_hash(password))
-    dbh_user.create_user(new_user)
+    User.create_user(new_user)
 
     return encode_jwt(new_user.id)

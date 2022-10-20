@@ -1,5 +1,7 @@
-from cinema.utils.db_helper import dbh_movie
+
+
+from cinema.models import Movie
 
 
 def resolve_movies(obj, info):
-    return dbh_movie.get_movies()
+    return Movie.get_movies()
