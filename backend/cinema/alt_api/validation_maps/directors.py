@@ -1,4 +1,4 @@
-def add_director_graphql_params_to_rest_body(name):
+def create_director_graphql_params_to_rest_body(name):
     return {
         "name": name,
     }

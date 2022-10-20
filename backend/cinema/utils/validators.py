@@ -25,7 +25,7 @@ def validate_auth_request_body(body):
     check_required_fields(body, required_fields)
 
 
-def validate_add_movie_request_body(body):
+def validate_create_movie_request_body(body):
     required_fields = ["title", "director", "year"]
     check_required_fields(body, required_fields)
 
@@ -35,6 +35,6 @@ def validate_update_movie_request_body(body):
     check_one_of_many_is_present(body, one_of_many_fields)
 
 
-def validate_add_director_request_body(body):
+def validate_create_director_request_body(body):
     required_fields = ["name"]
     check_required_fields(body, required_fields)

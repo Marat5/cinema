@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from cinema.utils.custom_errors import ValidationError, ResourceDoesNotExistError, ResourceAlreadyExistsError
 from cinema.utils.jwt import token_required
-from cinema.utils.validators import validate_add_movie_request_body, validate_update_movie_request_body
+from cinema.utils.validators import validate_create_movie_request_body, validate_update_movie_request_body
 from cinema.utils.db_helper import dbh_movie, dbh_director
 
 
@@ -13,18 +13,18 @@ def movies():
     return jsonify({"movies": dbh_movie.get_movies()})
 
 
-@movies_bp.route('add', methods=["POST"])
+@movies_bp.route('create', methods=["POST"])
 @token_required
-def add_movie(current_user):
+def create_movie(current_user):
     body: dict = request.json
     try:
-        validate_add_movie_request_body(body)
+        validate_create_movie_request_body(body)
         title = body.get("title")
         director_name = body.get("director")
         year = body.get("year")
 
-        movie = dbh_movie.add_movie(title=title, added_by=current_user.id,
-                                    director_id=dbh_director.get_director(name=director_name, create_if_404=True).id, year=year)
+        movie = dbh_movie.create_movie(title=title, added_by=current_user.id,
+                                       director_id=dbh_director.get_director(name=director_name, create_if_404=True).id, year=year)
     except (ValidationError, ResourceAlreadyExistsError) as e:
         return jsonify({"message": str(e)}), e.code
 

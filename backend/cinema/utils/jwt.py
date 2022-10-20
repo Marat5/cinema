@@ -63,6 +63,6 @@ def get_token_or_exception(username: str, password: str):
 def create_user_and_get_token(username: str, password: str):
     new_user = User(username=username,
                     password=generate_password_hash(password))
-    dbh_user.add_user(new_user)
+    dbh_user.create_user(new_user)
 
     return encode_jwt(new_user.id)

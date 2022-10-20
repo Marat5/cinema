@@ -17,7 +17,7 @@ class DBHelper_User():
             raise ResourceDoesNotExistError("user")
         return user
 
-    def add_user(self, user: User):
+    def create_user(self, user: User):
         try:
             db.session.add(user)
             db.session.commit()
@@ -41,13 +41,13 @@ class DBHelper_Director():
 
         if not director:
             if create_if_404:
-                director = self.add_director(name)
+                director = self.create_director(name)
             else:
                 raise ResourceDoesNotExistError("director")
 
         return director
 
-    def add_director(self, director_name):
+    def create_director(self, director_name):
         try:
             director = Director(name=director_name)
             db.session.add(director)
@@ -87,7 +87,7 @@ class DBHelper_Movie():
         db.session.commit()
         return movie
 
-    def add_movie(self, title, added_by, director_id, year):
+    def create_movie(self, title, added_by, director_id, year):
         try:
             movie = Movie(title=title, added_by=added_by,
                           director_id=director_id, year=year)
