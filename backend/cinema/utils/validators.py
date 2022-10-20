@@ -5,6 +5,11 @@ from typing import List
 from cinema.utils.custom_errors import ValidationError
 
 
+def map_graphql_resolver_args_to_rest_body(**kwargs):
+    # Pass params of graphql resolver as kwargs to create dict that looks exactly like rest body
+    return kwargs
+
+
 def check_required_fields(body, required_fields: List[str]):
     for field in required_fields:
         if field not in body:

@@ -23,8 +23,12 @@ type Movie {
   rating: Float
 }
 
+type Token {
+  token: String
+}
+
 type Query {
-  login(username: String, password: String): String
+  login(username: String, password: String): Token
   user: User
 
   directors: [Director!]
@@ -36,5 +40,5 @@ type Query {
 type Mutation {
   createDirector(name: String!): Director
   deleteDirector(directorId: ID!): Boolean
-  register(username: String, password: String): String
+  register(username: String, password: String): Token
 }
