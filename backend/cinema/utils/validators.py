@@ -1,4 +1,5 @@
 # Common functions for validation
+# When used in graphql resolvers params should be mapped to match rest body
 from typing import List
 
 from cinema.utils.custom_errors import ValidationError
