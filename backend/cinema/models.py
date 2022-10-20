@@ -37,6 +37,7 @@ class Movie(db.Model):
     added: str = db.Column(db.DateTime, default=datetime.utcnow)
     added_by: int = db.Column(db.Integer, nullable=False)
     year: int = db.Column(db.Integer, nullable=False)
+    rating: float = db.Column(db.Float, nullable=False)
 
 
 @dataclass

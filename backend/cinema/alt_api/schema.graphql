@@ -20,6 +20,7 @@ type Movie {
   year: Int
   added: String
   added_by: Int
+  rating: Float
 }
 
 type Query {
@@ -33,7 +34,7 @@ type Query {
 }
 
 type Mutation {
-  addDirector(name: String!): Director
+  createDirector(name: String!): Director
   deleteDirector(directorId: ID!): Boolean
   register(username: String, password: String): String
 }

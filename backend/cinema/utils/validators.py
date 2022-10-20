@@ -26,7 +26,7 @@ def validate_auth_request_body(body):
 
 
 def validate_create_movie_request_body(body):
-    required_fields = ["title", "director", "year"]
+    required_fields = ["title", "director", "year", "rating"]
     check_required_fields(body, required_fields)
 
 

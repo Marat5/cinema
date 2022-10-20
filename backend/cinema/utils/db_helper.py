@@ -87,10 +87,10 @@ class DBHelper_Movie():
         db.session.commit()
         return movie
 
-    def create_movie(self, title, added_by, director_id, year):
+    def create_movie(self, title, added_by, director_id, year, rating):
         try:
             movie = Movie(title=title, added_by=added_by,
-                          director_id=director_id, year=year)
+                          director_id=director_id, year=year, rating=rating)
             db.session.add(movie)
             db.session.commit()
         except IntegrityError:
