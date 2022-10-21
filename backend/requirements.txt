@@ -1,10 +1,14 @@
+anyio==3.6.1
+ariadne==0.16.1
 attrs==22.1.0
 autopep8==1.7.0
--e git+https://github.com/Marat5/cinema.git@1930cd94830490476596fd3595724ab51049d431#egg=cinema&subdirectory=backend
+-e git+https://github.com/Marat5/cinema.git@b9f91a5d894db4ebc2eaea7960ba19e8ea3c22ea#egg=cinema&subdirectory=backend
 click==8.1.3
 coverage==6.5.0
 Flask==2.2.2
 Flask-SQLAlchemy==3.0.0
+graphql-core==3.2.3
+idna==3.4
 importlib-metadata==4.12.0
 iniconfig==1.1.1
 itsdangerous==2.1.2
@@ -17,8 +21,11 @@ pycodestyle==2.9.1
 PyJWT==2.5.0
 pyparsing==3.0.9
 pytest==7.1.3
+sniffio==1.3.0
 SQLAlchemy==1.4.41
+starlette==0.20.4
 toml==0.10.2
 tomli==2.0.1
+typing_extensions==4.4.0
 Werkzeug==2.2.2
 zipp==3.8.1
