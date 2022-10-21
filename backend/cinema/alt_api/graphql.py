@@ -65,26 +65,3 @@ def graphql_playground():
 
     status_code = 200 if success else 400
     return jsonify(result), status_code
-
-# Example queries
-# query fetchDirector {
-#   director(directorId: "1") {
-#     name
-#     id
-#   }
-# }
-
-
-# query fetchAllDirectors {
-#   directors {
-#     name
-#     id
-#   }
-# }
-
-# mutation newDirector {
-#   addDirector(name: "Wes Anderson other") {
-#     name
-#     id
-#   }
-# }
