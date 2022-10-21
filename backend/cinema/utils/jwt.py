@@ -6,6 +6,7 @@ from cinema.models import User
 from werkzeug.security import check_password_hash
 
 from cinema.utils.custom_errors import UnauthorizedError
+from cinema.utils.validators import AuthValidBody
 
 
 def token_required(original_f=None, *, is_graphql=False):
@@ -53,7 +54,7 @@ def get_auth_error(missing_or_invalid, is_graphql):
     return jsonify({'message': f'Token is {missing_or_invalid}!'}), 401
 
 
-def get_token_or_exception(valid_body: dict):
+def get_token_or_exception(valid_body: AuthValidBody):
     username = valid_body.get("username")
     password = valid_body.get("password")
 
@@ -64,6 +65,6 @@ def get_token_or_exception(valid_body: dict):
     return encode_jwt(user.id)
 
 
-def create_user_and_get_token(valid_body: dict):
+def create_user_and_get_token(valid_body: AuthValidBody):
     new_user = User.create_user(valid_body)
     return encode_jwt(new_user.id)

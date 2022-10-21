@@ -7,6 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 
 from cinema.utils.custom_errors import ForbiddenError, ResourceDoesNotExistError, ResourceAlreadyExistsError
+from cinema.utils.validators import AuthValidBody, CreateDirectorValidBody, CreateMovieValidBody, UpdateMovieValidBody
 
 db = SQLAlchemy()
 
@@ -31,7 +32,7 @@ class User(db.Model):
         return user
 
     @staticmethod
-    def create_user(valid_body: dict):
+    def create_user(valid_body: AuthValidBody):
         try:
             username = valid_body.get("username")
             password = valid_body.get("password")
@@ -71,7 +72,7 @@ class Movie(db.Model):
         return movie
 
     @staticmethod
-    def update_movie(current_user: User, id, valid_body: dict):
+    def update_movie(current_user: User, id, valid_body: UpdateMovieValidBody):
         movie: Movie = Movie.get_movie(id)
         if current_user.id != movie.added_by:
             raise ForbiddenError("This movie belongs to different user")
@@ -103,7 +104,7 @@ class Movie(db.Model):
         return movie
 
     @staticmethod
-    def create_movie(current_user: User, valid_body: dict):
+    def create_movie(current_user: User, valid_body: CreateMovieValidBody):
         try:
             title = valid_body.get("title")
             director_name = valid_body.get("director_name")
@@ -151,7 +152,7 @@ class Director(db.Model):
         return director
 
     @staticmethod
-    def create_director(valid_body):
+    def create_director(valid_body: CreateDirectorValidBody):
         try:
             director_name = valid_body.get("name")
             director = Director(name=director_name)

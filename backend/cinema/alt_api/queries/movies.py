@@ -1,5 +1,3 @@
-
-
 from cinema.models import Movie
 
 
