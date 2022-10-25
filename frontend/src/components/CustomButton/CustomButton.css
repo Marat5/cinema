@@ -1,0 +1,36 @@
+.CustomButton {
+    width: 100%;
+    border-width: 1px;
+    border-radius: var(--field-border-radius);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.CustomButton:hover {
+    cursor: pointer;
+}
+
+.CustomButton:disabled:hover {
+    cursor: not-allowed;
+}
+
+.CustomButton_primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.CustomButton_primary:enabled:focus, .CustomButton_primary:enabled:hover {
+    background-color: var(--primary-color-accent);
+}
+
+.CustomButton_secondary {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.CustomButton_secondary:focus, .CustomButton_secondary:hover {
+    color: var(--primary-color-accent);
+    border-color: var(--primary-color-accent);
+}

@@ -1,0 +1,25 @@
+.CustomTextInput {
+    padding-bottom: 8px;
+}
+
+.CustomTextInput__label {
+    display: block;
+    padding-bottom: 4px;
+}
+
+
+.CustomTextInput__input {
+    display: block;
+    width: 100%;
+    border-radius: var(--field-border-radius);
+    padding: 4px;
+    border: 1px solid var(--dark-grey-color);
+}
+
+.CustomTextInput__input::placeholder {
+    color: var(--grey-color)
+}
+
+.CustomTextInput__input:focus {
+    border: 1px solid var(--primary-color-accent);
+}

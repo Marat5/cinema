@@ -1,0 +1,14 @@
+.AuthCard {
+    border-radius: 12px;
+    background-color: var(--tertiary-color);
+    border: 1px solid var(--dark-grey-color);
+    padding: 18px;
+    min-width: 300px;
+}
+
+.AuthCard__title {
+    color: var(--dark-grey-color);
+    font-size: 26px;
+    font-weight: 600;
+    padding-bottom: 12px;
+}
