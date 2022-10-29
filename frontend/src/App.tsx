@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { MovieListPage } from './pages/MovieList/MovieListPage';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { RegisterPage } from './pages/RegisterPage/RegisterPage';
+import { LoginPagetmp } from './pages/LoginPage/LoginPagetmp';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<MovieListPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/login_tmp" element={<LoginPagetmp />} />
       </Routes>
     </BrowserRouter>
   );

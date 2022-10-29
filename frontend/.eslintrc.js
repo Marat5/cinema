@@ -27,6 +27,11 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
-    'react/require-default-props': 'off'
+    'react/require-default-props': 'off',
+    'jsx-a11y/label-has-associated-control': [ "error", {
+      "required": {
+        "some": [ "nesting", "id"  ]
+      }
+    }],
   },
 };
