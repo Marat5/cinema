@@ -1,34 +1,35 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
+import { useState } from 'react';
 import { AuthTemplate } from '../../components/AuthTemplate/AuthTemplate';
+import { OnSubmitType } from '../../components/AuthTemplate/types';
+import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
 
+type LoginFormValues = {
+  username: string
+  password: string
+};
+
+const initialValues: LoginFormValues = {
+  username: '',
+  password: '',
+};
+
 export function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: OnSubmitType<LoginFormValues> = (values, actions) => {
+    // eslint-disable-next-line no-console
+    console.log(values, actions, 'yay, submit');
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   };
-
   return (
-    <AuthTemplate title="Login" handleSubmit={handleSubmit}>
-      <CustomTextInput title="Username" value={username} onChange={handleUsernameChange} placeholder="Guest" />
-      <CustomTextInput title="Password" value={password} onChange={handlePasswordChange} placeholder="123" />
+    <AuthTemplate title="Login" onSubmit={onSubmit} initialValues={initialValues}>
+      <CustomTextInput name="username" placeholder="Guest" />
+      <CustomTextInput name="password" placeholder="123" />
 
       <ButtonSet>
         <CustomButton text="Login" type="submit" bottomGap={8} showLoadIndicator={isLoading} />

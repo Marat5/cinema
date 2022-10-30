@@ -1,22 +1,31 @@
-import { FormEvent, ReactNode } from 'react';
+import { Form, Formik } from 'formik';
+import { ReactNode } from 'react';
 import './AuthTemplate.css';
+import { OnSubmitType } from './types';
 
-type Props = {
+type Props<FormValuesType> = {
   children: ReactNode
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void
   title?: string
+  initialValues: FormValuesType
+  onSubmit: OnSubmitType<FormValuesType>
 };
 
-export function AuthTemplate({
-  children, title, handleSubmit,
-}: Props) {
+export function AuthTemplate<FormValuesType extends object>(
+  {
+    children, title, onSubmit, initialValues,
+  }: Props<FormValuesType>,
+) {
   return (
     <div className="AuthTemplate">
-      <form onSubmit={handleSubmit} className="AuthTemplate__card">
-        {title && <h1 className="AuthTemplate__title">{title}</h1>}
-        {children}
-      </form>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+      >
+        <Form className="AuthTemplate__card">
+          {title && <h1 className="AuthTemplate__title">{title}</h1>}
+          {children}
+        </Form>
+      </Formik>
     </div>
-
   );
 }
