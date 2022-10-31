@@ -15,6 +15,7 @@ body {
   --primary-color-accent: #9373dc;
   --secondary-color: #C5FAD5;
   --tertiary-color: #FFFFD2;
+  --danger-color: #FF0000;
 
   --field-border-radius: 4px;
 }

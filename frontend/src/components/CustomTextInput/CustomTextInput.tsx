@@ -6,9 +6,12 @@ type Props = {
   name: string
   placeholder?: string
   displayName?: string
+  errorText?: string
 };
 
-export function CustomTextInput({ name, placeholder, displayName }: Props) {
+export function CustomTextInput({
+  name, placeholder, displayName, errorText,
+}: Props) {
   const nameText = displayName ? `${displayName}:` : `${capitalize(name)}:`;
 
   return (
@@ -19,6 +22,7 @@ export function CustomTextInput({ name, placeholder, displayName }: Props) {
             {nameText}
           </label>
           <input id={name} type="text" className="CustomTextInput__input" placeholder={placeholder} value={field.value} onChange={field.onChange} />
+          <span className="CustomTextInput__error">{errorText}</span>
         </div>
       ) }
     </Field>

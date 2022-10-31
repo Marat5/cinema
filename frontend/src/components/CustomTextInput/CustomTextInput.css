@@ -23,3 +23,10 @@
 .CustomTextInput__input:focus {
     border: 1px solid var(--primary-color-accent);
 }
+
+.CustomTextInput__error {
+    display: block;
+    padding-top: 2px;
+    font-size: 10px;
+    color: var(--danger-color);
+}

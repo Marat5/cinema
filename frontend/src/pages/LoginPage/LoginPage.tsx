@@ -29,7 +29,7 @@ export function LoginPage() {
   return (
     <AuthTemplate title="Login" onSubmit={onSubmit} initialValues={initialValues}>
       <CustomTextInput name="username" placeholder="Guest" />
-      <CustomTextInput name="password" placeholder="123" />
+      <CustomTextInput name="password" placeholder="123" errorText="Wrong password" />
 
       <ButtonSet>
         <CustomButton text="Login" type="submit" bottomGap={8} showLoadIndicator={isLoading} />
