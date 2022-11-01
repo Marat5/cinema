@@ -4,6 +4,7 @@ import { OnSubmitType } from '../../components/AuthTemplate/types';
 import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
+import { ValidationLoginSchema } from './ValidationLoginSchema';
 
 type LoginFormValues = {
   username: string
@@ -24,10 +25,11 @@ export function LoginPage() {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
+      actions.setFieldError('username', 'Validation failed on backend');
     }, 2000);
   };
   return (
-    <AuthTemplate title="Login" onSubmit={onSubmit} initialValues={initialValues}>
+    <AuthTemplate title="Login" onSubmit={onSubmit} validationSchema={ValidationLoginSchema} initialValues={initialValues}>
       <CustomTextInput name="username" placeholder="Guest" />
       <CustomTextInput name="password" placeholder="123" errorText="Wrong password" />
 

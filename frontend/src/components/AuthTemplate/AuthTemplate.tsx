@@ -8,11 +8,12 @@ type Props<FormValuesType> = {
   title?: string
   initialValues: FormValuesType
   onSubmit: OnSubmitType<FormValuesType>
+  validationSchema: object
 };
 
 export function AuthTemplate<FormValuesType extends object>(
   {
-    children, title, onSubmit, initialValues,
+    children, title, onSubmit, initialValues, validationSchema,
   }: Props<FormValuesType>,
 ) {
   return (
@@ -20,6 +21,7 @@ export function AuthTemplate<FormValuesType extends object>(
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
+        validationSchema={validationSchema}
       >
         <Form className="AuthTemplate__card">
           {title && <h1 className="AuthTemplate__title">{title}</h1>}

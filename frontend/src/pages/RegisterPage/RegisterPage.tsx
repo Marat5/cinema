@@ -4,6 +4,7 @@ import { OnSubmitType } from '../../components/AuthTemplate/types';
 import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
+import { ValidationRegisterSchema } from './ValidationRegisterSchema';
 
 type RegisterFormValues = {
   username: string
@@ -29,7 +30,7 @@ export function RegisterPage() {
     }, 2000);
   };
   return (
-    <AuthTemplate title="Register" onSubmit={onSubmit} initialValues={initialValues}>
+    <AuthTemplate title="Register" onSubmit={onSubmit} validationSchema={ValidationRegisterSchema} initialValues={initialValues}>
       <CustomTextInput name="username" placeholder="Guest" />
       <CustomTextInput name="password1" displayName="Password" placeholder="123" />
       <CustomTextInput name="password2" displayName="Repeat password" placeholder="123" />
