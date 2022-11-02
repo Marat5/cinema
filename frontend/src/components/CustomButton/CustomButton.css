@@ -18,7 +18,7 @@
 
 .CustomButton_primary {
     background-color: var(--primary-color);
-    color: white;
+    color: var(--tertiary-color);
 }
 
 .CustomButton_primary:enabled:focus, .CustomButton_primary:enabled:hover {

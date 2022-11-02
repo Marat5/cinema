@@ -30,6 +30,7 @@ export function CustomTextInput({
               'CustomTextInput__input',
               meta.touched && meta.error && 'CustomTextInput__input_error',
             )}
+            autoComplete="off"
           />
           <span className="CustomTextInput__error">{meta.touched && meta.error}</span>
         </div>

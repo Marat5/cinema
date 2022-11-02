@@ -1,6 +1,7 @@
 .CustomTextInput__label {
     display: block;
     padding-bottom: 4px;
+    color: var(--secondary-color);
 }
 
 
@@ -10,6 +11,7 @@
     border-radius: var(--field-border-radius);
     padding: 4px;
     border: 1px solid var(--dark-grey-color);
+    color: var(--secondary-color);
 }
 
 .CustomTextInput__input::placeholder {
