@@ -1,9 +1,8 @@
 .AuthTemplate {
-    height: 100vh;
-    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1;
 }
 
 .AuthTemplate__card {

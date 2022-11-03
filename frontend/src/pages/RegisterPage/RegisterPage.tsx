@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AuthTemplate } from '../../components/AuthTemplate/AuthTemplate';
 import { OnSubmitType } from '../../components/AuthTemplate/types';
 import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
+import { ROUTES } from '../../utils/constants';
 import { ValidationRegisterSchema } from './ValidationRegisterSchema';
 
 type RegisterFormValues = {
@@ -20,6 +22,7 @@ const initialValues: RegisterFormValues = {
 
 export function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit: OnSubmitType<RegisterFormValues> = (values, actions) => {
     // eslint-disable-next-line no-console
@@ -36,8 +39,8 @@ export function RegisterPage() {
       <CustomTextInput name="password2" displayName="Repeat password" placeholder="123" />
 
       <ButtonSet>
-        <CustomButton text="Create account" type="submit" bottomGap={8} showLoadIndicator={isLoading} />
-        <CustomButton text="I already have account" type="button" look="secondary" />
+        <CustomButton text="Create account" type="submit" bottomGap={8} showLoadIndicator={isLoading} onClick={() => {}} />
+        <CustomButton text="I already have account" type="button" look="secondary" onClick={() => navigate(ROUTES.login)} />
       </ButtonSet>
     </AuthTemplate>
   );

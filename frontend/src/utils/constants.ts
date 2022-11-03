@@ -7,3 +7,9 @@ export const COLORS = {
   tertiaryColor: getComputedStyle(document.documentElement)
     .getPropertyValue('--tertiary-color'),
 };
+
+export const ROUTES = {
+  login: '/login',
+  register: '/register',
+  movies: '/movies',
+};

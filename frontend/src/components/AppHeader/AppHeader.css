@@ -1,0 +1,27 @@
+.AppHeader {
+    height: 46px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 22px;
+    border-bottom: 1px solid var(--dark-grey-color);
+}
+
+.AppHeader__title {
+    font-size: 26px;
+}
+
+.AppHeader__username {
+    font-size: 16px;
+    color: var(--primary-color)
+}
+
+
+.AppHeader__login {
+    font-size: 16px;
+    color: var(--secondary-color);
+}
+
+.AppHeader__login:hover {
+    color: var(--primary-color-accent)
+}
