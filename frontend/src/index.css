@@ -9,6 +9,8 @@
   --danger-color: #FF0000;
 
   --field-border-radius: 4px;
+  --card-padding: 18px;
+  --card-border-radius: 12px;
 }
 
 * {
@@ -22,4 +24,5 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--tertiary-color);
+  color: var(--secondary-color);
 }

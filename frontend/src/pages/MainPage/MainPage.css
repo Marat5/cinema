@@ -1,0 +1,5 @@
+.MainPage {
+    display: flex;
+    gap: 12px;
+    margin: 12px;
+}

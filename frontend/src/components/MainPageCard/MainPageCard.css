@@ -1,0 +1,5 @@
+.MainPageCard {
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    border: 1px solid var(--primary-color-accent);
+}
