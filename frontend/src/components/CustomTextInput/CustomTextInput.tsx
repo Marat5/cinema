@@ -10,9 +10,9 @@ type Props = {
   errorText?: string
 };
 
-export function CustomTextInput({
+export const CustomTextInput = ({
   name, placeholder, displayName,
-}: Props) {
+}: Props) => {
   const nameText = displayName ? `${displayName}:` : `${capitalize(name)}:`;
   return (
     <Field name={name}>
@@ -37,4 +37,4 @@ export function CustomTextInput({
       )}
     </Field>
   );
-}
+};

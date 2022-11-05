@@ -13,9 +13,9 @@ type Props = {
   showLoadIndicator?: boolean
 };
 
-export function CustomButton({
+export const CustomButton = ({
   type, text, look = 'primary', bottomGap = 0, showLoadIndicator, onClick,
-}: Props) {
+}: Props) => {
   const className = `CustomButton CustomButton_${look}`;
   return (
     <button
@@ -28,4 +28,4 @@ export function CustomButton({
       {showLoadIndicator ? <PulseLoader size={10} color={COLORS.tertiaryColor} /> : text}
     </button>
   );
-}
+};

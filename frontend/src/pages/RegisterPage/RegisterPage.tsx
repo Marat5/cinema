@@ -20,7 +20,7 @@ const initialValues: RegisterFormValues = {
   password2: '',
 };
 
-export function RegisterPage() {
+export const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -44,4 +44,4 @@ export function RegisterPage() {
       </ButtonSet>
     </AuthTemplate>
   );
-}
+};

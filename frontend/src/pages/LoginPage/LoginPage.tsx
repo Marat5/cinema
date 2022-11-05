@@ -18,7 +18,7 @@ const initialValues: LoginFormValues = {
   password: '',
 };
 
-export function LoginPage() {
+export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -42,4 +42,4 @@ export function LoginPage() {
       </ButtonSet>
     </AuthTemplate>
   );
-}
+};

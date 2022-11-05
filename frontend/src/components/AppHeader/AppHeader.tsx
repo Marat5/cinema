@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ROUTES } from '../../utils/constants';
 import './AppHeader.css';
 
-export function AppHeader() {
+export const AppHeader = () => {
   // Todo: use real is logged in state
   const [isLoggedIn] = useState(false);
 
@@ -14,4 +14,4 @@ export function AppHeader() {
         : <a href={ROUTES.login} className="AppHeader__login">login</a>}
     </div>
   );
-}
+};

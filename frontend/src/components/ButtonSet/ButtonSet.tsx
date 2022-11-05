@@ -5,10 +5,8 @@ type Props = {
   children: ReactNode
 };
 
-export function ButtonSet({ children }: Props) {
-  return (
-    <div className="ButtonSet">
-      {children}
-    </div>
-  );
-}
+export const ButtonSet = ({ children }: Props) => (
+  <div className="ButtonSet">
+    {children}
+  </div>
+);

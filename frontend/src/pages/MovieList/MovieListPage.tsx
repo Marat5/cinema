@@ -1,5 +1,3 @@
-export function MovieListPage() {
-  return (
-    <h1>Movie List</h1>
-  );
-}
+export const MovieListPage = () => (
+  <h1>Movie List</h1>
+);
