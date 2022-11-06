@@ -1,4 +1,5 @@
 .MainPage {
+    padding-top: var(--header-height);
     display: flex;
     gap: 12px;
     margin: 12px;

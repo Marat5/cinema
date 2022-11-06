@@ -1,10 +1,14 @@
 .AppHeader {
-    height: 46px;
+    height: var(--header-height);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 22px;
     border-bottom: 1px solid var(--dark-grey-color);
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: #2a2a2ad3;
 }
 
 .AppHeader__title {

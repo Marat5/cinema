@@ -11,6 +11,8 @@
   --field-border-radius: 4px;
   --card-padding: 18px;
   --card-border-radius: 12px;
+  
+  --header-height: 46px;
 }
 
 * {
