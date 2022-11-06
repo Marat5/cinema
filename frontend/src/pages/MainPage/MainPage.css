@@ -1,6 +1,24 @@
 .MainPage {
     padding-top: var(--header-height);
     display: flex;
+    flex-direction: column;
     gap: 12px;
     margin: 12px;
+}
+
+.MainPage__title {
+    font-size: 48px;
+}
+
+.MainPage__CardGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+@media screen and (min-width: 768px) {
+    .MainPage__CardGroup {
+        flex-direction: row;
+        gap: 12px;
+    }
 }
