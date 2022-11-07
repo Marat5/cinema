@@ -1,8 +1,12 @@
 import './MainPageCard.css';
 
-export const MainPageCard = () => (
+type Props = {
+  title: string
+};
+
+export const MainPageCard = ({ title }: Props) => (
   <div className="MainPageCard">
-    <h1>Title of card</h1>
+    <h1>{title}</h1>
     <p>Description of what is inside</p>
   </div>
 );

@@ -7,7 +7,12 @@
 }
 
 .MainPage__title {
-    font-size: 48px;
+    font-size: 44px;
+}
+
+.MainPage__title_accent {
+    font-size: 52px;
+    color: var(--primary-color);
 }
 
 .MainPage__CardGroup {

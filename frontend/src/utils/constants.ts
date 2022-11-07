@@ -13,3 +13,23 @@ export const ROUTES = {
   register: '/register',
   movies: '/movies',
 };
+
+// TMP data, remove when connected to backend
+export const MOVIES = [
+  {
+    title: 'Rushmore',
+  },
+  {
+    title: 'Moonrise Kingdom',
+  },
+  {
+    title: 'The Grand Budapest Hotel',
+  },
+  {
+    title: 'Isle of Dogs',
+  },
+  {
+    title: 'The Darjeeling Limited',
+  },
+];
+// End of tmp data
