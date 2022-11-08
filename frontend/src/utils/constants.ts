@@ -18,18 +18,38 @@ export const ROUTES = {
 export const MOVIES = [
   {
     title: 'Rushmore',
+    id: 1,
+    director_name: 'Wes Anderson',
+    year: 1994,
+    rating: 10,
   },
   {
     title: 'Moonrise Kingdom',
+    id: 1,
+    director_name: 'Wes Anderson',
+    year: 1994,
+    rating: 10,
   },
   {
     title: 'The Grand Budapest Hotel',
+    id: 1,
+    director_name: 'Wes Anderson',
+    year: 1994,
+    rating: 10,
   },
   {
     title: 'Isle of Dogs',
+    id: 1,
+    director_name: 'Wes Anderson',
+    year: 1994,
+    rating: 10,
   },
   {
     title: 'The Darjeeling Limited',
+    id: 1,
+    director_name: 'Wes Anderson',
+    year: 1994,
+    rating: 10,
   },
 ];
 // End of tmp data

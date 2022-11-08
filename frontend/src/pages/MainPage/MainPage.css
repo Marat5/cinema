@@ -7,12 +7,13 @@
 }
 
 .MainPage__title {
-    font-size: 44px;
+    font-size: 36px;
 }
 
 .MainPage__title_accent {
-    font-size: 52px;
-    color: var(--primary-color);
+    font-size: 38px;
+    color: white;
+    text-shadow: var(--primary-color) 1px 1px 4px;
 }
 
 .MainPage__CardGroup {
@@ -25,5 +26,13 @@
     .MainPage__CardGroup {
         flex-direction: row;
         gap: 12px;
+    }
+
+    .MainPage__title {
+        font-size: 44px;
+    }
+
+    .MainPage__title_accent {
+        font-size: 52px;
     }
 }

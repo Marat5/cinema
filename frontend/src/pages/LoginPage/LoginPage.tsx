@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AuthTemplate } from '../../components/AuthTemplate/AuthTemplate';
 import { OnSubmitType } from '../../components/AuthTemplate/types';
 import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
+import { CustomButtonLink } from '../../components/CustomButton/CustomButtonLink';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
 import { ROUTES } from '../../utils/constants';
 import { ValidationLoginSchema } from './ValidationLoginSchema';
@@ -20,7 +20,6 @@ const initialValues: LoginFormValues = {
 
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const onSubmit: OnSubmitType<LoginFormValues> = (values, actions) => {
     // eslint-disable-next-line no-console
@@ -38,7 +37,7 @@ export const LoginPage = () => {
 
       <ButtonSet>
         <CustomButton text="Login" type="submit" bottomGap={8} showLoadIndicator={isLoading} onClick={() => {}} />
-        <CustomButton text="Register new account" type="button" look="secondary" onClick={() => navigate(ROUTES.register)} />
+        <CustomButtonLink text="Register new account" look="secondary" to={ROUTES.register} />
       </ButtonSet>
     </AuthTemplate>
   );

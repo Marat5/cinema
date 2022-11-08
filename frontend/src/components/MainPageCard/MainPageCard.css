@@ -1,6 +1,27 @@
 .MainPageCard {
+    position: relative;
+    top: 0;
+    left: 0;
     flex: 1;
     padding: var(--card-padding);
     border-radius: var(--card-border-radius);
     border: 1px solid var(--primary-color-accent);
+    transition: top 200ms, left 200ms;
+}
+
+.MainPageCard:hover {
+    position: relative;
+    top: -3px;
+    left: 3px;
+}
+
+.MainPageCard__title {
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.MainPageCard__list {
+    list-style-type: decimal;
+    padding-left: 2em;
+    font-size: 16px;
 }

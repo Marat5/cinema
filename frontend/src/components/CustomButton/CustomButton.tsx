@@ -1,31 +1,33 @@
 /* eslint-disable react/button-has-type */
+import classNames from 'classnames';
 import { MouseEvent } from 'react';
 import { PulseLoader } from 'react-spinners';
 import { COLORS } from '../../utils/constants';
 import './CustomButton.css';
 
-type Props = {
-  type: 'submit' | 'button' | 'reset'
+// Shared common props for CustomButton and CustomButtonLink
+export type BaseCustomButtonProps = {
   text: string
-  onClick: (e: MouseEvent<HTMLElement>) => void;
   look?: 'primary' | 'secondary'
   bottomGap?: number
+};
+
+type Props = BaseCustomButtonProps & {
+  type: 'submit' | 'button' | 'reset',
   showLoadIndicator?: boolean
+  onClick: (e: MouseEvent<HTMLElement>) => void;
 };
 
 export const CustomButton = ({
   type, text, look = 'primary', bottomGap = 0, showLoadIndicator, onClick,
-}: Props) => {
-  const className = `CustomButton CustomButton_${look}`;
-  return (
-    <button
-      onClick={onClick}
-      disabled={showLoadIndicator}
-      type={type}
-      style={{ marginBottom: bottomGap }}
-      className={className}
-    >
-      {showLoadIndicator ? <PulseLoader size={10} color={COLORS.tertiaryColor} /> : text}
-    </button>
-  );
-};
+}: Props) => (
+  <button
+    onClick={onClick}
+    disabled={showLoadIndicator}
+    type={type}
+    style={{ marginBottom: bottomGap }}
+    className={classNames('CustomButton', `CustomButton_${look}`)}
+  >
+    {showLoadIndicator ? <PulseLoader size={10} color={COLORS.tertiaryColor} /> : text}
+  </button>
+);

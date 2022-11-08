@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ROUTES } from '../../utils/constants';
 import './AppHeader.css';
 
@@ -8,10 +9,10 @@ export const AppHeader = () => {
 
   return (
     <div className="AppHeader">
-      <a href="/"><h1 className="AppHeader__title">cinema</h1></a>
+      <Link to="/"><h1 className="AppHeader__title">cinema</h1></Link>
       {isLoggedIn
         ? <span className="AppHeader__username">username</span>
-        : <a href={ROUTES.login} className="AppHeader__login">login</a>}
+        : <Link to={ROUTES.login} className="AppHeader__login">login</Link>}
     </div>
   );
 };
