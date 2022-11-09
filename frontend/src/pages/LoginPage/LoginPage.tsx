@@ -36,7 +36,12 @@ export const LoginPage = () => {
       <CustomTextInput name="password" placeholder="123" errorText="Wrong password" />
 
       <ButtonSet>
-        <CustomButton text="Login" type="submit" bottomGap={8} showLoadIndicator={isLoading} onClick={() => {}} />
+        <CustomButton
+          text="Login"
+          type="submit"
+          bottomGap={8}
+          showLoadIndicator={isLoading}
+        />
         <CustomButtonLink text="Register new account" look="secondary" to={ROUTES.register} />
       </ButtonSet>
     </AuthTemplate>

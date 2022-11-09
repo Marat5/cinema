@@ -15,7 +15,7 @@ export type BaseCustomButtonProps = {
 type Props = BaseCustomButtonProps & {
   type: 'submit' | 'button' | 'reset',
   showLoadIndicator?: boolean
-  onClick: (e: MouseEvent<HTMLElement>) => void;
+  onClick?: (e: MouseEvent<HTMLElement>) => void;
 };
 
 export const CustomButton = ({
