@@ -1,17 +1,18 @@
 import { PageHeading } from '../../components/PageHeading/PageHeading';
 import { MOVIES } from '../../utils/constants';
+import './MovieListPage.css';
 
 export const MovieListPage = () => (
   <>
     <PageHeading title="Top Rated Movies" />
 
-    <table>
+    <table className="MoviesTable">
       <tr>
         <th>Title</th>
         <th>Director</th>
         <th>Rating</th>
-        <th>IMDB rating</th>
-        <th>When watched</th>
+        <th className="MoviesTable__col_hide-mobile">IMDB rating</th>
+        <th className="MoviesTable__col_hide-mobile">When watched</th>
       </tr>
 
       {MOVIES.map((movie) => (
@@ -19,8 +20,8 @@ export const MovieListPage = () => (
           <td>{movie.title}</td>
           <td>{movie.director_name}</td>
           <td>{movie.rating}</td>
-          <td>imdb todo</td>
-          <td>when watched todo</td>
+          <td className="MoviesTable__col_hide-mobile">imdb todo</td>
+          <td className="MoviesTable__col_hide-mobile">when watched todo</td>
         </tr>
       ))}
     </table>

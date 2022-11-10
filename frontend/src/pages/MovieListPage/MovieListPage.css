@@ -1,0 +1,26 @@
+.MoviesTable th, .MoviesTable td {
+    font-size: 16px;
+    padding: 12px 0;
+}
+
+.MoviesTable th {
+    color: var(--primary-color);
+}
+
+.MoviesTable tr {
+    border-bottom: 1px solid var(--dark-grey-color);
+}
+
+.MoviesTable tr:last-child {
+    border-bottom: none;
+}
+
+.MoviesTable__col_hide-mobile {
+    display: none;
+}   
+
+@media screen and (min-width: 768px) {
+    .MoviesTable__col_hide-mobile {
+        display: table-cell;
+    }   
+}
