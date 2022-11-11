@@ -5,7 +5,7 @@ import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { CustomButtonLink } from '../../components/CustomButton/CustomButtonLink';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
-import { ROUTES } from '../../utils/constants';
+import { ROUTES } from '../Router/constants';
 import { ValidationLoginSchema } from './ValidationLoginSchema';
 
 type LoginFormValues = {

@@ -16,10 +16,10 @@
 
 .MainPageCard__title {
     font-size: 26px;
-    margin-bottom: 8px;
 }
 
 .MainPageCard__list {
+    margin-top: 8px;
     list-style-type: decimal;
     padding-left: 2em;
     font-size: 16px;

@@ -1,17 +1,21 @@
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../utils/constants';
 import './MainPageCard.css';
 
 type Props = {
   title: string
-  listItems: string[]
+  listItems?: string[]
+  to: string
 };
 
-export const MainPageCard = ({ title, listItems }: Props) => (
-  <Link to={ROUTES.movies} className="MainPageCard">
+export const MainPageCard = ({ title, listItems, to }: Props) => (
+  <Link to={to} className="MainPageCard">
     <h1 className="MainPageCard__title">{title}</h1>
-    <ol className="MainPageCard__list">
-      {listItems.map((itemText) => <li key={itemText}>{itemText}</li>)}
-    </ol>
+
+    {listItems
+        && (
+        <ol className="MainPageCard__list">
+          {listItems.map((itemText) => <li key={itemText}>{itemText}</li>)}
+        </ol>
+        )}
   </Link>
 );

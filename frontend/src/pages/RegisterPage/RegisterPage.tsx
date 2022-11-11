@@ -5,7 +5,7 @@ import { OnSubmitType } from '../../components/AuthTemplate/types';
 import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
-import { ROUTES } from '../../utils/constants';
+import { ROUTES } from '../Router/constants';
 import { ValidationRegisterSchema } from './ValidationRegisterSchema';
 
 type RegisterFormValues = {

@@ -1,3 +1,5 @@
+import { Director } from './types';
+
 // Colors are set in index.css
 export const COLORS = {
   primaryColor: getComputedStyle(document.documentElement)
@@ -6,12 +8,6 @@ export const COLORS = {
     .getPropertyValue('--secondary-color'),
   tertiaryColor: getComputedStyle(document.documentElement)
     .getPropertyValue('--tertiary-color'),
-};
-
-export const ROUTES = {
-  login: '/login',
-  register: '/register',
-  movies: '/movies',
 };
 
 // TMP data, remove when connected to backend
@@ -52,4 +48,11 @@ export const MOVIES = [
     rating: 10,
   },
 ];
+
+export const DIRECTORS: Director[] = [{
+  id: 1,
+  name: 'Wes Anderson',
+  average_rating: 10
+}];
+
 // End of tmp data
