@@ -1,0 +1,44 @@
+.CustomTable th, .CustomTable td {
+    font-size: 16px;
+    padding: 12px 0;
+}
+
+.CustomTable th {
+    color: var(--primary-color);
+}
+
+.CustomTable tr {
+    border-bottom: 1px solid var(--dark-grey-color);
+}
+
+.CustomTable tr:last-child {
+    border-bottom: none;
+}
+
+.CustomTable__col_hide-mobile {
+    display: none;
+}   
+
+@media screen and (min-width: 768px) {
+    .CustomTable__col_hide-mobile {
+        display: table-cell;
+    }   
+}
+
+.SortingRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.SortingRow__option {
+    padding: 6px 8px;
+    border-radius: 10px;
+    border: 1px solid var(--primary-color);
+}
+
+.SortingRow__option:hover, .SortingRow__option_active {
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--dark-grey-color);
+}

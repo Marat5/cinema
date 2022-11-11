@@ -29,6 +29,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
     'react/jsx-props-no-spreading': 'off',
+    '@typescript-eslint/comma-dangle': 'off',
     'jsx-a11y/label-has-associated-control': [ 'error', {
       'required': {
         'some': [ 'nesting', 'id'  ]
