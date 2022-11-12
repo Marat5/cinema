@@ -3,6 +3,7 @@
     padding: 12px 0;
 }
 
+
 .CustomTable th {
     color: var(--primary-color);
 }
@@ -17,7 +18,12 @@
 
 .CustomTable__col_hide-mobile {
     display: none;
-}   
+}
+
+.CustomTable__row_clickable:hover {
+    cursor: pointer;
+    color: var(--primary-color-accent);
+}
 
 @media screen and (min-width: 768px) {
     .CustomTable__col_hide-mobile {
@@ -37,7 +43,7 @@
     border: 1px solid var(--primary-color);
 }
 
-.SortingRow__option:hover, .SortingRow__option_active {
+.SortingRow__option:hover, .SortingRow__option_active, .SortingRow__option:focus {
     cursor: pointer;
     background-color: var(--primary-color);
     color: var(--dark-grey-color);

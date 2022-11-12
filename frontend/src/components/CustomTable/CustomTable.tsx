@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import classNames from 'classnames';
 import './CustomTable.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 export type CustomTableColumn<TableDataType> = {
   title: string
@@ -32,6 +33,11 @@ export const CustomTable = <TableDataType extends FlatObjectWithRenderableValues
     tableData, columns, sortOptions = []
   }
   : Props<TableDataType>) => {
+  const navigate = useNavigate();
+  const onRowClick = (id: number) => {
+    navigate(`${id}`);
+  };
+
   const setSorting = (sortByKey: string) => {
     // eslint-disable-next-line no-console
     console.log(sortByKey);
@@ -74,13 +80,24 @@ export const CustomTable = <TableDataType extends FlatObjectWithRenderableValues
 
         <tbody>
           {tableData.map((item) => (
-            <tr key={item.id}>
-              {columns.map((column) => (
+            <tr
+              key={item.id}
+              className="CustomTable__row_clickable"
+              onClick={() => onRowClick(item.id)}
+            >
+              {columns.map((column, index) => (
                 <td
                   key={column.key}
                   className={classNames(column.isHiddenOnMobile && 'CustomTable__col_hide-mobile')}
                 >
-                  {item[column.key]}
+                  {index === 0
+                    ? (
+                      // The link is here for accessibility
+                      <Link onClick={(e) => e.stopPropagation()} to={`${item.id}`}>
+                        {item[column.key]}
+                      </Link>
+                    )
+                    : item[column.key]}
                 </td>
               ))}
             </tr>
