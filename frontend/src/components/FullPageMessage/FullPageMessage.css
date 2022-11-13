@@ -1,0 +1,23 @@
+.FullPageMessage {
+    margin-top: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.FullPageMessage h1 {
+    font-size: 32px;
+    color: white;
+    text-shadow: var(--primary-color) 1px 1px 4px;
+}
+
+
+.FullPageMessage h2 {
+    font-size: 26px;
+}
+
+.FullPageMessage__text_highlighted {
+    color: var(--primary-color)
+}
