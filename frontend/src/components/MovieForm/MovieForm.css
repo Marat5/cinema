@@ -1,0 +1,14 @@
+.MovieForm {
+    margin: 90px auto 0;
+    max-width: 400px;
+    border: 1px solid var(--primary-color-accent);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+}
+
+.MovieForm__title {
+    font-size: 38px;
+    color: white;
+    text-shadow: var(--primary-color) 1px 1px 4px;
+    margin-bottom: 22px;
+}

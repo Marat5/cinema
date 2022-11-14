@@ -1,13 +1,13 @@
 import { Form, Formik } from 'formik';
 import { ReactNode } from 'react';
+import { OnSubmitOrResetType } from '../../utils/types';
 import './AuthTemplate.css';
-import { OnSubmitType } from './types';
 
 type Props<FormValuesType> = {
   children: ReactNode
   title?: string
   initialValues: FormValuesType
-  onSubmit: OnSubmitType<FormValuesType>
+  onSubmit: OnSubmitOrResetType<FormValuesType>
   validationSchema: object
 };
 

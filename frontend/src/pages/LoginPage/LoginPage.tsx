@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { AuthTemplate } from '../../components/AuthTemplate/AuthTemplate';
-import { OnSubmitType } from '../../components/AuthTemplate/types';
 import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
 import { CustomButtonLink } from '../../components/CustomButton/CustomButtonLink';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
+import { OnSubmitOrResetType } from '../../utils/types';
 import { ROUTES } from '../Router/constants';
 import { ValidationLoginSchema } from './ValidationLoginSchema';
 
@@ -21,7 +21,7 @@ const initialValues: LoginFormValues = {
 export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSubmit: OnSubmitType<LoginFormValues> = (values, actions) => {
+  const onSubmit: OnSubmitOrResetType<LoginFormValues> = (values, actions) => {
     // eslint-disable-next-line no-console
     console.log(values, actions, 'yay, submit');
     setIsLoading(true);
@@ -39,7 +39,6 @@ export const LoginPage = () => {
         <CustomButton
           text="Login"
           type="submit"
-          bottomGap={8}
           showLoadIndicator={isLoading}
         />
         <CustomButtonLink text="Register new account" look="secondary" to={ROUTES.register} />

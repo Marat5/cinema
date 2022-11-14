@@ -10,12 +10,11 @@ type ButtonLinkProps = BaseCustomButtonProps & {
 };
 
 export const CustomButtonLink = ({
-  text, look = 'primary', bottomGap = 0, to,
+  text, look = 'primary', to,
 }: ButtonLinkProps) => (
   <Link
     to={to}
     className={classNames('CustomButton', `CustomButton_${look}`)}
-    style={{ marginBottom: bottomGap }}
   >
     {text}
   </Link>

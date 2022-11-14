@@ -8,8 +8,7 @@ import './CustomButton.css';
 // Shared common props for CustomButton and CustomButtonLink
 export type BaseCustomButtonProps = {
   text: string
-  look?: 'primary' | 'secondary'
-  bottomGap?: number
+  look?: 'primary' | 'secondary' | 'cancel'
 };
 
 type Props = BaseCustomButtonProps & {
@@ -19,13 +18,12 @@ type Props = BaseCustomButtonProps & {
 };
 
 export const CustomButton = ({
-  type, text, look = 'primary', bottomGap = 0, showLoadIndicator, onClick,
+  type, text, look = 'primary', showLoadIndicator, onClick
 }: Props) => (
   <button
     onClick={onClick}
     disabled={showLoadIndicator}
     type={type}
-    style={{ marginBottom: bottomGap }}
     className={classNames('CustomButton', `CustomButton_${look}`)}
   >
     {showLoadIndicator ? <PulseLoader size={10} color={COLORS.tertiaryColor} /> : text}

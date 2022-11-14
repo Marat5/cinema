@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { ResourceNotFound } from '../../components/ResourceNotFound/ResourceNotFound';
+import { MovieForm } from '../../components/MovieForm/MovieForm';
 import { MOVIES } from '../../utils/constants';
 
 export const MoviePage = () => {
@@ -7,7 +8,9 @@ export const MoviePage = () => {
 
   const movie = MOVIES.find((m) => m.id === Number(id));
   return (
-    movie ? (<span>{movie.title}</span>) : (
+    movie ? (
+      <MovieForm initialValues={movie} />
+    ) : (
       <ResourceNotFound resourceName="Movie" resourceId={String(id)} />
     )
   );

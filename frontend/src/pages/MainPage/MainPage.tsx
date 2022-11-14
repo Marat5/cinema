@@ -18,6 +18,5 @@ export const MainPage = () => (
     </div>
     <MainPageCard title="Top rated directors" listItems={MOVIES.map((m) => m.title)} to={ROUTES.directors} />
     <MainPageCard title="Add new movie" to={ROUTES.moviesRoutes.add} />
-
   </LimitedWidthContent>
 );
