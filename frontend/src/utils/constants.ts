@@ -52,7 +52,8 @@ export const MOVIES = [
 export const DIRECTORS: Director[] = [{
   id: 1,
   name: 'Wes Anderson',
-  average_rating: 10
+  average_rating: 10,
+  movies_watched: 3
 }];
 
 // End of tmp data

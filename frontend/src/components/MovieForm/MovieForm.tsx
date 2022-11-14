@@ -5,7 +5,7 @@ import { Movie, OnSubmitOrResetType } from '../../utils/types';
 import { ButtonSet } from '../ButtonSet/ButtonSet';
 import { CustomButton } from '../CustomButton/CustomButton';
 import { CustomTextInput } from '../CustomTextInput/CustomTextInput';
-import './MovieForm.css';
+import { ResourceCard } from '../ResourceCard/ResourceCard';
 
 type MovieFormValues = Omit<Movie, 'id'>;
 
@@ -39,42 +39,42 @@ export const MovieForm = ({ initialValues }: Props) => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit} onReset={onReset}>
-      <Form className="MovieForm">
-        <h1 className="MovieForm__title">Movie card</h1>
+    <ResourceCard title="Movie Card">
+      <Formik initialValues={initialValues} onSubmit={onSubmit} onReset={onReset}>
+        <Form>
+          <CustomTextInput name="title" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
+          <CustomTextInput name="director_name" displayName="Director Name" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
+          <CustomTextInput name="year" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
+          <CustomTextInput name="rating" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
 
-        <CustomTextInput name="title" placeholder="Schindler's List" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
-        <CustomTextInput name="director_name" displayName="Director Name" placeholder="Steven Spielberg" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
-        <CustomTextInput name="year" placeholder="1993" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
-        <CustomTextInput name="rating" placeholder="10" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
-
-        <ButtonSet isHorizontal>
-          {isEditing
-            ? (
-              <>
+          <ButtonSet isHorizontal>
+            {isEditing
+              ? (
+                <>
+                  <CustomButton
+                    key="submit"
+                    text="Save"
+                    type="submit"
+                    showLoadIndicator={isLoading}
+                  />
+                  <CustomButton
+                    text="Cancel"
+                    type="reset"
+                    look="cancel"
+                  />
+                </>
+              )
+              : (
                 <CustomButton
-                  key="submit"
-                  text="Save"
-                  type="submit"
-                  showLoadIndicator={isLoading}
+                  key="edit"
+                  text="Edit"
+                  type="button"
+                  onClick={toggleIsEditing}
                 />
-                <CustomButton
-                  text="Cancel"
-                  type="reset"
-                  look="cancel"
-                />
-              </>
-            )
-            : (
-              <CustomButton
-                key="edit"
-                text="Edit"
-                type="button"
-                onClick={toggleIsEditing}
-              />
-            )}
-        </ButtonSet>
-      </Form>
-    </Formik>
+              )}
+          </ButtonSet>
+        </Form>
+      </Formik>
+    </ResourceCard>
   );
 };

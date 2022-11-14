@@ -12,6 +12,7 @@ export type Director = {
   id: number
   name: string
   average_rating: number
+  movies_watched: number
 };
 
 // Use to type submit and reset functions for formik forms
