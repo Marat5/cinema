@@ -38,4 +38,5 @@ htmlcov/
 
 dist/
 build/
+react_build/
 *.egg-info/
