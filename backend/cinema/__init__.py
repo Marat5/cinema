@@ -1,10 +1,12 @@
 import os
-from flask import Flask, Blueprint
-
-api_bp = Blueprint("api", __name__, url_prefix="/api")
+from flask import Flask
+from flask_cors import CORS
 
 
 def register_blueprints(app: Flask):
+    # Common api blueprint
+    from cinema.views.common_api_blueprint import api_bp
+
     # Rest api blueprints
     from cinema.views.auth import auth_bp
     from cinema.views.movies import movies_bp
@@ -31,6 +33,7 @@ def create_app():
     app.config.from_mapping(
         SECRET_KEY='dev',
     )
+    CORS(app)
 
     try:
         os.makedirs(app.instance_path)

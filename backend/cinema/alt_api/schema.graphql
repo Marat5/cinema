@@ -28,7 +28,6 @@ type Token {
 }
 
 type Query {
-  login(username: String, password: String): Token
   user: User
 
   directors: [Director!]
@@ -39,9 +38,10 @@ type Query {
 }
 
 type Mutation {
-  createDirector(name: String!): Director
-
+  login(username: String, password: String): Token
   register(username: String, password: String): Token
+
+  createDirector(name: String!): Director
 
   createMovie(
     title: String

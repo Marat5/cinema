@@ -1,15 +1,5 @@
 from cinema.models import User
-from cinema.utils.jwt import get_token_or_exception, token_required
-from cinema.utils.validators import map_graphql_resolver_args_to_rest_body, validate_auth_request_body
-
-
-def resolve_login(obj, info, username, password):
-    body_for_validation = map_graphql_resolver_args_to_rest_body(
-        username=username, password=password)
-    valid_body = validate_auth_request_body(body_for_validation)
-
-    token = get_token_or_exception(valid_body)
-    return {"token": token}
+from cinema.utils.jwt import token_required
 
 
 @token_required(is_graphql=True)

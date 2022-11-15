@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useLoginMutation } from '../../api/mutations/useLoginMutation';
 import { AuthTemplate } from '../../components/AuthTemplate/AuthTemplate';
 import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
@@ -19,16 +19,13 @@ const initialValues: LoginFormValues = {
 };
 
 export const LoginPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [login, { data, error, loading }] = useLoginMutation();
+  console.log(data, error);
 
   const onSubmit: OnSubmitOrResetType<LoginFormValues> = (values, actions) => {
     // eslint-disable-next-line no-console
     console.log(values, actions, 'yay, submit');
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      actions.setFieldError('username', 'Validation failed on backend');
-    }, 2000);
+    login({ variables: values });
   };
   return (
     <AuthTemplate title="Login" onSubmit={onSubmit} validationSchema={ValidationLoginSchema} initialValues={initialValues}>
@@ -39,7 +36,7 @@ export const LoginPage = () => {
         <CustomButton
           text="Login"
           type="submit"
-          showLoadIndicator={isLoading}
+          showLoadIndicator={loading}
         />
         <CustomButtonLink text="Register new account" look="secondary" to={ROUTES.register} />
       </ButtonSet>

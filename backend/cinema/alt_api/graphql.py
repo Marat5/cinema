@@ -1,10 +1,10 @@
 from ariadne import ObjectType, graphql_sync, load_schema_from_path, make_executable_schema, snake_case_fallback_resolvers
 from ariadne.constants import PLAYGROUND_HTML
 from flask import Blueprint, jsonify, request
-from cinema.alt_api.mutations.auth import resolve_register
+from cinema.alt_api.mutations.auth import resolve_register, resolve_login
 from cinema.alt_api.mutations.directors import resolve_create_director
 from cinema.alt_api.mutations.movies import resolve_create_movie, resolve_delete_movie, resolve_update_movie
-from cinema.alt_api.queries.auth import resolve_login, resolve_user
+from cinema.alt_api.queries.auth import resolve_user
 from cinema.alt_api.queries.directors import resolve_director, resolve_directors
 from cinema.alt_api.queries.movies import resolve_movie, resolve_movies
 
@@ -21,9 +21,9 @@ query.set_field("director", resolve_director)
 mutation.set_field("createDirector", resolve_create_director)
 
 # Auth
-query.set_field("login", resolve_login)
 query.set_field("user", resolve_user)
 
+mutation.set_field("login", resolve_login)
 mutation.set_field("register", resolve_register)
 
 # Movie
