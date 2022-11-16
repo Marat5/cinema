@@ -1,19 +1,13 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import 'the-new-css-reset/css/reset.css';
-import {
-  ApolloClient, InMemoryCache, ApolloProvider
-} from '@apollo/client';
+import { ApolloProvider } from '@apollo/client';
 import { AppHeader } from './components/AppHeader/AppHeader';
 import { Router as AppRoutes } from './pages/Router/Router';
-
-const client = new ApolloClient({
-  uri: 'http://127.0.0.1:8000/api/graphql/',
-  cache: new InMemoryCache(),
-});
+import { apolloClient } from './utils/setupApolloClient';
 
 const App = () => (
-  <ApolloProvider client={client}>
+  <ApolloProvider client={apolloClient}>
     <BrowserRouter>
       <AppHeader />
       <AppRoutes />

@@ -45,7 +45,7 @@ def token_required(original_f=None, *, is_graphql=False):
 
 def encode_jwt(user_id):
     return jwt.encode(
-        {"id": user_id, "exp": datetime.utcnow() + timedelta(minutes=40)}, current_app.config["SECRET_KEY"])
+        {"id": user_id, "exp": datetime.utcnow() + timedelta(hours=10)}, current_app.config["SECRET_KEY"])
 
 
 def get_auth_error(missing_or_invalid, is_graphql):

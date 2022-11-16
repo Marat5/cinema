@@ -7,7 +7,6 @@ type Props = {
   name: string
   placeholder?: string
   displayName?: string
-  errorText?: string
   isDisabled?: boolean
   isBorderHidden?: boolean
   size?: 'm' | 'l'

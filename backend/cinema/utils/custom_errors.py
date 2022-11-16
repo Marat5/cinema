@@ -1,8 +1,11 @@
+# "extensions" in custom errors are used in graphql error returned to client
+
 class ValidationError(Exception):
     code = 400
 
 
 class UnauthorizedError(Exception):
+    extensions = {"field": "password"}
     code = 401
 
 
@@ -11,7 +14,8 @@ class ForbiddenError(Exception):
 
 
 class ResourceDoesNotExistError(Exception):
-    def __init__(self, resource_name: str) -> None:
+    def __init__(self, resource_name: str, problematic_field_name: str) -> None:
+        self.extensions = {"field": problematic_field_name}
         self.message = f"{resource_name.capitalize()} does not exist"
 
     def __str__(self) -> str:

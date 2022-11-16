@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime
 from typing import List
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, desc
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash
 
@@ -23,12 +23,13 @@ class User(db.Model):
         if username:
             user = db.session.execute(
                 db.select(User).filter_by(username=username)).scalar()
+            if not user:
+                raise ResourceDoesNotExistError("user", "username")
         if id:
             user = db.session.execute(
                 db.select(User).filter_by(id=id)).scalar()
-
-        if not user:
-            raise ResourceDoesNotExistError("user")
+            if not user:
+                raise ResourceDoesNotExistError("user", "id")
         return user
 
     @staticmethod
@@ -60,15 +61,15 @@ class Movie(db.Model):
     rating: float = db.Column(db.Float, nullable=False)
 
     @staticmethod
-    def get_movies():
-        return db.session.execute(db.select(Movie)).scalars().all()
+    def get_movies(order_by=None, limit=None):
+        return db.session.execute(db.select(Movie).limit(limit).order_by(desc(order_by))).scalars().all()
 
     @staticmethod
     def get_movie(id):
         movie = db.session.execute(
             db.select(Movie).filter_by(id=id)).scalars().first()
         if not movie:
-            raise ResourceDoesNotExistError("movie")
+            raise ResourceDoesNotExistError("movie", "id")
         return movie
 
     @staticmethod
@@ -129,10 +130,11 @@ class Director(db.Model):
     id: int = db.Column(db.Integer, primary_key=True)
     name: str = db.Column(db.String, unique=True, nullable=False)
     movies: List[Movie] = db.relationship("Movie", backref="director")
+    average_rating: int = db.Column(db.Integer, nullable=False)
 
     @staticmethod
-    def get_directors():
-        return db.session.execute(db.select(Director)).scalars().all()
+    def get_directors(limit):
+        return db.session.execute(db.select(Director).limit(limit).order_by(desc(Director.average_rating))).scalars().all()
 
     @staticmethod
     def get_director(id=None, name=None, create_if_404=False):
@@ -145,9 +147,9 @@ class Director(db.Model):
 
         if not director:
             if create_if_404:
-                director = Director.create_director(name)
+                director = Director.create_director({"name": name})
             else:
-                raise ResourceDoesNotExistError("director")
+                raise ResourceDoesNotExistError("director", "name")
 
         return director
 
@@ -155,7 +157,7 @@ class Director(db.Model):
     def create_director(valid_body: CreateDirectorValidBody):
         try:
             director_name = valid_body.get("name")
-            director = Director(name=director_name)
+            director = Director(name=director_name, average_rating=1)
             db.session.add(director)
             db.session.commit()
         except IntegrityError:

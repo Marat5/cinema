@@ -10,6 +10,8 @@ export const COLORS = {
     .getPropertyValue('--tertiary-color'),
 };
 
+export const MAIN_PAGE_CARD_ITEMS_COUNT = 5;
+
 // TMP data, remove when connected to backend
 export const MOVIES = [
   {

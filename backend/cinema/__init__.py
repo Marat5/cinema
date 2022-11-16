@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+from cinema.middleware.slow_down_middleware import SlowDownMiddleware
 
 
 def register_blueprints(app: Flask):
@@ -34,6 +35,7 @@ def create_app():
         SECRET_KEY='dev',
     )
     CORS(app)
+    app.wsgi_app = SlowDownMiddleware(app.wsgi_app)
 
     try:
         os.makedirs(app.instance_path)

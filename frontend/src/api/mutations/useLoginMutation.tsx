@@ -1,4 +1,13 @@
 import { gql, useMutation } from '@apollo/client';
+import { LoginFormValues } from '../../pages/LoginPage/types';
+
+type LoginData = {
+  login: {
+    token: string
+  }
+};
+
+type LoginMutationVars = LoginFormValues;
 
 const LOGIN = gql`
     mutation LoginMutation(
@@ -11,4 +20,4 @@ const LOGIN = gql`
     }
 `;
 
-export const useLoginMutation = () => useMutation(LOGIN);
+export const useLoginMutation = () => useMutation<LoginData, LoginMutationVars>(LOGIN);
