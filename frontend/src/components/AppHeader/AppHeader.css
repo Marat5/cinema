@@ -16,16 +16,25 @@
 }
 
 .AppHeader__username {
+    text-overflow: ellipsis;
+    overflow: hidden;
     font-size: 16px;
     color: var(--primary-color)
 }
 
 
-.AppHeader__login {
+.AppHeader__authAction {
     font-size: 16px;
     color: var(--secondary-color);
 }
 
-.AppHeader__login:hover {
+.AppHeader__authAction:hover {
+    cursor: pointer;
     color: var(--primary-color-accent)
+}
+
+.AppHeader__loggedIn {
+    display: flex;
+    overflow: hidden;
+    gap: 12px;
 }

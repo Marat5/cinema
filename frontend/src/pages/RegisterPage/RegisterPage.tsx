@@ -1,18 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AuthTemplate } from '../../components/AuthTemplate/AuthTemplate';
 import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
 import { CustomButton } from '../../components/CustomButton/CustomButton';
+import { CustomButtonLink } from '../../components/CustomButton/CustomButtonLink';
 import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
-import { OnSubmitOrResetType } from '../../utils/types';
-import { ROUTES } from '../Router/constants';
+import { useRegisterSubmit } from '../../hooks/useRegisterSubmit';
+import { RegisterFormValues } from './types';
 import { ValidationRegisterSchema } from './ValidationRegisterSchema';
-
-type RegisterFormValues = {
-  username: string
-  password1: string
-  password2: string
-};
+import { ROUTES } from '../Router/constants';
 
 const initialValues: RegisterFormValues = {
   username: '',
@@ -21,26 +15,17 @@ const initialValues: RegisterFormValues = {
 };
 
 export const RegisterPage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
+  const [onRegisterSubmit, { loading }] = useRegisterSubmit();
 
-  const onSubmit: OnSubmitOrResetType<RegisterFormValues> = (values, actions) => {
-    // eslint-disable-next-line no-console
-    console.log(values, actions, 'yay, submit');
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  };
   return (
-    <AuthTemplate title="Register" onSubmit={onSubmit} validationSchema={ValidationRegisterSchema} initialValues={initialValues}>
+    <AuthTemplate title="Register" onSubmit={onRegisterSubmit} validationSchema={ValidationRegisterSchema} initialValues={initialValues}>
       <CustomTextInput name="username" placeholder="Guest" />
       <CustomTextInput name="password1" displayName="Password" placeholder="123" />
       <CustomTextInput name="password2" displayName="Repeat password" placeholder="123" />
 
       <ButtonSet>
-        <CustomButton text="Create account" type="submit" showLoadIndicator={isLoading} onClick={() => {}} />
-        <CustomButton text="I already have account" type="button" look="secondary" onClick={() => navigate(ROUTES.login)} />
+        <CustomButton text="Create account" type="submit" showLoadIndicator={loading} />
+        <CustomButtonLink text="I already have account" look="secondary" to={ROUTES.login} />
       </ButtonSet>
     </AuthTemplate>
   );

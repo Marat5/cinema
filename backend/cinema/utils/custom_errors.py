@@ -25,6 +25,7 @@ class ResourceDoesNotExistError(Exception):
 
 class ResourceAlreadyExistsError(Exception):
     def __init__(self, resource_name: str, problematic_field_name: str, problematic_field_value: str) -> None:
+        self.extensions = {"field": problematic_field_name}
         self.message = f"{resource_name.capitalize()} with {problematic_field_name} '{problematic_field_value}' already exists"
 
     def __str__(self) -> str:

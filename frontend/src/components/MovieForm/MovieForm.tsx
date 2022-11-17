@@ -68,7 +68,6 @@ export const MovieForm = ({ initialValues }: Props) => {
                 <CustomButton
                   key="edit"
                   text="Edit"
-                  type="button"
                   onClick={toggleIsEditing}
                 />
               )}

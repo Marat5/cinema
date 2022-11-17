@@ -12,13 +12,13 @@ export type BaseCustomButtonProps = {
 };
 
 type Props = BaseCustomButtonProps & {
-  type: 'submit' | 'button' | 'reset',
+  type?: 'submit' | 'button' | 'reset',
   showLoadIndicator?: boolean
   onClick?: (e: MouseEvent<HTMLElement>) => void;
 };
 
 export const CustomButton = ({
-  type, text, look = 'primary', showLoadIndicator, onClick
+  type = 'button', text, look = 'primary', showLoadIndicator, onClick
 }: Props) => (
   <button
     onClick={onClick}

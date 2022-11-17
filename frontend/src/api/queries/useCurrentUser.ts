@@ -14,4 +14,8 @@ const GET_USER = gql`
     }
 `;
 
-export const useCurrentUser = () => useQuery<UserData>(GET_USER);
+const options = {
+  errorPolicy: 'all', notifyOnNetworkStatusChange: true, fetchPolicy: 'network-only', nextFetchPolicy: 'network-only'
+} as const;
+
+export const useCurrentUser = () => useQuery<UserData>(GET_USER, options);

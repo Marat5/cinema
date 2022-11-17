@@ -12,6 +12,8 @@ export const COLORS = {
 
 export const MAIN_PAGE_CARD_ITEMS_COUNT = 5;
 
+export const LOCAL_STORAGE_TOKEN_KEY = 'token';
+
 // TMP data, remove when connected to backend
 export const MOVIES = [
   {
