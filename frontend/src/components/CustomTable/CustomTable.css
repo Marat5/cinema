@@ -1,8 +1,18 @@
-.CustomTable th, .CustomTable td {
-    font-size: 16px;
-    padding: 12px 0;
+.CustomTable {
+    width: 100%;
+    table-layout: fixed;
 }
 
+tbody tr td:first-child,
+thead tr th:first-child {
+    text-align: left;
+}
+
+.CustomTable th, .CustomTable td {
+    font-size: 16px;
+    text-align: center;
+    padding: 12px 0;
+}
 
 .CustomTable th {
     color: var(--primary-color);
@@ -47,4 +57,13 @@
     cursor: pointer;
     background-color: var(--primary-color);
     color: var(--dark-grey-color);
+}
+
+.CustomTable__TableSubstitute_centered {
+    align-self: center;
+}
+
+button.CustomTable__LoadMore {
+    width: 140px;
+    align-self: center;
 }

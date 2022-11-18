@@ -43,7 +43,11 @@ def create_app():
         pass
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cinema.db"
-    from cinema.models import db
+
+    from cinema.models.user import User
+    from cinema.models.director import Director
+    from cinema.models.movie import Movie
+    from cinema.models.db import db
     db.init_app(app)
     with app.app_context():
         db.create_all()

@@ -50,7 +50,7 @@ Full graphql schema is in alt_api/schema.graphql
 
 ### How to navigate the code?
 
-./models.py contains models with static methods that are used to do anything database-related  
+./models contains models with static methods that are used to do anything database-related  
 ./views contains rest api methods, structured with flask blueprints  
 ./alt_api contains graphql blueprint, schema, queries and mutations  
 ./utils contains useful functions and classes that can be used anywhere

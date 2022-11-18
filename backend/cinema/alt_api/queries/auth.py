@@ -1,4 +1,4 @@
-from cinema.models import User
+from cinema.models.user import User
 from cinema.utils.jwt import token_required
 
 

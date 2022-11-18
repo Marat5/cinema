@@ -1,9 +1,12 @@
 from ariadne import convert_kwargs_to_snake_case
-from cinema.models import Director
+from cinema.models.director import Director
 
 
-def resolve_directors(obj, info, limit):
-    return Director.get_directors(limit)
+def resolve_directors(obj, info, limit, offset):
+    return {
+        "total_count": Director.count_directors(),
+        "directors": Director.get_directors(limit, offset)
+    }
 
 
 @convert_kwargs_to_snake_case

@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from cinema.models import User
+from cinema.models.user import User
 from cinema.utils.jwt import create_user_and_get_token, get_token_or_exception, token_required
 from cinema.utils.validators import validate_auth_request_body
 from cinema.utils.custom_errors import ResourceAlreadyExistsError, UnauthorizedError, ValidationError, ResourceDoesNotExistError

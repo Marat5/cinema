@@ -28,7 +28,7 @@ export const MainPageCard = <ListItem extends MainPageCardEntity>({
       </ol>
     ) : (
       <ol className="MainPageCard__list">
-        {listItems.map((item) => (
+        {listItems.slice(0, MAIN_PAGE_CARD_ITEMS_COUNT).map((item) => (
           <li key={item.name || item.title}>
             {item.name || item.title}
           </li>

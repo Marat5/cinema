@@ -1,5 +1,6 @@
 from ariadne import convert_kwargs_to_snake_case
-from cinema.models import Movie, User
+from cinema.models.movie import Movie
+from cinema.models.user import User
 from cinema.utils.jwt import token_required
 from cinema.utils.strings import movie_delete_success_string
 from cinema.utils.validators import map_graphql_resolver_args_to_rest_body, validate_create_movie_request_body, validate_update_movie_request_body

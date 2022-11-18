@@ -9,6 +9,7 @@ import './CustomButton.css';
 export type BaseCustomButtonProps = {
   text: string
   look?: 'primary' | 'secondary' | 'cancel'
+  className?: string
 };
 
 type Props = BaseCustomButtonProps & {
@@ -18,13 +19,13 @@ type Props = BaseCustomButtonProps & {
 };
 
 export const CustomButton = ({
-  type = 'button', text, look = 'primary', showLoadIndicator, onClick
+  type = 'button', text, look = 'primary', showLoadIndicator, onClick, className
 }: Props) => (
   <button
     onClick={onClick}
     disabled={showLoadIndicator}
     type={type}
-    className={classNames('CustomButton', `CustomButton_${look}`)}
+    className={classNames('CustomButton', `CustomButton_${look}`, className)}
   >
     {showLoadIndicator ? <PulseLoader size={10} color={COLORS.tertiaryColor} /> : text}
   </button>

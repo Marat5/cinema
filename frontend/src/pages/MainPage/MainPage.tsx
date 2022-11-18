@@ -32,7 +32,7 @@ export const MainPage = () => {
       <MainPageCard
         title="Top rated directors"
         isLoading={loading}
-        listItems={data?.directors || []}
+        listItems={data?.directorsData.directors || []}
         to={ROUTES.directors}
       />
       <MainPageCard

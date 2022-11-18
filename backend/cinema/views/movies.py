@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from cinema.models import Movie
+from cinema.models.movie import Movie
 from cinema.utils.custom_errors import ForbiddenError, ValidationError, ResourceDoesNotExistError, ResourceAlreadyExistsError
 from cinema.utils.jwt import token_required
 from cinema.utils.strings import movie_delete_success_string

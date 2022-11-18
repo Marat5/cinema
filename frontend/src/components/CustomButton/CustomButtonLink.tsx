@@ -10,11 +10,11 @@ type ButtonLinkProps = BaseCustomButtonProps & {
 };
 
 export const CustomButtonLink = ({
-  text, look = 'primary', to,
+  text, look = 'primary', to, className
 }: ButtonLinkProps) => (
   <Link
     to={to}
-    className={classNames('CustomButton', `CustomButton_${look}`)}
+    className={classNames('CustomButton', `CustomButton_${look}`, className)}
   >
     {text}
   </Link>

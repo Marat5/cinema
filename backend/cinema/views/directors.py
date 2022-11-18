@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from cinema.models import Director
+from cinema.models.director import Director
 from cinema.utils.custom_errors import ResourceAlreadyExistsError, ValidationError
 from cinema.utils.jwt import token_required
 from cinema.utils.validators import validate_create_director_request_body

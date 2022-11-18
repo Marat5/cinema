@@ -1,5 +1,5 @@
 from ariadne import convert_kwargs_to_snake_case
-from cinema.models import Director
+from cinema.models.director import Director
 from cinema.utils.jwt import token_required
 from cinema.utils.validators import map_graphql_resolver_args_to_rest_body, validate_create_director_request_body
 

@@ -2,6 +2,10 @@ import { ReactNode } from 'react';
 import classNames from 'classnames';
 import './CustomTable.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { PulseLoader } from 'react-spinners';
+import { NetworkStatus } from '@apollo/client';
+import { COLORS } from '../../utils/constants';
+import { CustomButton } from '../CustomButton/CustomButton';
 
 export type CustomTableColumn<TableDataType> = {
   title: string
@@ -23,14 +27,17 @@ type FlatObjectWithRenderableValuesAndId = {
 };
 
 type Props<TableDataType> = {
-  tableData: TableDataType[]
   columns: CustomTableColumn<TableDataType>[]
+  tableData?: TableDataType[]
+  loadMore?: () => void
+  isAllDataLoaded?: boolean
   sortOptions?: CustomTableSortOption<TableDataType>[]
+  networkStatus?: NetworkStatus
 };
 
 export const CustomTable = <TableDataType extends FlatObjectWithRenderableValuesAndId>
   ({
-    tableData, columns, sortOptions = []
+    tableData, columns, sortOptions = [], networkStatus, loadMore, isAllDataLoaded
   }
   : Props<TableDataType>) => {
   const navigate = useNavigate();
@@ -43,6 +50,14 @@ export const CustomTable = <TableDataType extends FlatObjectWithRenderableValues
     console.log(sortByKey);
   // todo after connected to be
   };
+
+  if (networkStatus === NetworkStatus.loading) {
+    return <PulseLoader className="CustomTable__TableSubstitute_centered" size={20} color={COLORS.secondaryColor} />;
+  }
+
+  if (!tableData || tableData.length === 0) {
+    return <span className="CustomTable__TableSubstitute_centered">No data. Feel free to create some</span>;
+  }
 
   return (
     <>
@@ -104,6 +119,16 @@ export const CustomTable = <TableDataType extends FlatObjectWithRenderableValues
           ))}
         </tbody>
       </table>
+
+      {!isAllDataLoaded
+            && (
+            <CustomButton
+              text="load more"
+              onClick={loadMore}
+              className="CustomTable__LoadMore"
+              showLoadIndicator={networkStatus === NetworkStatus.fetchMore}
+            />
+            )}
     </>
   );
 };

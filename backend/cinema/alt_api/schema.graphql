@@ -7,7 +7,13 @@ type Director {
   id: ID!
   name: String!
   movies: [Movie]
-  average_rating: Int!
+  average_rating: Float!
+  movies_watched: Int!
+}
+
+type DirectorsData {
+  totalCount: Int!
+  directors: [Director!]
 }
 
 type User {
@@ -31,7 +37,7 @@ type Token {
 type Query {
   user: User
 
-  directors(limit: Int): [Director!]
+  directorsData(limit: Int, offset: Int): DirectorsData!
   director(directorId: ID!): Director!
 
   movies(orderBy: String, limit: Int): [Movie]

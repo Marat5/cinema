@@ -8,22 +8,32 @@ export type MainPageDirector = Pick<Director, 'name'>;
 type MainPageData = {
   topRatedMovies: MainPageMovie[]
   recentlyWatchedMovies: MainPageMovie[]
-  directors: MainPageDirector[]
+  directorsData: {
+    directors: MainPageDirector[]
+    totalCount: number
+  }
 };
 
 const GET_ALL_MAIN_PAGE_DATA = gql`
-    query GetAllMainPageData {
-        topRatedMovies: movies(orderBy: "rating", limit: ${MAIN_PAGE_CARD_ITEMS_COUNT}) {
+    query GetAllMainPageData($limit: Int, $offset: Int) {
+        topRatedMovies: movies(orderBy: "rating", limit: $limit) {
             title
         }
-        recentlyWatchedMovies: movies(orderBy: "added", limit: ${MAIN_PAGE_CARD_ITEMS_COUNT}) {
+        recentlyWatchedMovies: movies(orderBy: "added", limit: $limit) {
             title
         }
-        directors(limit: ${MAIN_PAGE_CARD_ITEMS_COUNT}) {
-            name
-            average_rating
+        directorsData(limit: $limit, offset: $offset) {
+            totalCount
+            directors {
+                name
+            }
         }
     }
 `;
 
-export const useMainPageData = () => useQuery<MainPageData>(GET_ALL_MAIN_PAGE_DATA);
+export const useMainPageData = () => useQuery<MainPageData>(GET_ALL_MAIN_PAGE_DATA, {
+  variables: {
+    limit: MAIN_PAGE_CARD_ITEMS_COUNT,
+    offset: 0,
+  }
+});

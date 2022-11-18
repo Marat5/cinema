@@ -1,5 +1,5 @@
 from ariadne import convert_kwargs_to_snake_case
-from cinema.models import Movie
+from cinema.models.movie import Movie
 
 
 @convert_kwargs_to_snake_case

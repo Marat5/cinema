@@ -15,7 +15,7 @@ query = ObjectType("Query")
 mutation = ObjectType("Mutation")
 
 # Director
-query.set_field("directors", resolve_directors)
+query.set_field("directorsData", resolve_directors)
 query.set_field("director", resolve_director)
 
 mutation.set_field("createDirector", resolve_create_director)

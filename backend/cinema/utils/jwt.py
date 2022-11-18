@@ -2,7 +2,7 @@ from functools import wraps
 from flask import request, jsonify, current_app
 import jwt
 from datetime import datetime, timedelta
-from cinema.models import User
+from cinema.models.user import User
 from werkzeug.security import check_password_hash
 
 from cinema.utils.custom_errors import UnauthorizedError
