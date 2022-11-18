@@ -1,17 +1,15 @@
 import { gql, useQuery } from '@apollo/client';
-import { Director } from '../../utils/types';
+import { LIST_PAGE_SIZE } from '../../utils/constants';
+import { Director, PaginatedQueryVars } from '../../utils/types';
 
-type DirectorsData = {
+export type DirectorsData = {
   directorsData: {
     totalCount: number
     directors: Director[]
   }
 };
 
-type DirectorVars = {
-  limit: Number
-  offset: Number
-};
+export type DirectorsVars = PaginatedQueryVars;
 
 const GET_DIRECTORS = gql`
     query GetDirectors($limit: Int, $offset: Int) {
@@ -28,8 +26,8 @@ const GET_DIRECTORS = gql`
 `;
 
 export const useDirectors = () => {
-  const queryResult = useQuery<DirectorsData, DirectorVars>(GET_DIRECTORS, {
-    variables: { limit: 15, offset: 0 },
+  const queryResult = useQuery<DirectorsData, DirectorsVars>(GET_DIRECTORS, {
+    variables: { limit: LIST_PAGE_SIZE, offset: 0 },
     notifyOnNetworkStatusChange: true
   });
 

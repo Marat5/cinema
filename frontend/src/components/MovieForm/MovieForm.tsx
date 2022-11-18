@@ -43,7 +43,7 @@ export const MovieForm = ({ initialValues }: Props) => {
       <Formik initialValues={initialValues} onSubmit={onSubmit} onReset={onReset}>
         <Form>
           <CustomTextInput name="title" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
-          <CustomTextInput name="director_name" displayName="Director Name" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
+          <CustomTextInput name="directorName" displayName="Director Name" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
           <CustomTextInput name="year" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
           <CustomTextInput name="rating" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
 

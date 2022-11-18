@@ -1,3 +1,4 @@
+import { MoviesSortOption } from '../../api/queries/useMovies';
 import { CustomTableColumn, CustomTableSortOption } from '../../components/CustomTable/CustomTable';
 import { Movie } from '../../utils/types';
 
@@ -5,29 +6,22 @@ export const movieTableColumns: CustomTableColumn<Movie>[] = [{
   key: 'title',
   title: 'Title',
 }, {
-  key: 'director_name',
+  key: 'directorName',
   title: 'Director'
+}, {
+  key: 'year',
+  title: 'Year',
+  isHiddenOnMobile: true
 }, {
   key: 'rating',
   title: 'Rating'
-}, {
-  // todo
-  key: 'year',
-  title: 'IMDB Rating',
-  isHiddenOnMobile: true
-}, {
-  // todo
-  key: 'id',
-  title: 'When watched',
-  isHiddenOnMobile: true
 }];
 
-export const movieTableSortOptions: CustomTableSortOption<Movie>[] = [{
-  key: 'rating',
+export const movieTableSortOptions: CustomTableSortOption<MoviesSortOption>[] = [{
+  key: MoviesSortOption.RATING,
   title: 'Rating',
   isActive: true
 }, {
-  // todo
-  key: 'id',
+  key: MoviesSortOption.SEEN_LATELY,
   title: 'Seen Lately'
 }];

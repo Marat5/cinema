@@ -3,7 +3,7 @@ import { FormikHelpers } from 'formik';
 export type Movie = {
   id: number
   title: string
-  director_name: string
+  directorName: string
   year: number
   rating: number
 };
@@ -18,3 +18,12 @@ export type Director = {
 // Use to type submit and reset functions for formik forms
 export type OnSubmitOrResetType<FormValuesType> =
     (values: FormValuesType, actions: FormikHelpers<FormValuesType>) => void;
+
+export type PaginatedQueryVars = {
+  limit: number
+  offset: number
+};
+
+export type OrderedQueryVars<SortOption> = {
+  orderBy: SortOption
+};

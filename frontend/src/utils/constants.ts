@@ -11,6 +11,7 @@ export const COLORS = {
 };
 
 export const MAIN_PAGE_CARD_ITEMS_COUNT = 5;
+export const LIST_PAGE_SIZE = 16;
 
 export const LOCAL_STORAGE_TOKEN_KEY = 'token';
 
@@ -19,35 +20,35 @@ export const MOVIES = [
   {
     title: 'Rushmore',
     id: 1,
-    director_name: 'Wes Anderson',
+    directorName: 'Wes Anderson',
     year: 1994,
     rating: 10,
   },
   {
     title: 'Moonrise Kingdom',
     id: 2,
-    director_name: 'Wes Anderson',
+    directorName: 'Wes Anderson',
     year: 1994,
     rating: 10,
   },
   {
     title: 'The Grand Budapest Hotel',
     id: 3,
-    director_name: 'Wes Anderson',
+    directorName: 'Wes Anderson',
     year: 1994,
     rating: 10,
   },
   {
     title: 'Isle of Dogs',
     id: 4,
-    director_name: 'Wes Anderson',
+    directorName: 'Wes Anderson',
     year: 1994,
     rating: 10,
   },
   {
     title: 'The Darjeeling Limited',
     id: 5,
-    director_name: 'Wes Anderson',
+    directorName: 'Wes Anderson',
     year: 1994,
     rating: 10,
   },

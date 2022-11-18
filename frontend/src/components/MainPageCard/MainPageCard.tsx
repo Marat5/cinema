@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, To } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
 import { MainPageDirector, MainPageMovie } from '../../api/queries/useMainPageData';
 import { COLORS, MAIN_PAGE_CARD_ITEMS_COUNT } from '../../utils/constants';
@@ -8,7 +8,7 @@ type Props<ListItem> = {
   title: string
   listItems?: ListItem[]
   isLoading?: boolean
-  to: string
+  to: To
 };
 
 type MainPageCardEntity = Partial<MainPageDirector & MainPageMovie>;

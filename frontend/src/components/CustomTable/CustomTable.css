@@ -53,7 +53,12 @@ thead tr th:first-child {
     border: 1px solid var(--primary-color);
 }
 
-.SortingRow__option:hover, .SortingRow__option_active, .SortingRow__option:focus {
+.SortingRow__option_active {
+    cursor: pointer;
+    background-color: var(--primary-color-accent);
+    color: var(--dark-grey-color);
+}
+.SortingRow__option:focus, .SortingRow__option:hover {
     cursor: pointer;
     background-color: var(--primary-color);
     color: var(--dark-grey-color);

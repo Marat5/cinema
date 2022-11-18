@@ -13,9 +13,9 @@ export type CustomTableColumn<TableDataType> = {
   isHiddenOnMobile?: true
 };
 
-export type CustomTableSortOption<TableDataType> = {
+export type CustomTableSortOption<SortOptionKey> = {
   title: string
-  key: Extract<keyof TableDataType, string>
+  key: SortOptionKey
   isActive?: boolean
 };
 
@@ -26,32 +26,29 @@ type FlatObjectWithRenderableValuesAndId = {
   id: number
 };
 
-type Props<TableDataType> = {
+type Props<TableDataType, SortOptionKey> = {
   columns: CustomTableColumn<TableDataType>[]
   tableData?: TableDataType[]
   loadMore?: () => void
   isAllDataLoaded?: boolean
-  sortOptions?: CustomTableSortOption<TableDataType>[]
   networkStatus?: NetworkStatus
+  sort?: SortOptionKey
+  sortOptions?: CustomTableSortOption<SortOptionKey>[]
+  setSort?: (sort: SortOptionKey) => void
 };
 
-export const CustomTable = <TableDataType extends FlatObjectWithRenderableValuesAndId>
+export const CustomTable = <TableDataType extends FlatObjectWithRenderableValuesAndId,
+SortOptionKey extends string>
   ({
-    tableData, columns, sortOptions = [], networkStatus, loadMore, isAllDataLoaded
+    tableData, columns, sortOptions = [], networkStatus, loadMore, isAllDataLoaded, setSort, sort
   }
-  : Props<TableDataType>) => {
+  : Props<TableDataType, SortOptionKey>) => {
   const navigate = useNavigate();
   const onRowClick = (id: number) => {
     navigate(`${id}`);
   };
 
-  const setSorting = (sortByKey: string) => {
-    // eslint-disable-next-line no-console
-    console.log(sortByKey);
-  // todo after connected to be
-  };
-
-  if (networkStatus === NetworkStatus.loading) {
+  if (networkStatus === NetworkStatus.loading || networkStatus === NetworkStatus.setVariables) {
     return <PulseLoader className="CustomTable__TableSubstitute_centered" size={20} color={COLORS.secondaryColor} />;
   }
 
@@ -69,8 +66,8 @@ export const CustomTable = <TableDataType extends FlatObjectWithRenderableValues
           <button
             key={sortOption.key}
             type="button"
-            onClick={() => setSorting(sortOption.key)}
-            className={classNames('SortingRow__option', sortOption.isActive && 'SortingRow__option_active')}
+            onClick={() => setSort && setSort(sortOption.key)}
+            className={classNames('SortingRow__option', sort === sortOption.key && 'SortingRow__option_active')}
           >
             {sortOption.title}
           </button>

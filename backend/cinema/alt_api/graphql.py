@@ -27,7 +27,7 @@ mutation.set_field("login", resolve_login)
 mutation.set_field("register", resolve_register)
 
 # Movie
-query.set_field("movies", resolve_movies)
+query.set_field("moviesData", resolve_movies)
 query.set_field("movie", resolve_movie)
 
 mutation.set_field("createMovie", resolve_create_movie)

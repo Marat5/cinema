@@ -5,24 +5,38 @@ import { Director, Movie } from '../../utils/types';
 export type MainPageMovie = Pick<Movie, 'title'>;
 export type MainPageDirector = Pick<Director, 'name'>;
 
+type MainPageMoviesData = {
+  movies: MainPageMovie[]
+  totalCount: number
+};
+
 type MainPageData = {
-  topRatedMovies: MainPageMovie[]
-  recentlyWatchedMovies: MainPageMovie[]
+  topRatedMovies: MainPageMoviesData
+  recentlyWatchedMovies: MainPageMoviesData
   directorsData: {
     directors: MainPageDirector[]
     totalCount: number
   }
 };
 
+type MainPageVars = {
+  limit: typeof MAIN_PAGE_CARD_ITEMS_COUNT
+};
+
 const GET_ALL_MAIN_PAGE_DATA = gql`
-    query GetAllMainPageData($limit: Int, $offset: Int) {
-        topRatedMovies: movies(orderBy: "rating", limit: $limit) {
+    query GetAllMainPageData($limit: Int) {
+        topRatedMovies: moviesData(orderBy: "rating", limit: $limit) {
+          totalCount
+          movies {
             title
-        }
-        recentlyWatchedMovies: movies(orderBy: "added", limit: $limit) {
+          }        }
+        recentlyWatchedMovies: moviesData(orderBy: "added", limit: $limit) {
+          totalCount
+          movies {
             title
+          }
         }
-        directorsData(limit: $limit, offset: $offset) {
+        directorsData(limit: $limit) {
             totalCount
             directors {
                 name
@@ -31,9 +45,8 @@ const GET_ALL_MAIN_PAGE_DATA = gql`
     }
 `;
 
-export const useMainPageData = () => useQuery<MainPageData>(GET_ALL_MAIN_PAGE_DATA, {
+export const useMainPageData = () => useQuery<MainPageData, MainPageVars>(GET_ALL_MAIN_PAGE_DATA, {
   variables: {
     limit: MAIN_PAGE_CARD_ITEMS_COUNT,
-    offset: 0,
   }
 });

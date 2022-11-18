@@ -17,7 +17,7 @@ class Director(db.Model):
     average_rating: float = db.Column(db.Float, nullable=False)
 
     @staticmethod
-    def get_directors(limit, offset):
+    def get_directors(limit=None, offset=None):
         return db.session.execute(db.select(Director).limit(limit).offset(offset).order_by(desc(Director.average_rating))).scalars().all()
 
     @staticmethod
@@ -37,7 +37,8 @@ class Director(db.Model):
             if create_if_404:
                 director = Director.create_director({"name": name})
             else:
-                raise ResourceDoesNotExistError("director", "name")
+                raise ResourceDoesNotExistError(
+                    "director", "id" if id else "name")
 
         return director
 

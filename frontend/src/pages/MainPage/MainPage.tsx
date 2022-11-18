@@ -1,4 +1,6 @@
+import { createSearchParams } from 'react-router-dom';
 import { useMainPageData } from '../../api/queries/useMainPageData';
+import { MoviesSortOption } from '../../api/queries/useMovies';
 import { LimitedWidthContent } from '../../components/LimitedWidthContent/LimitedWidthContent';
 import { MainPageCard } from '../../components/MainPageCard/MainPageCard';
 import { ROUTES } from '../Router/constants';
@@ -17,16 +19,22 @@ export const MainPage = () => {
 
       <div className="MainPage__CardGroup">
         <MainPageCard
-          title="Seen lately"
-          isLoading={loading}
-          listItems={data?.recentlyWatchedMovies || []}
-          to={ROUTES.movies}
-        />
-        <MainPageCard
           title="Top rated movies"
           isLoading={loading}
-          listItems={data?.topRatedMovies || []}
-          to={ROUTES.movies}
+          listItems={data?.topRatedMovies.movies || []}
+          to={{
+            pathname: ROUTES.movies,
+            search: String(createSearchParams({ sort: MoviesSortOption.RATING }))
+          }}
+        />
+        <MainPageCard
+          title="Seen lately"
+          isLoading={loading}
+          listItems={data?.recentlyWatchedMovies.movies || []}
+          to={{
+            pathname: ROUTES.movies,
+            search: String(createSearchParams({ sort: MoviesSortOption.SEEN_LATELY }))
+          }}
         />
       </div>
       <MainPageCard

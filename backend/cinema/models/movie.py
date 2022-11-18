@@ -23,8 +23,8 @@ class Movie(db.Model):
     rating: float = db.Column(db.Float, nullable=False)
 
     @staticmethod
-    def get_movies(order_by=None, limit=None):
-        return db.session.execute(db.select(Movie).limit(limit).order_by(desc(order_by))).scalars().all()
+    def get_movies(order_by=None, limit=None, offset=None):
+        return db.session.execute(db.select(Movie).limit(limit).offset(offset).order_by(desc(order_by))).scalars().all()
 
     @staticmethod
     def get_movie(id):
@@ -93,6 +93,10 @@ class Movie(db.Model):
             raise ResourceAlreadyExistsError("movie", "title", title)
 
         return movie
+
+    @staticmethod
+    def count_movies():
+        return db.session.execute(db.select(db.func.count()).select_from(db.select(Movie).subquery())).scalar_one()
 
 
 @event.listens_for(Movie.__table__, 'after_create')
