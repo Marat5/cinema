@@ -14,8 +14,8 @@ const GET_DIRECTORS = gql`
       directors(limit: $limit, offset: $offset) {
         id
         name
-        average_rating
-        movies_watched
+        averageRating
+        moviesWatched
       }
       directorsCount
     }

@@ -6,8 +6,8 @@ export const directorTableColumns: CustomTableColumn<Director>[] = [{
   key: 'name'
 }, {
   title: 'Movies watched',
-  key: 'movies_watched',
+  key: 'moviesWatched',
 }, {
   title: 'Average Rating',
-  key: 'average_rating'
+  key: 'averageRating'
 }];

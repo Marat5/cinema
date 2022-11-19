@@ -7,8 +7,8 @@ type Director {
   id: ID!
   name: String!
   movies: [Movie]
-  average_rating: Float!
-  movies_watched: Int!
+  averageRating: Float!
+  moviesWatched: Int!
 }
 
 type User {
@@ -22,7 +22,7 @@ type Movie {
   director: Director
   year: Int
   added: String
-  added_by: Int
+  addedBy: Int
   rating: Float
 }
 

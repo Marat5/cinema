@@ -40,7 +40,7 @@ query {
         }
         year
         added
-        added_by
+        addedBy
         rating
     }
 }

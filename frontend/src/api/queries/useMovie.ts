@@ -17,7 +17,7 @@ const GET_MOVIE = gql`
         title
         rating
         year
-        added_by
+        addedBy
         director {
             name
         }
@@ -39,7 +39,7 @@ export const useMovie = (movieId: string) => {
   );
 
   const isCurrentUserAllowedToEdit = Number(currentUser?.user?.id)
-  === Number(queryResult.data?.movie.added_by);
+  === Number(queryResult.data?.movie.addedBy);
 
   return { ...queryResult, isCurrentUserAllowedToEdit };
 };

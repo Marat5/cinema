@@ -14,8 +14,8 @@ const GET_DIRECTOR = gql`
       director(directorId: $directorId) {
         id
         name
-        average_rating
-        movies_watched
+        averageRating
+        moviesWatched
       }
     }
 `;

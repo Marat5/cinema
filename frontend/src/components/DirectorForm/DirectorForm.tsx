@@ -13,8 +13,8 @@ export const DirectorForm = ({ loadedInitialValues, isLoading }: Props) => (
     <Formik initialValues={loadedInitialValues as Director} onSubmit={() => {}}>
       <Form>
         <CustomTextInput name="name" size="l" isDisabled isBorderHidden />
-        <CustomTextInput name="movies_watched" displayName="Movies Watched" size="l" isDisabled isBorderHidden />
-        <CustomTextInput name="average_rating" displayName="Average Rating" size="l" isDisabled isBorderHidden />
+        <CustomTextInput name="moviesWatched" displayName="Movies Watched" size="l" isDisabled isBorderHidden />
+        <CustomTextInput name="averageRating" displayName="Average Rating" size="l" isDisabled isBorderHidden />
       </Form>
     </Formik>
   </ResourceCard>
