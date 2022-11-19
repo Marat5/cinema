@@ -1,6 +1,10 @@
 .ResourceCard {
-    margin: 90px auto 0;
+    margin: 90px 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     max-width: 400px;
+    min-height: 400px;
     border: 1px solid var(--primary-color-accent);
     border-radius: var(--card-border-radius);
     padding: var(--card-padding);
@@ -11,4 +15,16 @@
     color: white;
     text-shadow: var(--primary-color) 1px 1px 4px;
     margin-bottom: 22px;
+}
+
+.ResourceCard__PulseLoader {
+    margin-top: 30px;
+    align-self: center;
+}
+
+@media screen and (min-width: 444px) {
+    .ResourceCard {
+        margin: 90px auto 0;
+        width: 400px;
+    }
 }

@@ -39,7 +39,7 @@ export const MovieForm = ({ initialValues }: Props) => {
   };
 
   return (
-    <ResourceCard title="Movie Card">
+    <ResourceCard isLoading={false} title="Movie Card">
       <Formik initialValues={initialValues} onSubmit={onSubmit} onReset={onReset}>
         <Form>
           <CustomTextInput name="title" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />

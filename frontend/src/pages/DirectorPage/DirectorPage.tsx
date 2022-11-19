@@ -1,13 +1,14 @@
 import { useParams } from 'react-router-dom';
+import { useDirector } from '../../api/queries/useDirector';
 import { DirectorForm } from '../../components/DirectorForm/DirectorForm';
 import { ResourceNotFound } from '../../components/ResourceNotFound/ResourceNotFound';
-import { DIRECTORS } from '../../utils/constants';
 
 export const DirectorPage = () => {
   const { id } = useParams();
-  const director = DIRECTORS.find((d) => d.id === Number(id));
+  const { data, loading } = useDirector(id as string);
 
-  return director ? <DirectorForm initialValues={director} /> : (
-    <ResourceNotFound resourceName="Director" resourceId={String(id)} />
-  );
+  return (data?.director || loading)
+    ? <DirectorForm isLoading={loading} loadedInitialValues={data?.director} /> : (
+      <ResourceNotFound resourceName="Director" resourceId={String(id)} />
+    );
 };

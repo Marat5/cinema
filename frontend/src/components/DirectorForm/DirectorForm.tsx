@@ -4,12 +4,13 @@ import { CustomTextInput } from '../CustomTextInput/CustomTextInput';
 import { ResourceCard } from '../ResourceCard/ResourceCard';
 
 type Props = {
-  initialValues: Omit<Director, 'id'>
+  loadedInitialValues?: Director
+  isLoading: boolean
 };
 
-export const DirectorForm = ({ initialValues }: Props) => (
-  <ResourceCard title="Director Card">
-    <Formik initialValues={initialValues} onSubmit={() => {}}>
+export const DirectorForm = ({ loadedInitialValues, isLoading }: Props) => (
+  <ResourceCard isLoading={isLoading} title="Director Card">
+    <Formik initialValues={loadedInitialValues as Director} onSubmit={() => {}}>
       <Form>
         <CustomTextInput name="name" size="l" isDisabled isBorderHidden />
         <CustomTextInput name="movies_watched" displayName="Movies Watched" size="l" isDisabled isBorderHidden />
