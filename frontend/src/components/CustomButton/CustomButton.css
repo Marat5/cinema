@@ -12,10 +12,6 @@
     cursor: pointer;
 }
 
-.CustomButton:disabled:hover {
-    cursor: not-allowed;
-}
-
 .CustomButton_primary {
     background-color: var(--primary-color);
     color: var(--tertiary-color);
@@ -42,4 +38,15 @@
 
 .CustomButton_cancel:focus, .CustomButton_cancel:hover {
     background-color: var(--dark-grey-color);
+}
+
+.CustomButton_disabled {
+    background-color: var(--tertiary-color);
+    border: 1px solid var(--superuser-color);
+    color: var(--superuser-color);
+    opacity: 0.6;
+}
+
+.CustomButton:disabled:hover {
+    cursor: not-allowed;
 }

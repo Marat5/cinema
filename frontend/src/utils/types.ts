@@ -4,6 +4,7 @@ export type Movie = {
   id: number
   title: string
   directorName: string
+  added_by: number
   year: number
   rating: number
 };

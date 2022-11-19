@@ -21,6 +21,7 @@ const GET_MOVIES = gql`
         title
         rating
         year
+        added_by
         director {
             name
         }

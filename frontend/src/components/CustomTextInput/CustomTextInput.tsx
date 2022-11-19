@@ -1,3 +1,4 @@
+import { HTMLInputTypeAttribute } from 'react';
 import { Field, FieldProps } from 'formik';
 import classNames from 'classnames';
 import { capitalize } from '../../utils/utils';
@@ -10,10 +11,11 @@ type Props = {
   isDisabled?: boolean
   isBorderHidden?: boolean
   size?: 'm' | 'l'
+  type?: HTMLInputTypeAttribute
 };
 
 export const CustomTextInput = ({
-  name, placeholder, displayName, isDisabled, isBorderHidden, size = 'm'
+  name, placeholder, displayName, isDisabled, isBorderHidden, size = 'm', type
 }: Props) => {
   const nameText = displayName ? `${displayName}:` : `${capitalize(name)}:`;
   return (
@@ -26,7 +28,7 @@ export const CustomTextInput = ({
           <input
             {...field}
             id={field.name}
-            type="text"
+            type={type || 'text'}
             placeholder={placeholder}
             className={classNames(
               'CustomTextInput__input',

@@ -12,6 +12,7 @@ type Director {
 }
 
 type User {
+  id: ID!
   username: String
 }
 
@@ -38,7 +39,7 @@ type Query {
 
   movies(orderBy: String, limit: Int, offset: Int): [Movie!]
   moviesCount: Int!
-  movie(id: ID): Movie
+  movie(movieId: ID): Movie
 }
 
 type Mutation {

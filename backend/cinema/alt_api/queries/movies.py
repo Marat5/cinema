@@ -11,5 +11,5 @@ def resolve_movies_count(obj, info):
     return Movie.count_movies()
 
 
-def resolve_movie(obj, info, id):
-    return Movie.get_movie(id)
+def resolve_movie(obj, info, movieId):
+    return Movie.get_movie(movieId)
