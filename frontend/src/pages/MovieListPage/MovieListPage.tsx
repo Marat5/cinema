@@ -17,7 +17,7 @@ export const MovieListPage = () => {
 
       <CustomTable
         columns={movieTableColumns}
-        tableData={data?.moviesData.movies}
+        tableData={data?.movies}
         networkStatus={networkStatus}
         loadMore={loadMore}
         isAllDataLoaded={isAllDataLoaded}

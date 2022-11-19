@@ -5,18 +5,10 @@ import { Director, Movie } from '../../utils/types';
 export type MainPageMovie = Pick<Movie, 'title'>;
 export type MainPageDirector = Pick<Director, 'name'>;
 
-type MainPageMoviesData = {
-  movies: MainPageMovie[]
-  totalCount: number
-};
-
 type MainPageData = {
-  topRatedMovies: MainPageMoviesData
-  recentlyWatchedMovies: MainPageMoviesData
-  directorsData: {
-    directors: MainPageDirector[]
-    totalCount: number
-  }
+  topRatedMovies: MainPageMovie[]
+  recentlyWatchedMovies: MainPageMovie[]
+  directors: MainPageDirector[]
 };
 
 type MainPageVars = {
@@ -25,22 +17,14 @@ type MainPageVars = {
 
 const GET_ALL_MAIN_PAGE_DATA = gql`
     query GetAllMainPageData($limit: Int) {
-        topRatedMovies: moviesData(orderBy: "rating", limit: $limit) {
-          totalCount
-          movies {
-            title
-          }        }
-        recentlyWatchedMovies: moviesData(orderBy: "added", limit: $limit) {
-          totalCount
-          movies {
-            title
-          }
+        topRatedMovies: movies(orderBy: "rating", limit: $limit) {
+          title
         }
-        directorsData(limit: $limit) {
-            totalCount
-            directors {
-                name
-            }
+        recentlyWatchedMovies: movies(orderBy: "added", limit: $limit) {
+          title
+        }
+        directors(limit: $limit) {
+          name
         }
     }
 `;

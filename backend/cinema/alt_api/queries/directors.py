@@ -3,10 +3,11 @@ from cinema.models.director import Director
 
 
 def resolve_directors(obj, info, limit=None, offset=None):
-    return {
-        "total_count": Director.count_directors(),
-        "directors": Director.get_directors(limit, offset)
-    }
+    return Director.get_directors(limit, offset)
+
+
+def resolve_directors_count(obj, info):
+    return Director.count_directors()
 
 
 @convert_kwargs_to_snake_case

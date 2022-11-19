@@ -11,11 +11,6 @@ type Director {
   movies_watched: Int!
 }
 
-type DirectorsData {
-  totalCount: Int!
-  directors: [Director!]
-}
-
 type User {
   username: String
 }
@@ -30,11 +25,6 @@ type Movie {
   rating: Float
 }
 
-type MoviesData {
-  totalCount: Int!
-  movies: [Movie!]
-}
-
 type Token {
   token: String
 }
@@ -42,10 +32,12 @@ type Token {
 type Query {
   user: User
 
-  directorsData(limit: Int, offset: Int): DirectorsData!
+  directors(limit: Int, offset: Int): [Director!]
+  directorsCount: Int!
   director(directorId: ID!): Director!
 
-  moviesData(orderBy: String, limit: Int, offset: Int): MoviesData!
+  movies(orderBy: String, limit: Int, offset: Int): [Movie!]
+  moviesCount: Int!
   movie(id: ID): Movie
 }
 

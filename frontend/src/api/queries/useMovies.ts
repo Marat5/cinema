@@ -8,29 +8,25 @@ export enum MoviesSortOption {
 }
 
 type MoviesData = {
-  moviesData: {
-    totalCount: number
-    movies: Movie[]
-  }
+  movies: Movie[]
+  moviesCount: number
 };
 
 type MoviesVars = PaginatedQueryVars & OrderedQueryVars<MoviesSortOption>;
 
 const GET_MOVIES = gql`
     query GetMovies($orderBy: String, $limit: Int, $offset: Int) {
-        moviesData(orderBy: $orderBy, limit: $limit, offset: $offset) {
-            totalCount
-            movies {
-                id
-                title
-                rating
-                year
-                director {
-                    name
-                }
-                directorName@client
-            }
+      movies(orderBy: $orderBy, limit: $limit, offset: $offset) {
+        id
+        title
+        rating
+        year
+        director {
+            name
         }
+        directorName@client
+      }
+      moviesCount
     }
 `;
 
@@ -42,12 +38,12 @@ export const useMovies = (sort: MoviesSortOption) => {
 
   const loadMore = () => {
     queryResult.fetchMore({
-      variables: { offset: queryResult.data?.moviesData.movies.length }
+      variables: { offset: queryResult.data?.movies.length }
     });
   };
 
-  const isAllDataLoaded = Boolean(queryResult.data?.moviesData.movies.length
-    === queryResult.data?.moviesData.totalCount);
+  const isAllDataLoaded = Boolean(queryResult.data?.movies.length
+    === queryResult.data?.moviesCount);
 
   return { ...queryResult, loadMore, isAllDataLoaded };
 };

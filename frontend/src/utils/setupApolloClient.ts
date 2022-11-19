@@ -22,24 +22,19 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const mergePages = <DataToBeMerged extends { totalCount: number }>(
-  existing: DataToBeMerged,
-  incoming: DataToBeMerged,
-  { args }: { args: Record<string, any> | null },
-  mergeField: keyof DataToBeMerged
+const mergePages = <TData>(
+  existing: TData[] | null,
+  incoming: TData[],
+  options: Record<string, any>
 ) => {
-  const existingArray = existing?.[mergeField] as any[] | undefined;
-  const incomingArray = incoming[mergeField] as any[];
-  const mergedArray = existingArray ? existingArray.slice() : [];
+  const offset = options.args?.offset ?? 0;
 
-  incomingArray.forEach((_: any, index: number) => {
-    mergedArray[(args!.offset ?? 0) + index] = incomingArray[index];
+  const mergedArray = existing ? existing.slice() : [];
+  incoming.forEach((_, index: number) => {
+    mergedArray[offset + index] = incoming[index];
   });
 
-  return {
-    totalCount: incoming.totalCount,
-    [mergeField]: mergedArray
-  };
+  return mergedArray;
 };
 
 export const apolloClient = new ApolloClient({
@@ -58,16 +53,16 @@ export const apolloClient = new ApolloClient({
       },
       Query: {
         fields: {
-          directorsData: {
-            keyArgs: false,
-            merge: (existing, incoming, options) => mergePages(existing, incoming, options, 'directors')
+          directors: {
+            keyArgs: ['limit'],
+            merge: mergePages
           },
-          moviesData: {
-            keyArgs: ['orderBy'],
-            merge: (existing, incoming, options) => mergePages(existing, incoming, options, 'movies')
+          movies: {
+            keyArgs: ['orderBy', 'limit'],
+            merge: mergePages
           }
         }
-      }
+      },
     }
   }),
 });

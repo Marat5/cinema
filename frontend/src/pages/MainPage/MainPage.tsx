@@ -21,7 +21,7 @@ export const MainPage = () => {
         <MainPageCard
           title="Top rated movies"
           isLoading={loading}
-          listItems={data?.topRatedMovies.movies || []}
+          listItems={data?.topRatedMovies || []}
           to={{
             pathname: ROUTES.movies,
             search: String(createSearchParams({ sort: MoviesSortOption.RATING }))
@@ -30,7 +30,7 @@ export const MainPage = () => {
         <MainPageCard
           title="Seen lately"
           isLoading={loading}
-          listItems={data?.recentlyWatchedMovies.movies || []}
+          listItems={data?.recentlyWatchedMovies || []}
           to={{
             pathname: ROUTES.movies,
             search: String(createSearchParams({ sort: MoviesSortOption.SEEN_LATELY }))
@@ -40,7 +40,7 @@ export const MainPage = () => {
       <MainPageCard
         title="Top rated directors"
         isLoading={loading}
-        listItems={data?.directorsData.directors || []}
+        listItems={data?.directors || []}
         to={ROUTES.directors}
       />
       <MainPageCard

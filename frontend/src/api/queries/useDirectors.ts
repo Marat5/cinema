@@ -3,25 +3,21 @@ import { LIST_PAGE_SIZE } from '../../utils/constants';
 import { Director, PaginatedQueryVars } from '../../utils/types';
 
 export type DirectorsData = {
-  directorsData: {
-    totalCount: number
-    directors: Director[]
-  }
+  directors: Director[]
+  directorsCount: number
 };
 
 export type DirectorsVars = PaginatedQueryVars;
 
 const GET_DIRECTORS = gql`
     query GetDirectors($limit: Int, $offset: Int) {
-        directorsData(limit: $limit, offset: $offset) {
-            totalCount
-            directors {
-                id
-                name
-                average_rating
-                movies_watched
-            }
-        }
+      directors(limit: $limit, offset: $offset) {
+        id
+        name
+        average_rating
+        movies_watched
+      }
+      directorsCount
     }
 `;
 
@@ -33,12 +29,12 @@ export const useDirectors = () => {
 
   const loadMore = () => {
     queryResult.fetchMore({
-      variables: { offset: queryResult.data?.directorsData.directors.length }
+      variables: { offset: queryResult.data?.directors.length }
     });
   };
 
-  const isAllDataLoaded = Boolean(queryResult.data?.directorsData.directors.length
-     === queryResult.data?.directorsData.totalCount);
+  const isAllDataLoaded = Boolean(queryResult.data?.directors.length
+     === queryResult.data?.directorsCount);
 
   return { ...queryResult, isAllDataLoaded, loadMore };
 };

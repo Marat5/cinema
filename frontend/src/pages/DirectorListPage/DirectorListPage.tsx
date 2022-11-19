@@ -14,7 +14,7 @@ export const DirectorListPage = () => {
 
       <CustomTable
         columns={directorTableColumns}
-        tableData={data?.directorsData.directors}
+        tableData={data?.directors}
         networkStatus={networkStatus}
         loadMore={loadMore}
         isAllDataLoaded={isAllDataLoaded}
