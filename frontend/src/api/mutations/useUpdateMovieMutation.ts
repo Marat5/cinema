@@ -1,12 +1,11 @@
 import { gql, useMutation } from '@apollo/client';
-import { MovieFormValues } from '../../components/MovieForm/MovieForm';
 import { Movie } from '../../utils/types';
 
 type UpdateMovieData = {
   movie: Movie
 };
 
-type UpdateMovieVars = MovieFormValues;
+type UpdateMovieVars = Movie;
 
 const UPDATE_MOVIE = gql`
     mutation UpdateMovieMutation(

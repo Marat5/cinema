@@ -3,6 +3,7 @@ import { ResourceNotFound } from '../../components/ResourceNotFound/ResourceNotF
 import { MovieForm } from '../../components/MovieForm/MovieForm';
 import { useMovie } from '../../api/queries/useMovie';
 import { useUpdateMovieSubmit } from '../../hooks/useUpdateMovieSubmit';
+import { mapMovieToFormMovie } from '../../utils/objectShapers';
 
 export const MoviePage = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ export const MoviePage = () => {
   return (
     (data?.movie || loading) ? (
       <MovieForm
-        loadedInitialValues={data?.movie}
+        loadedInitialValues={mapMovieToFormMovie(data?.movie)}
         isCurrentUserAllowedToEdit={isCurrentUserAllowedToEdit}
         isEditing={isEditing}
         setIsEditing={setIsEditing}

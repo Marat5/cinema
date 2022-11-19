@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { QUERY_NAMES } from '../../utils/constants';
 
 type UserData = {
   user?: {
@@ -8,7 +9,7 @@ type UserData = {
 };
 
 const GET_USER = gql`
-    query GetUser {
+    query ${QUERY_NAMES.useCurrentUser} {
         user {
             id
             username

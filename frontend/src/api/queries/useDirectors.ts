@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { LIST_PAGE_SIZE } from '../../utils/constants';
+import { LIST_PAGE_SIZE, QUERY_NAMES } from '../../utils/constants';
 import { Director, PaginatedQueryVars } from '../../utils/types';
 
 export type DirectorsData = {
@@ -10,7 +10,7 @@ export type DirectorsData = {
 export type DirectorsVars = PaginatedQueryVars;
 
 const GET_DIRECTORS = gql`
-    query GetDirectors($limit: Int, $offset: Int) {
+    query ${QUERY_NAMES.useDirectors}($limit: Int, $offset: Int) {
       directors(limit: $limit, offset: $offset) {
         id
         name

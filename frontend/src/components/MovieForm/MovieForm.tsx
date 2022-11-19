@@ -1,21 +1,21 @@
 import { Form, Formik } from 'formik';
 import { Dispatch, SetStateAction } from 'react';
-import { Movie, OnSubmitOrResetType } from '../../utils/types';
+import { OnSubmitOrResetType } from '../../utils/types';
 import { ButtonSet } from '../ButtonSet/ButtonSet';
 import { CustomButton } from '../CustomButton/CustomButton';
 import { CustomTextInput } from '../CustomTextInput/CustomTextInput';
 import { ResourceCard } from '../ResourceCard/ResourceCard';
+import { initialValues } from './constants';
+import { MovieFormValues } from './types';
 import { ValidationMovieSchema } from './ValidationMovieSchema';
-
-export type MovieFormValues = { id: number } & Partial<Omit<Movie, 'id'>>;
 
 type Props = {
   loadedInitialValues?: MovieFormValues
-  isCurrentUserAllowedToEdit: boolean
+  isCurrentUserAllowedToEdit?: boolean
   isEditing: boolean
-  setIsEditing: Dispatch<SetStateAction<boolean>>
-  isLoading: boolean
-  isSubmitting: boolean
+  setIsEditing?: Dispatch<SetStateAction<boolean>>
+  isLoading?: boolean
+  isSubmitting?: boolean
   onSubmit: OnSubmitOrResetType<MovieFormValues>
 };
 
@@ -24,26 +24,30 @@ export const MovieForm = ({
   isEditing, setIsEditing, isLoading, isSubmitting, onSubmit
 }: Props) => {
   const toggleIsEditing = () => {
-    setIsEditing((prev) => !prev);
+    if (setIsEditing) {
+      setIsEditing((prev) => !prev);
+    }
   };
 
   const onReset: OnSubmitOrResetType<MovieFormValues> = () => {
-    setIsEditing(false);
+    if (setIsEditing) {
+      setIsEditing(false);
+    }
   };
 
   return (
-    <ResourceCard isLoading={isLoading} title="Movie Card">
+    <ResourceCard isLoading={Boolean(isLoading)} title="Movie Card">
       <Formik
-        initialValues={loadedInitialValues as MovieFormValues}
+        initialValues={loadedInitialValues || initialValues}
         validationSchema={ValidationMovieSchema}
         onSubmit={onSubmit}
         onReset={onReset}
       >
         <Form>
-          <CustomTextInput name="title" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
-          <CustomTextInput name="directorName" displayName="Director Name" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
-          <CustomTextInput name="year" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
-          <CustomTextInput name="rating" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
+          <CustomTextInput name="title" size="l" placeholder="Rushmore" isDisabled={!isEditing} isBorderHidden={!isEditing} />
+          <CustomTextInput name="directorName" placeholder="Wes Anderson" displayName="Director Name" size="l" isDisabled={!isEditing} isBorderHidden={!isEditing} />
+          <CustomTextInput name="year" size="l" placeholder="1998" isDisabled={!isEditing} isBorderHidden={!isEditing} />
+          <CustomTextInput name="rating" size="l" placeholder="10" isDisabled={!isEditing} isBorderHidden={!isEditing} />
 
           <ButtonSet isHorizontal>
             {isEditing
@@ -56,7 +60,7 @@ export const MovieForm = ({
                     showLoadIndicator={isSubmitting}
                   />
                   <CustomButton
-                    text="Cancel"
+                    text={setIsEditing ? 'Cancel' : 'Reset'}
                     type="reset"
                     look="cancel"
                   />

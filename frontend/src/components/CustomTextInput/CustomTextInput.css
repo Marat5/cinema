@@ -29,7 +29,7 @@
 }
 
 .CustomTextInput__input::placeholder {
-    color: var(--grey-color)
+    opacity: 0.3;
 }
 
 .CustomTextInput__input:focus {

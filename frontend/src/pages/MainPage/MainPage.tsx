@@ -45,7 +45,7 @@ export const MainPage = () => {
       />
       <MainPageCard
         title="Add new movie"
-        to={ROUTES.moviesRoutes.add}
+        to={ROUTES.moviesRoutes.create}
       />
     </LimitedWidthContent>
   );

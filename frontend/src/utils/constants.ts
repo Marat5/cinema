@@ -1,5 +1,3 @@
-import { Director } from './types';
-
 // Colors are set in index.css
 export const COLORS = {
   primaryColor: getComputedStyle(document.documentElement)
@@ -15,50 +13,11 @@ export const LIST_PAGE_SIZE = 16;
 
 export const LOCAL_STORAGE_TOKEN_KEY = 'token';
 
-// TMP data, remove when connected to backend
-export const MOVIES = [
-  {
-    title: 'Rushmore',
-    id: 1,
-    directorName: 'Wes Anderson',
-    year: 1994,
-    rating: 10,
-  },
-  {
-    title: 'Moonrise Kingdom',
-    id: 2,
-    directorName: 'Wes Anderson',
-    year: 1994,
-    rating: 10,
-  },
-  {
-    title: 'The Grand Budapest Hotel',
-    id: 3,
-    directorName: 'Wes Anderson',
-    year: 1994,
-    rating: 10,
-  },
-  {
-    title: 'Isle of Dogs',
-    id: 4,
-    directorName: 'Wes Anderson',
-    year: 1994,
-    rating: 10,
-  },
-  {
-    title: 'The Darjeeling Limited',
-    id: 5,
-    directorName: 'Wes Anderson',
-    year: 1994,
-    rating: 10,
-  },
-];
-
-export const DIRECTORS: Director[] = [{
-  id: 1,
-  name: 'Wes Anderson',
-  averageRating: 10,
-  moviesWatched: 3
-}];
-
-// End of tmp data
+export const QUERY_NAMES = {
+  useMainPageData: 'GetAllMainPageData',
+  useCurrentUser: 'GetUser',
+  useDirector: 'GetDirector',
+  useDirectors: 'GetDirectors',
+  useMovie: 'GetMovie',
+  useMovies: 'GetMovies'
+};

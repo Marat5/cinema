@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { MAIN_PAGE_CARD_ITEMS_COUNT } from '../../utils/constants';
+import { MAIN_PAGE_CARD_ITEMS_COUNT, QUERY_NAMES } from '../../utils/constants';
 import { Director, Movie } from '../../utils/types';
 
 export type MainPageMovie = Pick<Movie, 'title'>;
@@ -16,7 +16,7 @@ type MainPageVars = {
 };
 
 const GET_ALL_MAIN_PAGE_DATA = gql`
-    query GetAllMainPageData($limit: Int) {
+    query ${QUERY_NAMES.useMainPageData}($limit: Int) {
         topRatedMovies: movies(orderBy: "rating", limit: $limit) {
           title
         }

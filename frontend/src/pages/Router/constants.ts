@@ -4,7 +4,7 @@ export const ROUTES = {
   register: '/register',
   movies: '/movies',
   moviesRoutes: {
-    add: '/movies/add',
+    create: '/movies/create',
     id: '/movies/:id'
   },
   directors: '/directors',

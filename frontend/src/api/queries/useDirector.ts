@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { QUERY_NAMES } from '../../utils/constants';
 import { Director } from '../../utils/types';
 
 type DirectorResponse = {
@@ -10,7 +11,7 @@ type DirectorVars = {
 };
 
 const GET_DIRECTOR = gql`
-    query GetDirector($directorId: ID!) {
+    query ${QUERY_NAMES.useDirector}($directorId: ID!) {
       director(directorId: $directorId) {
         id
         name

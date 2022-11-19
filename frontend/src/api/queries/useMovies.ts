@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { LIST_PAGE_SIZE } from '../../utils/constants';
+import { LIST_PAGE_SIZE, QUERY_NAMES } from '../../utils/constants';
 import { Movie, OrderedQueryVars, PaginatedQueryVars } from '../../utils/types';
 
 export enum MoviesSortOption {
@@ -15,7 +15,7 @@ type MoviesData = {
 type MoviesVars = PaginatedQueryVars & OrderedQueryVars<MoviesSortOption>;
 
 const GET_MOVIES = gql`
-    query GetMovies($orderBy: String, $limit: Int, $offset: Int) {
+    query ${QUERY_NAMES.useMovies}($orderBy: String, $limit: Int, $offset: Int) {
       movies(orderBy: $orderBy, limit: $limit, offset: $offset) {
         id
         title
