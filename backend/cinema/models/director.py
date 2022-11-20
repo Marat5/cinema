@@ -3,7 +3,7 @@ from typing import List
 from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 
-from cinema.utils.custom_errors import ResourceDoesNotExistError, ResourceAlreadyExistsError
+from cinema.utils.custom_errors import ResourceDoesNotExistError, ResourceAlreadyExistsError, ForbiddenError
 from cinema.utils.validators import CreateDirectorValidBody
 from cinema.models.db import db
 
@@ -58,8 +58,24 @@ class Director(db.Model):
     @staticmethod
     def update_director_after_movies_change(director: "Director"):
         director.movies_watched = len(director.movies)
+        if not director.movies_watched:
+            return Director.delete_director(director.id)
+
         total_rating = 0
         for m in director.movies:
             total_rating += m.rating
+
         director.average_rating = total_rating / director.movies_watched
+
         db.session.commit()
+
+    @staticmethod
+    def delete_director(id):
+        director = Director.get_director(id)
+        if director.movies_watched:
+            raise ForbiddenError("This director still has some movies")
+
+        db.session.delete(director)
+        db.session.commit()
+
+        return director

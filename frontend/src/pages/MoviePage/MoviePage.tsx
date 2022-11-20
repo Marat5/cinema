@@ -4,6 +4,7 @@ import { MovieForm } from '../../components/MovieForm/MovieForm';
 import { useMovie } from '../../api/queries/useMovie';
 import { useUpdateMovieSubmit } from '../../hooks/useUpdateMovieSubmit';
 import { mapMovieToFormMovie } from '../../utils/objectShapers';
+import { useOnDeleteMovie } from '../../hooks/useOnDeleteMovie';
 
 export const MoviePage = () => {
   const { id } = useParams();
@@ -13,6 +14,8 @@ export const MoviePage = () => {
     loading: isSubmitting,
     isEditing, setIsEditing
   }] = useUpdateMovieSubmit();
+
+  const [onDeleteMovie, { loading: isDeleting }] = useOnDeleteMovie(Number(id));
 
   return (
     (data?.movie || loading) ? (
@@ -24,6 +27,8 @@ export const MoviePage = () => {
         onSubmit={onUpdateMovieSubmit}
         isLoading={loading}
         isSubmitting={isSubmitting}
+        onDelete={onDeleteMovie}
+        isDeleting={isDeleting}
       />
     ) : (
       <ResourceNotFound resourceName="Movie" resourceId={String(id)} />

@@ -18,7 +18,7 @@ export const useCreateMovieSubmit = () => {
         navigate(`${ROUTES.movies}/${data.createMovie.id}`);
       },
       onError: (e) => setFormikErrors(e, actions.setFieldError),
-      refetchQueries: [QUERY_NAMES.useMainPageData, QUERY_NAMES.useMovies]
+      refetchQueries: [QUERY_NAMES.useMainPageData, QUERY_NAMES.useMovies, QUERY_NAMES.useDirectors]
     });
   };
 

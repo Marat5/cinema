@@ -17,12 +17,18 @@ type Props = {
   isLoading?: boolean
   isSubmitting?: boolean
   onSubmit: OnSubmitOrResetType<MovieFormValues>
+  onDelete?: () => void
+  isDeleting?: boolean
 };
 
 export const MovieForm = ({
-  loadedInitialValues, isCurrentUserAllowedToEdit,
-  isEditing, setIsEditing, isLoading, isSubmitting, onSubmit
+  loadedInitialValues, isLoading,
+  isCurrentUserAllowedToEdit, isEditing, setIsEditing,
+  isSubmitting, onSubmit,
+  onDelete, isDeleting
 }: Props) => {
+  const isCreateNewForm = !setIsEditing;
+
   const toggleIsEditing = () => {
     if (setIsEditing) {
       setIsEditing((prev) => !prev);
@@ -60,9 +66,9 @@ export const MovieForm = ({
                     showLoadIndicator={isSubmitting}
                   />
                   <CustomButton
-                    text={setIsEditing ? 'Cancel' : 'Reset'}
+                    text={isCreateNewForm ? 'Reset' : 'Cancel'}
                     type="reset"
-                    look="cancel"
+                    look="secondary"
                   />
                 </>
               )
@@ -75,6 +81,18 @@ export const MovieForm = ({
                 />
               )}
           </ButtonSet>
+
+          {isEditing && !isCreateNewForm && (
+            <ButtonSet>
+              <CustomButton
+                text="Delete Movie"
+                type="button"
+                look="cancel"
+                onClick={onDelete}
+                showLoadIndicator={isDeleting}
+              />
+            </ButtonSet>
+          )}
         </Form>
       </Formik>
     </ResourceCard>

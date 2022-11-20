@@ -2,8 +2,8 @@
 import classNames from 'classnames';
 import { MouseEvent } from 'react';
 import { PulseLoader } from 'react-spinners';
-import { COLORS } from '../../utils/constants';
 import './CustomButton.css';
+import { getPulseLoaderColor } from './utils';
 
 // Shared common props for CustomButton and CustomButtonLink
 export type BaseCustomButtonProps = {
@@ -28,6 +28,6 @@ export const CustomButton = ({
     type={type}
     className={classNames('CustomButton', `CustomButton_${look}`, disabled && 'CustomButton_disabled', className)}
   >
-    {showLoadIndicator ? <PulseLoader size={10} color={COLORS.tertiaryColor} /> : text}
+    {showLoadIndicator ? <PulseLoader size={10} color={getPulseLoaderColor(look)} /> : text}
   </button>
 );

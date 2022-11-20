@@ -6,6 +6,8 @@ export const COLORS = {
     .getPropertyValue('--secondary-color'),
   tertiaryColor: getComputedStyle(document.documentElement)
     .getPropertyValue('--tertiary-color'),
+  dangerColor: getComputedStyle(document.documentElement)
+    .getPropertyValue('--danger-color'),
 };
 
 export const MAIN_PAGE_CARD_ITEMS_COUNT = 5;
