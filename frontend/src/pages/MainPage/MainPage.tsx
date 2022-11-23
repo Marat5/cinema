@@ -5,9 +5,11 @@ import { LimitedWidthContent } from '../../commonComponents/LimitedWidthContent/
 import { MainPageCard } from './components/MainPageCard';
 import { ROUTES } from '../Router/constants';
 import './MainPage.css';
+import { useCurrentUser } from '../../api/queries/useCurrentUser';
 
 export const MainPage = () => {
   const { data, loading } = useMainPageData();
+  const { isLoggedIn } = useCurrentUser();
 
   return (
     <LimitedWidthContent className="MainPage">
@@ -43,10 +45,12 @@ export const MainPage = () => {
         listItems={data?.directors || []}
         to={ROUTES.directors}
       />
-      <MainPageCard
-        title="Add new movie"
-        to={ROUTES.moviesRoutes.create}
-      />
+      {isLoggedIn && (
+        <MainPageCard
+          title="Add new movie"
+          to={ROUTES.moviesRoutes.create}
+        />
+      )}
     </LimitedWidthContent>
   );
 };

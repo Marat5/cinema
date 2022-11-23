@@ -21,4 +21,8 @@ const options = {
   errorPolicy: 'all', notifyOnNetworkStatusChange: true
 } as const;
 
-export const useCurrentUser = () => useQuery<UserData>(GET_USER, options);
+export const useCurrentUser = () => {
+  const queryResult = useQuery<UserData>(GET_USER, options);
+  const isLoggedIn = Boolean(queryResult.data?.user?.username);
+  return { ...queryResult, isLoggedIn };
+};
