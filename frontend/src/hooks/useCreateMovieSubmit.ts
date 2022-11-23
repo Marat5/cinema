@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useCreateMovieMutation } from '../api/mutations/useCreateMovieMutation';
-import { MovieFormValues } from '../components/MovieForm/types';
+import { MovieFormValues } from '../commonComponents/MovieForm/types';
 import { ROUTES } from '../pages/Router/constants';
 import { QUERY_NAMES } from '../utils/constants';
 import { mapFormMovieToMovie } from '../utils/objectShapers';

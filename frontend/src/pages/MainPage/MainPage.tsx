@@ -1,8 +1,8 @@
 import { createSearchParams } from 'react-router-dom';
 import { useMainPageData } from '../../api/queries/useMainPageData';
 import { MoviesSortOption } from '../../api/queries/useMovies';
-import { LimitedWidthContent } from '../../components/LimitedWidthContent/LimitedWidthContent';
-import { MainPageCard } from '../../components/MainPageCard/MainPageCard';
+import { LimitedWidthContent } from '../../commonComponents/LimitedWidthContent/LimitedWidthContent';
+import { MainPageCard } from './components/MainPageCard';
 import { ROUTES } from '../Router/constants';
 import './MainPage.css';
 

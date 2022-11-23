@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { ResourceNotFound } from '../../components/ResourceNotFound/ResourceNotFound';
-import { MovieForm } from '../../components/MovieForm/MovieForm';
+import { ResourceNotFound } from '../../commonComponents/ResourceNotFound/ResourceNotFound';
+import { MovieForm } from '../../commonComponents/MovieForm/MovieForm';
 import { useMovie } from '../../api/queries/useMovie';
 import { useUpdateMovieSubmit } from '../../hooks/useUpdateMovieSubmit';
 import { mapMovieToFormMovie } from '../../utils/objectShapers';

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import 'the-new-css-reset/css/reset.css';
 import { ApolloProvider } from '@apollo/client';
-import { AppHeader } from './components/AppHeader/AppHeader';
+import { AppHeader } from './commonComponents/AppHeader/AppHeader';
 import { Router as AppRoutes } from './pages/Router/Router';
 import { apolloClient } from './utils/setupApolloClient';
 

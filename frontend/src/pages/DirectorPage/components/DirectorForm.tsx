@@ -1,7 +1,7 @@
 import { Form, Formik } from 'formik';
-import { Director } from '../../utils/types';
-import { CustomTextInput } from '../CustomTextInput/CustomTextInput';
-import { ResourceCard } from '../ResourceCard/ResourceCard';
+import { Director } from '../../../utils/types';
+import { CustomTextInput } from '../../../commonComponents/CustomTextInput/CustomTextInput';
+import { ResourceCard } from '../../../commonComponents/ResourceCard/ResourceCard';
 
 type Props = {
   loadedInitialValues?: Director

@@ -6,7 +6,7 @@ import { ROUTES } from '../../pages/Router/constants';
 import { COLORS } from '../../utils/constants';
 import './AppHeader.css';
 
-// Avoid nesting ternary operators
+// Extra component to avoid nesting ternary operators
 const UsernameOrLoginLinkOrLoading = ({ isLoading, username, logout }: {
   username?: string
   isLoading: boolean

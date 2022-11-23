@@ -1,8 +1,8 @@
-import { AuthTemplate } from '../../components/AuthTemplate/AuthTemplate';
-import { ButtonSet } from '../../components/ButtonSet/ButtonSet';
-import { CustomButton } from '../../components/CustomButton/CustomButton';
-import { CustomButtonLink } from '../../components/CustomButton/CustomButtonLink';
-import { CustomTextInput } from '../../components/CustomTextInput/CustomTextInput';
+import { AuthTemplate } from '../../commonComponents/AuthTemplate/AuthTemplate';
+import { ButtonSet } from '../../commonComponents/ButtonSet/ButtonSet';
+import { CustomButton } from '../../commonComponents/CustomButton/CustomButton';
+import { CustomButtonLink } from '../../commonComponents/CustomButton/CustomButtonLink';
+import { CustomTextInput } from '../../commonComponents/CustomTextInput/CustomTextInput';
 import { useRegisterSubmit } from '../../hooks/useRegisterSubmit';
 import { RegisterFormValues } from './types';
 import { ValidationRegisterSchema } from './ValidationRegisterSchema';

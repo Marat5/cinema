@@ -3,7 +3,7 @@ import { MovieListPage } from '../MovieListPage/MovieListPage';
 import { LoginPage } from '../LoginPage/LoginPage';
 import { RegisterPage } from '../RegisterPage/RegisterPage';
 import { MainPage } from '../MainPage/MainPage';
-import { CommonLayout } from '../../components/CommonLayout/CommonLayout';
+import { CommonLayout } from '../../commonComponents/CommonLayout/CommonLayout';
 import { DirectorListPage } from '../DirectorListPage/DirectorListPage';
 import { ROUTES } from './constants';
 import { MovieCreatePage } from '../MovieCreatePage/MovieCreatePage';

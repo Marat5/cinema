@@ -1,5 +1,5 @@
 import { MoviesSortOption } from '../../api/queries/useMovies';
-import { CustomTableColumn, CustomTableSortOption } from '../../components/CustomTable/CustomTable';
+import { CustomTableColumn, CustomTableSortOption } from '../../commonComponents/CustomTable/CustomTable';
 import { Movie } from '../../utils/types';
 
 export const movieTableColumns: CustomTableColumn<Movie>[] = [{

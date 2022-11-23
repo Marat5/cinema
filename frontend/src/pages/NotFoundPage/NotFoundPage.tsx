@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FullPageMessage } from '../../components/FullPageMessage/FullPageMessage';
+import { FullPageMessage } from '../../commonComponents/FullPageMessage/FullPageMessage';
 import { ROUTES } from '../Router/constants';
 
 export const NotFoundPage = () => (

@@ -1,4 +1,4 @@
-import { CustomTableColumn } from '../../components/CustomTable/CustomTable';
+import { CustomTableColumn } from '../../commonComponents/CustomTable/CustomTable';
 import { Director } from '../../utils/types';
 
 export const directorTableColumns: CustomTableColumn<Director>[] = [{

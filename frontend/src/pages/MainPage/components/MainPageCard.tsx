@@ -1,7 +1,7 @@
 import { Link, To } from 'react-router-dom';
 import { PulseLoader } from 'react-spinners';
-import { MainPageDirector, MainPageMovie } from '../../api/queries/useMainPageData';
-import { COLORS, MAIN_PAGE_CARD_ITEMS_COUNT } from '../../utils/constants';
+import { MainPageDirector, MainPageMovie } from '../../../api/queries/useMainPageData';
+import { COLORS, MAIN_PAGE_CARD_ITEMS_COUNT } from '../../../utils/constants';
 import './MainPageCard.css';
 
 type Props<ListItem> = {

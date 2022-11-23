@@ -1,6 +1,6 @@
 import { useDirectors } from '../../api/queries/useDirectors';
-import { CustomTable } from '../../components/CustomTable/CustomTable';
-import { PageHeading } from '../../components/PageHeading/PageHeading';
+import { CustomTable } from '../../commonComponents/CustomTable/CustomTable';
+import { PageHeading } from '../../commonComponents/PageHeading/PageHeading';
 import { directorTableColumns } from './constants';
 
 export const DirectorListPage = () => {

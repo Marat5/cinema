@@ -1,5 +1,5 @@
 import { RegisterMutationVars } from '../api/mutations/useRegisterMutation';
-import { MovieFormValues } from '../components/MovieForm/types';
+import { MovieFormValues } from '../commonComponents/MovieForm/types';
 import { RegisterFormValues } from '../pages/RegisterPage/types';
 import { Movie } from './types';
 

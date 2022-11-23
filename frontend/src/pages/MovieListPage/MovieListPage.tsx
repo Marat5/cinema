@@ -1,6 +1,6 @@
 import { MoviesSortOption, useMovies } from '../../api/queries/useMovies';
-import { CustomTable } from '../../components/CustomTable/CustomTable';
-import { PageHeading } from '../../components/PageHeading/PageHeading';
+import { CustomTable } from '../../commonComponents/CustomTable/CustomTable';
+import { PageHeading } from '../../commonComponents/PageHeading/PageHeading';
 import { useSearchParamSort } from '../../hooks/useSearchParamSort';
 import { movieTableColumns, movieTableSortOptions } from './constants';
 

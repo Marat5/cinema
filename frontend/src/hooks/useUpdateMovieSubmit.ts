@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useUpdateMovieMutation } from '../api/mutations/useUpdateMovieMutation';
-import { MovieFormValues } from '../components/MovieForm/types';
+import { MovieFormValues } from '../commonComponents/MovieForm/types';
 import { QUERY_NAMES } from '../utils/constants';
 import { mapFormMovieToMovie } from '../utils/objectShapers';
 import { OnSubmitOrResetType } from '../utils/types';

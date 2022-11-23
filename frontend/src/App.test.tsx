@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders login link', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const topRatedMoviesCard = screen.getByText(/Top rated movies/i);
+  expect(topRatedMoviesCard).toBeInTheDocument();
 });

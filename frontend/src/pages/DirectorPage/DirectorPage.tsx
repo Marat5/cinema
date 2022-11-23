@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useDirector } from '../../api/queries/useDirector';
-import { DirectorForm } from '../../components/DirectorForm/DirectorForm';
-import { ResourceNotFound } from '../../components/ResourceNotFound/ResourceNotFound';
+import { DirectorForm } from './components/DirectorForm';
+import { ResourceNotFound } from '../../commonComponents/ResourceNotFound/ResourceNotFound';
 
 export const DirectorPage = () => {
   const { id } = useParams();
