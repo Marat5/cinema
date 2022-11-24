@@ -30,7 +30,6 @@ def token_required(original_f=None, *, is_graphql=False):
 
                 current_user = User.get_user(data['id'])
             except Exception as e:
-                print(e)
                 return get_auth_error("invalid", is_graphql)
             # returns the current logged in user to the routes
             return f(current_user, *args, **kwargs)

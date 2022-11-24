@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client';
-import { QUERY_NAMES } from '../../utils/constants';
 
 type UserData = {
   user?: {
@@ -8,8 +7,8 @@ type UserData = {
   }
 };
 
-const GET_USER = gql`
-    query ${QUERY_NAMES.useCurrentUser} {
+const CURRENT_USER_QUERY = gql`
+    query GetUser {
         user {
             id
             username
@@ -22,7 +21,7 @@ const options = {
 } as const;
 
 export const useCurrentUser = () => {
-  const queryResult = useQuery<UserData>(GET_USER, options);
+  const queryResult = useQuery<UserData>(CURRENT_USER_QUERY, options);
   const isLoggedIn = Boolean(queryResult.data?.user?.username);
   return { ...queryResult, isLoggedIn };
 };

@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useDeleteMovieMutation } from '../api/mutations/useDeleteMovieMutation';
+import { REFETCH_DIRECTORS_QUERY } from '../api/queries/useDirectors';
+import { REFETCH_MAIN_PAGE_DATA_QUERY } from '../api/queries/useMainPageData';
+import { REFETCH_MOVIES_QUERIES } from '../api/queries/useMovies';
 import { ROUTES } from '../pages/Router/constants';
-import { QUERY_NAMES } from '../utils/constants';
 
 export const useOnDeleteMovie = (id: number) => {
   const [deleteMovie, mutationResult] = useDeleteMovieMutation();
@@ -14,9 +16,10 @@ export const useOnDeleteMovie = (id: number) => {
         navigate(ROUTES.movies);
       },
       refetchQueries: [
-        QUERY_NAMES.useMainPageData,
-        QUERY_NAMES.useMovies,
-        QUERY_NAMES.useDirectors]
+        REFETCH_MAIN_PAGE_DATA_QUERY,
+        REFETCH_DIRECTORS_QUERY,
+        ...REFETCH_MOVIES_QUERIES,
+      ]
     });
   };
 

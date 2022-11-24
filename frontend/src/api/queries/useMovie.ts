@@ -1,5 +1,4 @@
 import { gql, useQuery } from '@apollo/client';
-import { QUERY_NAMES } from '../../utils/constants';
 import { Movie } from '../../utils/types';
 import { useCurrentUser } from './useCurrentUser';
 
@@ -11,8 +10,8 @@ type MovieVars = {
   movieId: number
 };
 
-const GET_MOVIE = gql`
-    query ${QUERY_NAMES.useMovie}($movieId: ID!) {
+const MOVIE_QUERY = gql`
+    query GetMovie($movieId: ID!) {
       movie(movieId: $movieId) {
         id
         title
@@ -31,7 +30,7 @@ export const useMovie = (movieId: string) => {
   const { data: currentUser } = useCurrentUser();
 
   const queryResult = useQuery<MovieResponse, MovieVars>(
-    GET_MOVIE,
+    MOVIE_QUERY,
     {
       variables: {
         movieId: Number(movieId)

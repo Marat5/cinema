@@ -14,12 +14,3 @@ export const MAIN_PAGE_CARD_ITEMS_COUNT = 5;
 export const LIST_PAGE_SIZE = 16;
 
 export const LOCAL_STORAGE_TOKEN_KEY = 'token';
-
-export const QUERY_NAMES = {
-  useMainPageData: 'GetAllMainPageData',
-  useCurrentUser: 'GetUser',
-  useDirector: 'GetDirector',
-  useDirectors: 'GetDirectors',
-  useMovie: 'GetMovie',
-  useMovies: 'GetMovies'
-};

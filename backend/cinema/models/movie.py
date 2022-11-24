@@ -48,7 +48,7 @@ class Movie(db.Model):
 
             movie.title = updated_title or movie.title
             movie.year = updated_year or movie.year
-            movie.rating = updated_rating or movie.rating
+            movie.rating = updated_rating if updated_rating is not None else movie.rating
             if updated_director_name:
                 updated_director = Director.get_director(
                     name=updated_director_name, create_if_404=True)

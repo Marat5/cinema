@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { LIST_PAGE_SIZE, QUERY_NAMES } from '../../utils/constants';
+import { LIST_PAGE_SIZE } from '../../utils/constants';
 import { Director, PaginatedQueryVars } from '../../utils/types';
 
 export type DirectorsData = {
@@ -9,8 +9,10 @@ export type DirectorsData = {
 
 export type DirectorsVars = PaginatedQueryVars;
 
-const GET_DIRECTORS = gql`
-    query ${QUERY_NAMES.useDirectors}($limit: Int, $offset: Int) {
+const DIRECTORS_QUERY_INITIAL_VARS: DirectorsVars = { limit: LIST_PAGE_SIZE, offset: 0 };
+
+const DIRECTORS_QUERY = gql`
+    query GetDirectors($limit: Int, $offset: Int) {
       directors(limit: $limit, offset: $offset) {
         id
         name
@@ -21,9 +23,14 @@ const GET_DIRECTORS = gql`
     }
 `;
 
+export const REFETCH_DIRECTORS_QUERY = {
+  query: DIRECTORS_QUERY,
+  variables: DIRECTORS_QUERY_INITIAL_VARS
+};
+
 export const useDirectors = () => {
-  const queryResult = useQuery<DirectorsData, DirectorsVars>(GET_DIRECTORS, {
-    variables: { limit: LIST_PAGE_SIZE, offset: 0 },
+  const queryResult = useQuery<DirectorsData, DirectorsVars>(DIRECTORS_QUERY, {
+    variables: DIRECTORS_QUERY_INITIAL_VARS,
     notifyOnNetworkStatusChange: true
   });
 
