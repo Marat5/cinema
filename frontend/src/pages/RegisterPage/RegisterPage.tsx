@@ -25,7 +25,7 @@ export const RegisterPage = () => {
 
       <ButtonSet>
         <CustomButton text="Create account" type="submit" showLoadIndicator={loading} />
-        <CustomButtonLink text="I already have account" look="secondary" to={ROUTES.login} />
+        <CustomButtonLink text="I already have an account" look="secondary" to={ROUTES.login} />
       </ButtonSet>
     </AuthTemplate>
   );

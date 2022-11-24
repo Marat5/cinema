@@ -118,14 +118,14 @@ SortOptionKey extends string>
       </table>
 
       {!isAllDataLoaded
-            && (
-            <CustomButton
-              text="load more"
-              onClick={loadMore}
-              className="CustomTable__LoadMore"
-              showLoadIndicator={networkStatus === NetworkStatus.fetchMore}
-            />
-            )}
+        && (
+          <CustomButton
+            text="load more"
+            onClick={loadMore}
+            className="CustomTable__LoadMore"
+            showLoadIndicator={networkStatus === NetworkStatus.fetchMore}
+          />
+        )}
     </>
   );
 };

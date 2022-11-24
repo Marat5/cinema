@@ -10,6 +10,7 @@ import { MovieCreatePage } from '../MovieCreatePage/MovieCreatePage';
 import { MoviePage } from '../MoviePage/MoviePage';
 import { DirectorPage } from '../DirectorPage/DirectorPage';
 import { NotFoundPage } from '../NotFoundPage/NotFoundPage';
+import { PrivateRoute } from '../../commonComponents/PrivateRoute/PrivateRoute';
 
 export const Router = () => (
   <Routes>
@@ -20,9 +21,13 @@ export const Router = () => (
       <Route path={ROUTES.main} element={<MainPage />} />
       <Route path={ROUTES.movies} element={<MovieListPage />} />
       <Route path={ROUTES.directors} element={<DirectorListPage />} />
-      <Route path={ROUTES.moviesRoutes.create} element={<MovieCreatePage />} />
       <Route path={ROUTES.moviesRoutes.id} element={<MoviePage />} />
       <Route path={ROUTES.directorsRoutes.id} element={<DirectorPage />} />
+
+      <Route element={<PrivateRoute />}>
+        <Route path={ROUTES.moviesRoutes.create} element={<MovieCreatePage />} />
+      </Route>
+
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   </Routes>

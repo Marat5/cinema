@@ -37,3 +37,7 @@ Automatically opens browser on port 3000 of localhost
 Run `./scripts/build.sh` in root to build frontend for production and place it in correct folder in backend
 
 To run the apps separately, look at their own README.md
+
+## **_You just want to look at one well-written react component with generics and stuff?_**
+
+Check out my Custom Table at ./frontend/src/commonComponents/CustomTable/CustomTable.tsx
