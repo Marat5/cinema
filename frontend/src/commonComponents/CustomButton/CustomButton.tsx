@@ -13,21 +13,36 @@ export type BaseCustomButtonProps = {
 };
 
 type Props = BaseCustomButtonProps & {
-  type?: 'submit' | 'button' | 'reset',
+  type?: 'submit' | 'button' | 'reset'
   showLoadIndicator?: boolean
-  onClick?: (e: MouseEvent<HTMLElement>) => void;
+  onClick?: (e: MouseEvent<HTMLElement>) => void
   disabled?: boolean
 };
 
 export const CustomButton = ({
-  type = 'button', text, look = 'primary', showLoadIndicator, onClick, className, disabled
+  type = 'button',
+  text,
+  look = 'primary',
+  showLoadIndicator,
+  onClick,
+  className,
+  disabled
 }: Props) => (
   <button
     onClick={onClick}
     disabled={showLoadIndicator || disabled}
     type={type}
-    className={classNames('CustomButton', `CustomButton_${look}`, disabled && 'CustomButton_disabled', className)}
+    className={classNames(
+      'CustomButton',
+      `CustomButton_${look}`,
+      disabled && 'CustomButton_disabled',
+      className
+    )}
   >
-    {showLoadIndicator ? <PulseLoader size={10} color={getPulseLoaderColor(look)} /> : text}
+    {showLoadIndicator ? (
+      <PulseLoader size={10} color={getPulseLoaderColor(look)} />
+    ) : (
+      text
+    )}
   </button>
 );
